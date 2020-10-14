@@ -19,7 +19,7 @@ export class FectchDonVi extends Component {
       checkchange: true,
       readOnly: false,
       showAdd: false,
-      showEdit:false
+      showEdit: false,
     };
 
     this._click = this._click.bind(this);
@@ -80,34 +80,36 @@ export class FectchDonVi extends Component {
     );
     return (
       <div className="content-page">
-                        <Modal isOpen={this.state.showEdit}>
-                  <ModalHeader>Chỉnh Sửa</ModalHeader>
-                  <ModalBody>
-                    <div>
-                      <label for="maDonVi">Mã Đơn Vị</label>
-                      <input
-                        name="maDonVi"
-                        id="maDonVi"
-                        type="text"
-                        readOnly
-                        value={this.state.donVis.maDonVi}
-                      />
-                    </div>
-                    <div>
-                      <label for="tenDonVi">Tên Đơn Vị</label>
-                      <input
-                        name="tenDonVi"
-                        id="tenDonVi"
-                        type="text"
-                        value={this.state.donVis.tenDonVi}
-                      />
-                    </div>
-                  </ModalBody>
-                  <ModalFooter>
-                    <Button color="success">Lưu</Button>
-                    <Button color="primary" onClick={this.closeModal}>Thoát</Button>
-                  </ModalFooter>
-                </Modal>
+        <Modal isOpen={this.state.showEdit}>
+          <ModalHeader>Chỉnh Sửa</ModalHeader>
+          <ModalBody>
+            <div>
+              <label for="maDonVi">Mã Đơn Vị</label>
+              <input
+                name="maDonVi"
+                id="maDonVi"
+                type="text"
+                readOnly
+                value={this.state.donVis.maDonVi}
+              />
+            </div>
+            <div>
+              <label for="tenDonVi">Tên Đơn Vị</label>
+              <input
+                name="tenDonVi"
+                id="tenDonVi"
+                type="text"
+                value={this.state.donVis.tenDonVi}
+              />
+            </div>
+          </ModalBody>
+          <ModalFooter>
+            <Button color="success">Lưu</Button>
+            <Button color="primary" onClick={this.closeModal}>
+              Thoát
+            </Button>
+          </ModalFooter>
+        </Modal>
         <div className="content">
           <div className="container-fluid">
             <div className="row">
@@ -165,7 +167,7 @@ export class FectchDonVi extends Component {
                       </div>
                     </ModalBody>
                     <ModalFooter>
-                      <Button color="primary">Thêm Mới</Button>
+                      <Button color="primary" onClick={this.handleSave}>Thêm Mới</Button>
                       <Button color="danger" onClick={this.closeModalAdd}>
                         Thoát
                       </Button>
