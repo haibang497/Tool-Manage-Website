@@ -84,7 +84,7 @@ export class FectchDonVi extends Component {
           <ModalHeader>Chỉnh Sửa</ModalHeader>
           <ModalBody>
             <div>
-              <label for="maDonVi">Mã Đơn Vị</label>
+              <label for="maDonVi">Mã Đơn Vị</label> &nbsp; &nbsp; 
               <input
                 name="maDonVi"
                 id="maDonVi"
@@ -94,7 +94,7 @@ export class FectchDonVi extends Component {
               />
             </div>
             <div>
-              <label for="tenDonVi">Tên Đơn Vị</label>
+              <label for="tenDonVi">Tên Đơn Vị</label> &nbsp; &nbsp;
               <input
                 name="tenDonVi"
                 id="tenDonVi"
@@ -117,7 +117,7 @@ export class FectchDonVi extends Component {
                 <div className="card-box">
                   <h4 className="header-title mb-3">Đơn Vị</h4>
                   <p>Component lấy dữ liệu từ Server.</p>
-                  <table className="table table-borderless table-hover table-centered m-0">
+                  {/* <table className="table table-borderless table-hover table-centered m-0">
                     <tr>
                       <td>
                         <label for="maDonVi">Mã Đơn Vị</label>
@@ -144,15 +144,15 @@ export class FectchDonVi extends Component {
                         ></input>
                       </td>
                     </tr>
-                  </table>
+                  </table> */}
                   <p>
-                    <Button onClick={this.openModalAdd}>Add New</Button>
+                    <Button color="success" onClick={this.openModalAdd}>Thêm Đơn Vị Mới</Button>
                   </p>
                   <Modal isOpen={this.state.showAdd}>
                     <ModalHeader>Thêm Đơn Vị Mới</ModalHeader>
                     <ModalBody>
                       <div>
-                        <label for="maDonVi">Mã Đơn Vị</label>
+                        <label for="maDonVi">Mã Đơn Vị</label> &nbsp; &nbsp;
                         <input
                           name="maDonVi"
                           id="maDonVi"
@@ -162,7 +162,7 @@ export class FectchDonVi extends Component {
                         />
                       </div>
                       <div>
-                        <label for="tenDonVi">Tên Đơn Vị</label>
+                        <label for="tenDonVi">Tên Đơn Vị</label> &nbsp; &nbsp;
                         <input name="tenDonVi" id="tenDonVi" type="text" />
                       </div>
                     </ModalBody>
@@ -173,7 +173,7 @@ export class FectchDonVi extends Component {
                       </Button>
                     </ModalFooter>
                   </Modal>
-                  <p>
+                  {/* <p>
                     <Button
                       className="btn btn-success"
                       id="btn-add"
@@ -188,8 +188,8 @@ export class FectchDonVi extends Component {
                     >
                       Edit
                     </Button>
-                  </p>
-                  <h3> COMPUTER DETAILS</h3>
+                  </p> */}
+                  {/* <h3> COMPUTER DETAILS</h3> */}
 
                   {contents}
                 </div>
