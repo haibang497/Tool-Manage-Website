@@ -1,5 +1,4 @@
 ﻿import React, { Component } from "react";
-import { Link } from "react-router-dom";
 import {
   Button,
   Modal,
@@ -9,6 +8,7 @@ import {
   ButtonGroup,
 } from "reactstrap";
 import axios from "axios";
+import "@fortawesome/fontawesome-free/css/fontawesome.min.css";
 
 export class FectchDonVi extends Component {
   constructor(props) {
@@ -84,7 +84,7 @@ export class FectchDonVi extends Component {
           <ModalHeader>Chỉnh Sửa</ModalHeader>
           <ModalBody>
             <div>
-              <label for="maDonVi">Mã Đơn Vị</label> &nbsp; &nbsp; 
+              <label for="maDonVi">Mã Đơn Vị</label> &nbsp; &nbsp;
               <input
                 name="maDonVi"
                 id="maDonVi"
@@ -104,93 +104,85 @@ export class FectchDonVi extends Component {
             </div>
           </ModalBody>
           <ModalFooter>
-            <Button color="success">Lưu</Button>
+            <button
+              className="btn btn-icon waves-effect waves-light btn-success"
+              onClick={this.handleEdit}
+            >
+              <i class="fas fa-check"></i>
+            </button>
             <Button color="primary" onClick={this.closeModal}>
-              Thoát
+              <i className="fas fa-times" />
             </Button>
           </ModalFooter>
         </Modal>
         <div className="content">
           <div className="container-fluid">
             <div className="row">
-              <div className="col-xl-12">
+              <div className="col-12">
                 <div className="card-box">
-                  <h4 className="header-title mb-3">Đơn Vị</h4>
-                  <p>Component lấy dữ liệu từ Server.</p>
-                  {/* <table className="table table-borderless table-hover table-centered m-0">
-                    <tr>
-                      <td>
-                        <label for="maDonVi">Mã Đơn Vị</label>
-                      </td>
-                      <td>
-                        <input
-                          name="maDonVi"
-                          id="maDonVi"
-                          type="text"
-                          readOnly={this.state.readOnly}
-                          className={txtbox_class}
-                        ></input>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <label for="tenDonVi">Tên Đơn Vị</label>
-                      </td>
-                      <td>
-                        <input
-                          name="tenDonVi"
-                          id="tenDonVi"
-                          type="text"
-                        ></input>
-                      </td>
-                    </tr>
-                  </table> */}
-                  <p>
-                    <Button color="success" onClick={this.openModalAdd}>Thêm Đơn Vị Mới</Button>
-                  </p>
-                  <Modal isOpen={this.state.showAdd}>
-                    <ModalHeader>Thêm Đơn Vị Mới</ModalHeader>
-                    <ModalBody>
-                      <div>
-                        <label for="maDonVi">Mã Đơn Vị</label> &nbsp; &nbsp;
-                        <input
-                          name="maDonVi"
-                          id="maDonVi"
-                          type="text"
-                          readOnly={this.state.readOnly}
-                          className={txtbox_class}
-                        />
+                  <div class="responsive-table-plugin">
+                    <div class="table-rep-plugin">
+                      <div
+                        class="table-responsive"
+                        data-pattern="priority-columns"
+                      >
+                        <h4 className="header-title mb-3">Đơn Vị</h4>
+                        <p>
+                          <button
+                            type="button"
+                            className="btn btn-bordered-primary waves-effect width-md waves-light"
+                            style={{ backgroundColor: "#1abc9c" }}
+                            onClick={this.openModalAdd}
+                          >
+                            <i class="fas fa-plus" />
+                            Thêm Đơn Vị Mới
+                          </button>
+                        </p>
+                        <Modal isOpen={this.state.showAdd}>
+                          <ModalHeader>Thêm Đơn Vị Mới</ModalHeader>
+                          <ModalBody>
+                            <div>
+                              <label for="maDonVi">Mã Đơn Vị</label> &nbsp;
+                              &nbsp;
+                              <input
+                                name="maDonVi"
+                                id="maDonVi"
+                                type="text"
+                                className={txtbox_class}
+                              />
+                            </div>
+                            <div>
+                              <label for="tenDonVi">Tên Đơn Vị</label> &nbsp;
+                              &nbsp;
+                              <input
+                                name="tenDonVi"
+                                id="tenDonVi"
+                                type="text"
+                              />
+                            </div>
+                          </ModalBody>
+                          <ModalFooter>
+                            <button
+                              type="button"
+                              className="btn btn-icon waves-effect waves-light btn-success"
+                              style={{ backgroundColor: "#1abc9c" }}
+                              onClick={this.handleSave}
+                            >
+                              <i class="fas fa-check"></i>
+                            </button>
+                            <button
+                              type="button"
+                              className="btn btn-icon waves-effect waves-light btn-danger"
+                              style={{ backgroundColor: "#f1556c" }}
+                              onClick={this.closeModalAdd}
+                            >
+                              <i className="fas fa-times" />
+                            </button>
+                          </ModalFooter>
+                        </Modal>
                       </div>
-                      <div>
-                        <label for="tenDonVi">Tên Đơn Vị</label> &nbsp; &nbsp;
-                        <input name="tenDonVi" id="tenDonVi" type="text" />
-                      </div>
-                    </ModalBody>
-                    <ModalFooter>
-                      <Button color="primary" onClick={this.handleSave}>Thêm Mới</Button>
-                      <Button color="danger" onClick={this.closeModalAdd}>
-                        Thoát
-                      </Button>
-                    </ModalFooter>
-                  </Modal>
-                  {/* <p>
-                    <Button
-                      className="btn btn-success"
-                      id="btn-add"
-                      onClick={this.handleSave}
-                    >
-                      Add New
-                    </Button>
-                    <Button
-                      className="btn btn-warning"
-                      id="btn-edit"
-                      onClick={this.handleEdit}
-                    >
-                      Edit
-                    </Button>
-                  </p> */}
-                  {/* <h3> COMPUTER DETAILS</h3> */}
-
+                    </div>
+                  </div>
                   {contents}
                 </div>
               </div>
@@ -203,14 +195,14 @@ export class FectchDonVi extends Component {
 
   renderDonVisTable(donVis) {
     return (
-      <table className="table table-borderless table-hover table-centered m-0">
-        <thead className="thead-light">
+      <table id="tech-companies-1" class="table table-striped">
+        <thead>
           <tr>
-            <th></th>
-            <th>Mã Đơn Vị</th>
-            <th>Tên Đơn Vị</th>
-            <th>Thao Tác</th>
-            <th></th>
+            <th data-priority="1"></th>
+            <th data-priority="3">Mã Đơn Vị</th>
+            <th data-priority="1">Tên Đơn Vị</th>
+            <th data-priority="3">Thao Tác</th>
+            <th data-priority="3"></th>
           </tr>
         </thead>
         <tbody>
@@ -223,12 +215,20 @@ export class FectchDonVi extends Component {
               <td>{donVi.maDonVi}</td>
               <td>{donVi.tenDonVi}</td>
               <td>
-                <Button color="warning" onClick={this.openModal}>
-                  Chỉnh Sửa
-                </Button>
+                <button
+                  className="btn btn-icon waves-effect waves-light btn-warning"
+                  onClick={this.openModal}
+                  style={{ backgroundColor: "#f7b84b" }}
+                >
+                  <i class="far fa-edit" style={{ color: "white" }}></i>
+                </button>
                 &nbsp;
-                <button className="btn btn-danger" onClick={this.handleDeleted}>
-                  Xóa
+                <button
+                  className="btn btn-icon waves-effect waves-light btn-danger"
+                  onClick={this.handleDeleted}
+                  style={{ backgroundColor: "#f1556c" }}
+                >
+                  <i class="far fa-trash-alt"></i>
                 </button>
                 &nbsp;
               </td>
