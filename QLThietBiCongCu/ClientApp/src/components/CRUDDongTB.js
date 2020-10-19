@@ -1,5 +1,4 @@
 ﻿import React, { Component } from "react";
-import { Button } from "reactstrap";
 import axios from "axios";
 import "@fortawesome/fontawesome-free/css/fontawesome.min.css";
 import { Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
@@ -17,6 +16,8 @@ export class FectchDongTb extends Component {
 
     this._click = this._click.bind(this);
   }
+
+
   _click() {
     this.setState((prevState) => ({ readOnly: !prevState.readOnly }));
   }
@@ -275,10 +276,9 @@ export class FectchDongTb extends Component {
       }
     });
   };
-  getAll = (event) => {
+  getAll = () => {
     axios.get("api/DongTbs").then((response) => {
       var dongTbs = response.data;
-      // alert(JSON.stringify(computer));
       this.renderDongTbsTable(dongTbs);
     });
   };

@@ -1,10 +1,5 @@
 ﻿import React, { Component } from "react";
-import {
-  Modal,
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
-} from "reactstrap";
+import { Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import axios from "axios";
 import "@fortawesome/fontawesome-free/css/fontawesome.min.css";
 
@@ -17,6 +12,10 @@ export class FectchDonVi extends Component {
       readOnly: false,
       showAdd: false,
       showEdit: false,
+      offset: 0,
+      perPage: 5,
+      currentPage: 0,
+      orgTable: [],
     };
 
     this._click = this._click.bind(this);
@@ -50,7 +49,8 @@ export class FectchDonVi extends Component {
   };
 
   componentDidMount() {
-    this.populateDonVisData();
+    // this.populateDonVisData();
+    this.getData();
   }
 
   async populateDonVisData() {
@@ -61,6 +61,23 @@ export class FectchDonVi extends Component {
       loading: false,
     });
   }
+
+  getData = () => {
+    axios.get("api/DonVis").then((res) => {
+      var data = res.data;
+      var slice = data.slice(
+        this.state.offset,
+        this.state.offset + this.state.perPage
+      );
+
+      this.setState({
+        loading:false,
+        pageCount: Math.ceil(data.length / this.state.perPage),
+        orgTable: res.data,
+        donVis: res.data,
+      });
+    });
+  };
 
   render() {
     let contents = this.state.loading ? (
@@ -105,7 +122,7 @@ export class FectchDonVi extends Component {
             <button
               className="btn btn-icon waves-effect waves-light btn-success"
               onClick={this.handleEdit}
-              style={{backgroundColor: "#1abc9c"}}
+              style={{ backgroundColor: "#1abc9c" }}
             >
               <i class="fas fa-check"></i>
             </button>
@@ -123,8 +140,11 @@ export class FectchDonVi extends Component {
             <div className="card-box">
               <div className="responsive-table-plugin">
                 <div className="table-rep-plugin">
-                  <div className="table-responsive" data-pattern="priority-columns">
-                    <h2 style={{textAlign: "center"}}>Đơn Vị</h2>
+                  <div
+                    className="table-responsive"
+                    data-pattern="priority-columns"
+                  >
+                    <h2 style={{ textAlign: "center" }}>Đơn Vị</h2>
                     <p>
                       <button
                         type="button"
@@ -196,19 +216,28 @@ export class FectchDonVi extends Component {
   renderDonVisTable(donVis) {
     return (
       <table id="tech-companies-1" className="table table-striped">
-        <thead style={{backgroundColor:"#7266ba", color:"#fff"}}>
+        <thead style={{ backgroundColor: "#7266ba", color: "#fff" }}>
           <tr>
-            <th data-priority="1">Mã Đơn Vị</th>
-            <th data-priority="3">Tên Đơn Vị</th>
-            <th data-priority="1">Thao Tác</th>
+            <th data-priority="1" style={{ textAlign: "center" }}>
+              Mã Đơn Vị
+            </th>
+            <th data-priority="3" style={{ textAlign: "center" }}>
+              Tên Đơn Vị
+            </th>
+            <th data-priority="1" style={{ textAlign: "center" }}>
+              Thao Tác
+            </th>
           </tr>
         </thead>
         <tbody>
           {donVis.map((donVi) => (
             <tr key={donVi.maDonVi}>
-              <td>{donVi.maDonVi}</td>
-              <td>{donVi.tenDonVi}</td>
-              <td onClick={() => this.lnk_Click(donVi.maDonVi)}>
+              <td style={{ textAlign: "center" }}>{donVi.maDonVi}</td>
+              <td style={{ textAlign: "center" }}>{donVi.tenDonVi}</td>
+              <td
+                style={{ textAlign: "center" }}
+                onClick={() => this.lnk_Click(donVi.maDonVi)}
+              >
                 <button
                   className="btn btn-icon waves-effect waves-light btn-warning"
                   onClick={this.openModal}
