@@ -1,242 +1,308 @@
-  
-﻿import React, { Component } from "react";
-import { Link } from "react-router-dom";
-import { Button } from "reactstrap";
+import React, { Component } from "react";
+import { Modal, ModalHeader, ModalBody, ModalFooter, Button } from "reactstrap";
 import axios from "axios";
-
-
+import "@fortawesome/fontawesome-free/css/fontawesome.min.css";
 
 export class FetchNhomKDs extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            nhomKds: [],
-            loading: true,
-            checkchange: true,
-            readOnly: true,
-        };
+  constructor(props) {
+    super(props);
+    this.state = {
+      nhomKds: [],
+      loading: true,
+      readOnly: true,
+      showAdd: false,
+      showEdit: false,
+    };
 
-        this._click = this._click.bind(this);
-    }
-    _click() {
-        this.setState(prevState => ({ readOnly: !prevState.readOnly }))
-    }
+    this._click = this._click.bind(this);
+  }
+  _click() {
+    this.setState((prevState) => ({ readOnly: !prevState.readOnly }));
+  }
 
-    changeStateCheck() {
-        this.setState({ checkchange: !this.state.checkchange });
-    }
-    //do db len web va chay dung mot lan
+  openModalAdd = () => {
+    this.setState({
+      showAdd: true,
+    });
+  };
 
-    componentDidMount() {
-        this.populateNhomKdsData();
-    }
+  openModal = () => {
+    this.setState({
+      showEdit: true,
+    });
+  };
 
-    async populateNhomKdsData() {
-        const response = await fetch("api/NhomKds");
-        const data = await response.json();
-        this.setState({
-            nhomKds: data,
-            loading: false,
-        });
-    }
+  closeModalAdd = () => {
+    this.setState({
+      showAdd: false,
+    });
+  };
 
-    render() {
-        let txtbox_class = this.state.checkchange ? "tbx_Add" : "tbx_Edit";
-        let contents = this.state.loading ? (
-            <p>
-                <em>Loading...</em>
-            </p>
-        ) : (
-                this.renderNhomKdsTable(this.state.nhomKds)
-            );
-        return (
-            <div className="content-page">
-                <div className="content">
-                    <div className="container-fluid">
-                        <div className="row">
-                            <div className="col-xl-12">
-                                <div className="card-box">
-                                    <h4 className="header-title mb-3">Nhóm Kiểm Định</h4>
-                                    <p>Component lấy dữ liệu từ Server.</p>
-                                    <table className="table table-borderless table-hover table-centered m-0">
-                                        <tr>
-                                            <td>
-                                                <label for="maNhomKd">Mã Nhóm Kiểm Định</label>
-                                            </td>
-                                            <td>
-                                                <input name="maNhomKd" id="maNhomKd" type="text" readOnly={this.state.readOnly} className={txtbox_class} ></input>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <label for="nhomKd">Nhóm Kiểm Định</label>
-                                            </td>
-                                            <td>
-                                                <input
-                                                    name="nhomKd"
-                                                    id="nhomKd"
-                                                    type="text"
-                                                ></input>
-                                            </td>
-                                        </tr>
-                                    </table>
-                                    <p>
-                                        <Button className="btn btn-success">
-                                            <Link to="/themDonVi" style={{ color: "#fff" }}>
-                                                Thêm Đơn Vị Mới
-                      </Link>
-                                        </Button>
-                                    </p>
-                                    <p>
-                                        <Button
-                                            className="btn btn-success"
-                                            id="btn-add"
-                                            onClick={this.handleSave}
-                                        >
-                                            Add New
-                    </Button>
-                                        <Button
-                                            className="btn btn-warning"
-                                            id="btn-edit"
-                                            onClick={this.handleEdit}
-                                        >
-                                            Edit
-                    </Button>
-                                    </p>
-                                    <h3> Chi Tiết Loại Thiết Bị </h3>
+  closeModal = () => {
+    this.setState({
+      showEdit: false,
+    });
+  };
 
-                                    {contents}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        );
-    }
+  componentDidMount() {
+    this.populateNhomKdsData();
+  }
 
-    renderNhomKdsTable(nhomKds) {
-        return (
-            <table className="table table-borderless table-hover table-centered m-0">
-                <thead className="thead-light">
-                    <tr>
-                        <th></th>
-                        <th>Mã Nhóm Kiểm Định</th>
-                        <th>Nhóm Kiểm Định</th>
-                        <th>Thao Tác</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {nhomKds.map((nhomKd) => (
-                        <tr
-                            key={nhomKd.maNhomKd}
-                            onClick={(id) => this.lnk_Click(nhomKd.maNhomKd)}
+  async populateNhomKdsData() {
+    const response = await fetch("api/NhomKds");
+    const data = await response.json();
+    this.setState({
+      nhomKds: data,
+      loading: false,
+    });
+  }
+
+  render() {
+    let contents = this.state.loading ? (
+      <p>
+        <em>Loading...</em>
+      </p>
+    ) : (
+      this.renderNhomKdsTable(this.state.nhomKds)
+    );
+    return (
+      <div className="content-page">
+        <Modal isOpen={this.state.showEdit}>
+          <ModalHeader>Chỉnh Sửa</ModalHeader>
+          <ModalBody>
+            <form className="needs-validation">
+              <div className="form-group mb-3">
+                <label for="maNhomKd">Mã Nhóm Kiểm Định</label> &nbsp; &nbsp;
+                <input
+                  name="maNhomKd"
+                  id="maNhomKd"
+                  type="text"
+                  className="form-control"
+                  required=""
+                  readOnly
+                  value={this.state.nhomKds.maNhomKd}
+                />
+              </div>
+              <div className="form-group mb-3">
+                <label for="nhomKd">Nhóm Kiểm Định</label> &nbsp; &nbsp;
+                <input
+                  name="nhomKd"
+                  id="nhomKd"
+                  type="text"
+                  className="form-control"
+                  value={this.state.nhomKds.nhomKd}
+                  required=""
+                />
+              </div>
+            </form>
+          </ModalBody>
+          <ModalFooter>
+            <button
+              className="btn btn-icon waves-effect waves-light btn-success"
+              onClick={this.handleEdit}
+              style={{ backgroundColor: "#1abc9c" }}
+            >
+              <i class="fas fa-check"></i>
+            </button>
+            <button
+              className="btn btn-icon waves-effect waves-light btn-danger"
+              onClick={this.closeModal}
+              style={{ backgroundColor: "#f1556c" }}
+            >
+              <i className="fas fa-times" />
+            </button>
+          </ModalFooter>
+        </Modal>
+        <div className="row">
+          <div className="col-12">
+            <div className="card-box">
+              <div className="responsive-table-plugin">
+                <div className="table-rep-plugin">
+                  <div
+                    className="table-responsive"
+                    data-pattern="priority-columns"
+                  >
+                    <h2 style={{ textAlign: "center" }}>Nhóm Kiểm Định</h2>
+                    <p>
+                      <button
+                        type="button"
+                        className="btn btn-bordered-primary waves-effect width-md waves-light"
+                        style={{ backgroundColor: "#1abc9c" }}
+                        onClick={this.openModalAdd}
+                      >
+                        <i class="fas fa-plus" />
+                        &nbsp; Thêm Nhóm Kiểm Định Mới
+                      </button>
+                    </p>
+                    <Modal isOpen={this.state.showAdd}>
+                      <ModalHeader>Thêm Đơn Vị Mới</ModalHeader>
+                      <ModalBody>
+                        <form className="needs-validation">
+                          <div className="form-group mb-3">
+                            <label for="maNhomKd">Mã Nhóm Kiểm Định</label>{" "}
+                            &nbsp; &nbsp;
+                            <input
+                              name="maNhomKd"
+                              id="maNhomKd"
+                              type="text"
+                              className="form-control"
+                              required=""
+                            />
+                          </div>
+                          <div className="form-group mb-3">
+                            <label for="nhomKd">Nhóm Kiểm Định</label> &nbsp;
+                            &nbsp;
+                            <input
+                              name="nhomKd"
+                              id="nhomKd"
+                              type="text"
+                              className="form-control"
+                              required=""
+                            />
+                          </div>
+                        </form>
+                      </ModalBody>
+                      <ModalFooter>
+                        <button
+                          type="button"
+                          className="btn btn-icon waves-effect waves-light btn-success"
+                          style={{ backgroundColor: "#1abc9c" }}
+                          onClick={this.handleSave}
                         >
-                            <td></td>
-                            <td>{nhomKd.maNhomKd}</td>
-                            <td>{nhomKd.nhomKiemDinh}</td>
-                            <td>
-                                {/* <button
-                                    className="btn btn-warning"
-                                    onClick={(id) => this.handleEdit(donVi.maDonVi)}
-                                >
-                                    Chỉnh Sửa
-                </button> */}
+                          <i class="fas fa-check"></i>
+                        </button>
+                        <button
+                          type="button"
+                          className="btn btn-icon waves-effect waves-light btn-danger"
+                          style={{ backgroundColor: "#f1556c" }}
+                          onClick={this.closeModalAdd}
+                        >
+                          <i className="fas fa-times" />
+                        </button>
+                      </ModalFooter>
+                    </Modal>
+
+                    {contents}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  renderNhomKdsTable(nhomKds) {
+    return (
+      <table id="tech-companies-1" className="table table-striped">
+        <thead style={{ backgroundColor: "#7266ba", color: "#fff" }}>
+          <tr>
+            <th>Mã Nhóm Kiểm Định</th>
+            <th>Nhóm Kiểm Định</th>
+            <th>Thao Tác</th>
+          </tr>
+        </thead>
+        <tbody>
+          {nhomKds.map((nhomKd) => (
+            <tr key={nhomKd.maNhomKd}>
+              <td>{nhomKd.maNhomKd}</td>
+              <td>{nhomKd.nhomKiemDinh}</td>
+              <td onClick={(id) => this.lnk_Click(nhomKd.maNhomKd)}>
+                <button
+                  className="btn btn-icon waves-effect waves-light btn-warning"
+                  onClick={this.openModal}
+                  style={{ backgroundColor: "#f7b84b" }}
+                >
+                  <i class="far fa-edit" style={{ color: "white" }}></i>
+                </button>
                 &nbsp;
                 <button
-                                    className="btn btn-danger"
-                                    onClick={this.handleDeleted}
-                                >
-                                    Xóa
+                  className="btn btn-icon waves-effect waves-light btn-danger"
+                  onClick={this.handleDeleted}
+                  style={{ backgroundColor: "#f1556c" }}
+                >
+                  <i class="far fa-trash-alt"></i>
                 </button>
                 &nbsp;
               </td>
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
-        );
-    }
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    );
+  }
 
-    handleSave = (event) => {
-        var newNhomKd = {
-            maNhomKd: document.getElementById("maNhomKd").value,
-            nhomKiemDinh: document.getElementById("nhomKd").value,
-        };
-        axios.post("api/NhomKds/", newNhomKd).then((response) => {
-            var result = response.data;
-            if (result) {
-                alert("hihi");
-                //this.props.history.push("/fetch-donvi");
-                // window.location.href="/fetch-donvi";
-                this.getAll();
-                window.location.href = "/nhomkiemdinh";
-            } else {
-                alert(123);
-            }
-        });
+  handleSave = (event) => {
+    var newNhomKd = {
+      maNhomKd: document.getElementById("maNhomKd").value,
+      nhomKiemDinh: document.getElementById("nhomKd").value,
     };
-    getAll = (event) => {
-        axios.get("api/NhomKds").then((response) => {
-            var nhomKds = response.data;
-            // alert(JSON.stringify(computer));
-            this.renderNhomKdsTable(nhomKds);
-        });
+    axios.post("api/NhomKds/", newNhomKd).then((response) => {
+      var result = response.data;
+      if (result) {
+        this.getAll();
+        window.location.href = "/nhomkiemdinh";
+      } else {
+        alert("Không Thể Thêm Dữ Liệu");
+      }
+    });
+  };
+  getAll = (event) => {
+    axios.get("api/NhomKds").then((response) => {
+      var nhomKds = response.data;
+      // alert(JSON.stringify(computer));
+      this.renderNhomKdsTable(nhomKds);
+    });
+  };
+  handleEdit = (event) => {
+    var id = document.getElementById("maNhomKd").value;
+    var newNhomKd = {
+      maNhomKd: document.getElementById("maNhomKd").value,
+      nhomKiemDinh: document.getElementById("nhomKd").value,
     };
-    handleEdit = (event) => {
-        var id = document.getElementById("maNhomKd").value;
-        var newNhomKd = {
-            maNhomKd: document.getElementById("maNhomKd").value,
-            nhomKiemDinh: document.getElementById("nhomKd").value,
-        };
-        axios.put("api/NhomKds/" + id, newNhomKd).then((response) => {
-            console.log(response);
-            var result = response.data;
-            console.log(result);
-            if (!result) {
-                alert("hihi");
-                this.getAll();
-                window.location.href = "/nhomkiemdinh";
-            } else {
-
-                alert("No success");
-                // window.location.href = "/test-fetch-donvi";
-            }
-        });
+    axios.put("api/NhomKds/" + id, newNhomKd).then((response) => {
+      console.log(response);
+      var result = response.data;
+      console.log(result);
+      if (!result) {
+        this.getAll();
+        window.location.href = "/nhomkiemdinh";
+      } else {
+        alert("Không Thể Chỉnh Sửa");
+      }
+    });
+  };
+  handleDeleted = (event) => {
+    var deleted = 1;
+    var id = document.getElementById("maNhomKd").value;
+    var newNhomKd = {
+      maNhomKd: document.getElementById("maNhomKd").value,
+      nhomKiemDinh: document.getElementById("nhomKd").value,
+      delete: deleted,
     };
-    handleDeleted = (event) => {
-        var deleted = 1;
-        var id = document.getElementById("maNhomKd").value;
-        var newNhomKd = {
-            maNhomKd: document.getElementById("maNhomKd").value,
-            nhomKiemDinh: document.getElementById("nhomKd").value,
-            delete: deleted
-        };
-        axios.put("api/NhomKds/" + id, newNhomKd).then((response) => {
-            console.log(response);
-            var result = response.data;
-            console.log(result);
-            if (!result) {
-                alert("hihi");
-                this.getAll();
-                window.location.href = "/nhomkiemdinh";
-            } else {
-
-                alert("No success");
-            }
-        });
-    };
-    lnk_Click(id) {
-        this._click();
-        this.handleGetDetail(id);
-    }
-    handleGetDetail(id) {
-        console.log(id);
-        axios.get("api/NhomKds/" + id).then((response) => {
-            var NhomKd = response.data;
-            document.getElementById("maNhomKd").value = NhomKd.maNhomKd;
-            document.getElementById("nhomKd").value = NhomKd.nhomKiemDinh;
-        });
-    }
+    axios.put("api/NhomKds/" + id, newNhomKd).then((response) => {
+      console.log(response);
+      var result = response.data;
+      console.log(result);
+      if (!result) {
+        this.getAll();
+        window.location.href = "/nhomkiemdinh";
+      } else {
+        alert("Không Thể Xóa");
+      }
+    });
+  };
+  lnk_Click(id) {
+    this._click();
+    this.handleGetDetail(id);
+  }
+  handleGetDetail(id) {
+    console.log(id);
+    axios.get("api/NhomKds/" + id).then((response) => {
+      var NhomKd = response.data;
+      document.getElementById("maNhomKd").value = NhomKd.maNhomKd;
+      document.getElementById("nhomKd").value = NhomKd.nhomKiemDinh;
+    });
+  }
 }
