@@ -2,6 +2,8 @@
 import { Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import axios from "axios";
 import "@fortawesome/fontawesome-free/css/fontawesome.min.css";
+import ReactPaginate from "react-paginate";
+import './style/DonVi.css'
 
 export class FectchDonVi extends Component {
   constructor(props) {
@@ -18,6 +20,7 @@ export class FectchDonVi extends Component {
       orgTable: [],
     };
 
+    this.handlePageClick=this.handlePageClick.bind(this);
     this._click = this._click.bind(this);
   }
   _click() {
@@ -62,6 +65,27 @@ export class FectchDonVi extends Component {
     });
   }
 
+  handlePageClick=(e)=>{
+    const selectedPage=e.selected;
+    const offset=selectedPage*this.state.perPage;
+    this.setState({
+      currentPage:selectedPage,
+      offset:offset
+    }, ()=>{
+      this.loadMoreData()
+    });
+  }
+
+
+  loadMoreData=()=>{
+    const data=this.state.orgTable;
+    const slice=data.slice(this.state.offset, this.state.offset+this.state.perPage)
+    this.setState({
+      pageCount: Math.ceil(data.length/this.state.perPage),
+      donVis:slice
+    })
+  }
+
   getData = () => {
     axios.get("api/DonVis").then((res) => {
       var data = res.data;
@@ -71,10 +95,10 @@ export class FectchDonVi extends Component {
       );
 
       this.setState({
-        loading:false,
+        loading: false,
         pageCount: Math.ceil(data.length / this.state.perPage),
         orgTable: res.data,
-        donVis: res.data,
+        donVis: slice,
       });
     });
   };
@@ -215,50 +239,64 @@ export class FectchDonVi extends Component {
 
   renderDonVisTable(donVis) {
     return (
-      <table id="tech-companies-1" className="table table-striped">
-        <thead style={{ backgroundColor: "#7266ba", color: "#fff" }}>
-          <tr>
-            <th data-priority="1" style={{ textAlign: "center" }}>
-              Mã Đơn Vị
-            </th>
-            <th data-priority="3" style={{ textAlign: "center" }}>
-              Tên Đơn Vị
-            </th>
-            <th data-priority="1" style={{ textAlign: "center" }}>
-              Thao Tác
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          {donVis.map((donVi) => (
-            <tr key={donVi.maDonVi}>
-              <td style={{ textAlign: "center" }}>{donVi.maDonVi}</td>
-              <td style={{ textAlign: "center" }}>{donVi.tenDonVi}</td>
-              <td
-                style={{ textAlign: "center" }}
-                onClick={() => this.lnk_Click(donVi.maDonVi)}
-              >
-                <button
-                  className="btn btn-icon waves-effect waves-light btn-warning"
-                  onClick={this.openModal}
-                  style={{ backgroundColor: "#f7b84b" }}
-                >
-                  <i class="far fa-edit" style={{ color: "white" }}></i>
-                </button>
-                &nbsp;
-                <button
-                  className="btn btn-icon waves-effect waves-light btn-danger"
-                  onClick={this.handleDeleted}
-                  style={{ backgroundColor: "#f1556c" }}
-                >
-                  <i class="far fa-trash-alt"></i>
-                </button>
-                &nbsp;
-              </td>
+      <div className="infor">
+        <table id="tech-companies-1" className="table table-striped">
+          <thead style={{ backgroundColor: "#7266ba", color: "#fff" }}>
+            <tr>
+              <th data-priority="1" style={{ textAlign: "center" }}>
+                Mã Đơn Vị
+              </th>
+              <th data-priority="3" style={{ textAlign: "center" }}>
+                Tên Đơn Vị
+              </th>
+              <th data-priority="1" style={{ textAlign: "center" }}>
+                Thao Tác
+              </th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {donVis.map((donVi) => (
+              <tr key={donVi.maDonVi}>
+                <td style={{ textAlign: "center" }}>{donVi.maDonVi}</td>
+                <td style={{ textAlign: "center" }}>{donVi.tenDonVi}</td>
+                <td
+                  style={{ textAlign: "center" }}
+                  onClick={() => this.lnk_Click(donVi.maDonVi)}
+                >
+                  <button
+                    className="btn btn-icon waves-effect waves-light btn-warning"
+                    onClick={this.openModal}
+                    style={{ backgroundColor: "#f7b84b" }}
+                  >
+                    <i class="far fa-edit" style={{ color: "white" }}></i>
+                  </button>
+                  &nbsp;
+                  <button
+                    className="btn btn-icon waves-effect waves-light btn-danger"
+                    onClick={this.handleDeleted}
+                    style={{ backgroundColor: "#f1556c" }}
+                  >
+                    <i class="far fa-trash-alt"></i>
+                  </button>
+                  &nbsp;
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        <ReactPaginate
+          previousLabel={<i style={{color: "#7266ba"}} class="fas fa-chevron-left"/>}
+          nextLabel={<i style={{color: "#7266ba"}} class="fas fa-chevron-right"></i>}
+          breakLabel={"..."}
+          breakClassName={"break-me"}
+          pageCount={this.state.pageCount}
+          marginPagesDisplayed={2}
+          pageRangeDisplayed={5}
+          onPageChange={this.handlePageClick}
+          containerClassName={"pagination"}
+          activeClassName={"active"}
+        />
+      </div>
     );
   }
 
