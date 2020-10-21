@@ -2,6 +2,8 @@
 import axios from "axios";
 import "@fortawesome/fontawesome-free/css/fontawesome.min.css";
 import { Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
+import ReactPaginate from "react-paginate";
+import "./style/DonVi.css";
 
 export class FectchDongTb extends Component {
   constructor(props) {
@@ -12,11 +14,14 @@ export class FectchDongTb extends Component {
       readOnly: true,
       showAdd: false,
       showEdit: false,
+      offset: 0,
+      perPage: 25,
+      currentPage: 0,
+      orgTable: [],
     };
 
     this._click = this._click.bind(this);
   }
-
 
   _click() {
     this.setState((prevState) => ({ readOnly: !prevState.readOnly }));
@@ -47,7 +52,8 @@ export class FectchDongTb extends Component {
   };
 
   componentDidMount() {
-    this.populateDongTbsData();
+    // this.populateDongTbsData();
+    this.getData();
   }
 
   async populateDongTbsData() {
@@ -58,6 +64,49 @@ export class FectchDongTb extends Component {
       loading: false,
     });
   }
+
+  getData = () => {
+    axios.get("api/DongTbs").then((res) => {
+      var data = res.data;
+      var slice = data.slice(
+        this.state.offset,
+        this.state.offset + this.state.perPage
+      );
+
+      this.setState({
+        loading: false,
+        pageCount: Math.ceil(data.length / this.state.perPage),
+        orgTable: res.data,
+        dongTbs: slice,
+      });
+    });
+  };
+
+  handlePageClick = (e) => {
+    const selectedPage = e.selected;
+    const offset = selectedPage * this.state.perPage;
+    this.setState(
+      {
+        currentPage: selectedPage,
+        offset: offset,
+      },
+      () => {
+        this.loadMoreData();
+      }
+    );
+  };
+
+  loadMoreData = () => {
+    const data = this.state.orgTable;
+    const slice = data.slice(
+      this.state.offset,
+      this.state.offset + this.state.perPage
+    );
+    this.setState({
+      pageCount: Math.ceil(data.length / this.state.perPage),
+      dongTbs: slice,
+    });
+  };
 
   render() {
     let contents = this.state.loading ? (
@@ -203,6 +252,25 @@ export class FectchDongTb extends Component {
                   </div>
                 </div>
               </div>
+              <ReactPaginate
+                previousLabel={
+                  <i style={{ color: "#7266ba" }} class="fas fa-chevron-left" />
+                }
+                nextLabel={
+                  <i
+                    style={{ color: "#7266ba" }}
+                    class="fas fa-chevron-right"
+                  ></i>
+                }
+                breakLabel={"..."}
+                breakClassName={"break-me"}
+                pageCount={this.state.pageCount}
+                marginPagesDisplayed={2}
+                pageRangeDisplayed={5}
+                onPageChange={this.handlePageClick}
+                containerClassName={"pagination"}
+                activeClassName={"active"}
+              />
             </div>
           </div>
         </div>
@@ -212,51 +280,53 @@ export class FectchDongTb extends Component {
 
   renderDongTbsTable(dongTbs) {
     return (
-      <table id="tech-companies-1" class="table table-striped">
-        <thead style={{ backgroundColor: "#7266ba", color: "#fff" }}>
-          <tr>
-            <th data-priority="3" style={{ textAlign: "center" }}>
-              Mã Dòng Thiết Bị
-            </th>
-            <th data-priority="1" style={{ textAlign: "center" }}>
-              Tên Dòng Thiết Bị
-            </th>
-            <th data-priority="3" style={{ textAlign: "center" }}>
-              Mã Nhóm Thiết Bị
-            </th>
-            <th data-priority="3" style={{ textAlign: "center" }}>
-              Thao Tác
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          {dongTbs.map((dongTb) => (
-            <tr key={dongTb.iddongTb}>
-              <td style={{ textAlign: "center" }}>{dongTb.iddongTb}</td>
-              <td style={{ textAlign: "center" }}>{dongTb.dongTb1}</td>
-              <td style={{ textAlign: "center" }}>{dongTb.idnhomTb}</td>
-              <td onClick={() => this.lnk_Click(dongTb.iddongTb)}>
-                <button
-                  className="btn btn-icon waves-effect waves-light btn-warning"
-                  onClick={this.openModal}
-                  style={{ backgroundColor: "#f7b84b" }}
-                >
-                  <i class="far fa-edit" style={{ color: "white" }}></i>
-                </button>
-                &nbsp;
-                <button
-                  className="btn btn-icon waves-effect waves-light btn-danger"
-                  onClick={this.handleDeleted}
-                  style={{ backgroundColor: "#f1556c" }}
-                >
-                  <i class="far fa-trash-alt"></i>
-                </button>
-                &nbsp;
-              </td>
+      <div className="infor">
+        <table id="tech-companies-1" class="table table-striped">
+          <thead style={{ backgroundColor: "#7266ba", color: "#fff" }}>
+            <tr>
+              <th data-priority="3" style={{ textAlign: "center" }}>
+                Mã Dòng Thiết Bị
+              </th>
+              <th data-priority="1" style={{ textAlign: "center" }}>
+                Tên Dòng Thiết Bị
+              </th>
+              <th data-priority="3" style={{ textAlign: "center" }}>
+                Mã Nhóm Thiết Bị
+              </th>
+              <th data-priority="3" style={{ textAlign: "center" }}>
+                Thao Tác
+              </th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {dongTbs.map((dongTb) => (
+              <tr key={dongTb.iddongTb}>
+                <td style={{ textAlign: "center" }}>{dongTb.iddongTb}</td>
+                <td style={{ textAlign: "center" }}>{dongTb.dongTb1}</td>
+                <td style={{ textAlign: "center" }}>{dongTb.idnhomTb}</td>
+                <td onClick={() => this.lnk_Click(dongTb.iddongTb)}>
+                  <button
+                    className="btn btn-icon waves-effect waves-light btn-warning"
+                    onClick={this.openModal}
+                    style={{ backgroundColor: "#f7b84b" }}
+                  >
+                    <i class="far fa-edit" style={{ color: "white" }}></i>
+                  </button>
+                  &nbsp;
+                  <button
+                    className="btn btn-icon waves-effect waves-light btn-danger"
+                    onClick={this.handleDeleted}
+                    style={{ backgroundColor: "#f1556c" }}
+                  >
+                    <i class="far fa-trash-alt"></i>
+                  </button>
+                  &nbsp;
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     );
   }
 

@@ -2,6 +2,8 @@
 import { Modal, ModalHeader, ModalBody, ModalFooter, Button } from "reactstrap";
 import axios from "axios";
 import "@fortawesome/fontawesome-free/css/fontawesome.min.css";
+import ReactPaginate from "react-paginate";
+import "./style/DonVi.css";
 
 export class FetchThongTinKD extends Component {
   constructor(props) {
@@ -13,6 +15,10 @@ export class FetchThongTinKD extends Component {
       showAdd: false,
       showEdit: false,
       showInformation: false,
+      offset: 0,
+      perPage: 20,
+      currentPage: 0,
+      orgTable: [],
     };
 
     this._click = this._click.bind(this);
@@ -58,7 +64,8 @@ export class FetchThongTinKD extends Component {
   };
 
   componentDidMount() {
-    this.populateDonVisData();
+    // this.populateDonVisData();
+    this.getData();
   }
 
   async populateDonVisData() {
@@ -69,6 +76,49 @@ export class FetchThongTinKD extends Component {
       loading: false,
     });
   }
+
+  getData = () => {
+    axios.get("api/ThongTinKds").then((res) => {
+      var data = res.data;
+      var slice = data.slice(
+        this.state.offset,
+        this.state.offset + this.state.perPage
+      );
+
+      this.setState({
+        loading: false,
+        pageCount: Math.ceil(data.length / this.state.perPage),
+        orgTable: res.data,
+        thongTins: slice,
+      });
+    });
+  };
+
+  handlePageClick = (e) => {
+    const selectedPage = e.selected;
+    const offset = selectedPage * this.state.perPage;
+    this.setState(
+      {
+        currentPage: selectedPage,
+        offset: offset,
+      },
+      () => {
+        this.loadMoreData();
+      }
+    );
+  };
+
+  loadMoreData = () => {
+    const data = this.state.orgTable;
+    const slice = data.slice(
+      this.state.offset,
+      this.state.offset + this.state.perPage
+    );
+    this.setState({
+      pageCount: Math.ceil(data.length / this.state.perPage),
+      thongTins: slice,
+    });
+  };
 
   render() {
     let contents = this.state.loading ? (
@@ -81,7 +131,9 @@ export class FetchThongTinKD extends Component {
     return (
       <div className="content-page">
         <Modal isOpen={this.state.showInformation}>
-          <ModalHeader style={{ backgroundColor: "#7266ba"}}>Thông Tin Kiểm Định</ModalHeader>
+          <ModalHeader style={{ backgroundColor: "#7266ba" }}>
+            Thông Tin Kiểm Định
+          </ModalHeader>
           <ModalBody>
             <form className="needs-validation">
               <div className="form-group mb-3">
@@ -591,6 +643,25 @@ export class FetchThongTinKD extends Component {
                   </div>
                 </div>
               </div>
+              <ReactPaginate
+                previousLabel={
+                  <i style={{ color: "#7266ba" }} class="fas fa-chevron-left" />
+                }
+                nextLabel={
+                  <i
+                    style={{ color: "#7266ba" }}
+                    class="fas fa-chevron-right"
+                  ></i>
+                }
+                breakLabel={"..."}
+                breakClassName={"break-me"}
+                pageCount={this.state.pageCount}
+                marginPagesDisplayed={2}
+                pageRangeDisplayed={5}
+                onPageChange={this.handlePageClick}
+                containerClassName={"pagination"}
+                activeClassName={"active"}
+              />
             </div>
           </div>
         </div>
@@ -608,7 +679,7 @@ export class FetchThongTinKD extends Component {
             <th>Ngày Kiểm</th>
             <th>Đến Hạn</th>
             <th>Tình Trạng</th>
-            <th style={{textAlign: "center"}}>Thao Tác</th>
+            <th style={{ textAlign: "center" }}>Thao Tác</th>
           </tr>
         </thead>
         <tbody>
@@ -619,7 +690,10 @@ export class FetchThongTinKD extends Component {
               <td>{thongTin.ngayKdganNhat}</td>
               <td>{thongTin.ngaytoihanKd}</td>
               <td>{thongTin.tinhTrangKd}</td>
-              <td onClick={(id) => this.lnk_Click(thongTin.maKd)} style={{textAlign: "center"}}>
+              <td
+                onClick={(id) => this.lnk_Click(thongTin.maKd)}
+                style={{ textAlign: "center" }}
+              >
                 <button
                   className="btn btn-info waves-effect waves-light"
                   onClick={this.openModalShowInformation}

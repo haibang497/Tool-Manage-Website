@@ -1,6 +1,5 @@
-.content-page .row .col-12 .card-box .infor .pagination {
-  margin-top: 15px;
-  margin-left: 600px;
+.content-page .row .col-12 .card-box .pagination {
+  margin-top: 15px auto;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -8,13 +7,13 @@
   outline: none;
 }
 
-.content-page .row .col-12 .card-box .infor .pagination .active a {
+.content-page .row .col-12 .card-box .pagination .active a {
   background-color: #7266ba;
   border-color: #7266ba;
   color: #fff;
 }
 
-.content-page .row .col-12 .card-box .infor .pagination li a {
+.content-page .row .col-12 .card-box .pagination li a {
   border: 1px solid #7266ba;
   padding: 5px 10px;
   outline: none;

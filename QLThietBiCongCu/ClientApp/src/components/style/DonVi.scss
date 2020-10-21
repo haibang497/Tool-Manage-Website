@@ -2,24 +2,21 @@
     .row {
         .col-12 {
             .card-box {
-                .infor {
-                    .pagination {
-                        margin-top: 15px;
-                        margin-left: 600px;
-                        display: flex;
-                        list-style: none;
+                .pagination {
+                    margin-top: 15px auto;
+                    display: flex;
+                    list-style: none;
+                    outline: none;
+                    .active a {
+                        background-color: #7266ba;
+                        border-color: #7266ba;
+                        color: #fff;
+                    }
+                    li a {
+                        border: 1px solid #7266ba;
+                        padding: 5px 10px;
                         outline: none;
-                        .active a {
-                            background-color: #7266ba;
-                            border-color: #7266ba;
-                            color: #fff;
-                        }
-                        li a {
-                            border: 1px solid #7266ba;
-                            padding: 5px 10px;
-                            outline: none;
-                            cursor: pointer;
-                        }
+                        cursor: pointer;
                     }
                 }
             }

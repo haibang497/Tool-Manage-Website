@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { Modal, ModalHeader, ModalBody, ModalFooter, Button } from "reactstrap";
 import axios from "axios";
+import ReactPaginate from "react-paginate";
+import "./style/DonVi.css";
 
 export class FetchNhomTBs extends Component {
   constructor(props) {
@@ -11,6 +13,10 @@ export class FetchNhomTBs extends Component {
       readOnly: true,
       showAdd: false,
       showEdit: false,
+      offset: 0,
+      perPage: 20,
+      currentPage: 0,
+      orgTable: [],
     };
 
     this._click = this._click.bind(this);
@@ -44,7 +50,8 @@ export class FetchNhomTBs extends Component {
   };
 
   componentDidMount() {
-    this.populateNhomTbsData();
+    // this.populateNhomTbsData();
+    this.getData();
   }
 
   async populateNhomTbsData() {
@@ -55,6 +62,49 @@ export class FetchNhomTBs extends Component {
       loading: false,
     });
   }
+
+  getData = () => {
+    axios.get("api/NhomTbs").then((res) => {
+      var data = res.data;
+      var slice = data.slice(
+        this.state.offset,
+        this.state.offset + this.state.perPage
+      );
+
+      this.setState({
+        loading: false,
+        pageCount: Math.ceil(data.length / this.state.perPage),
+        orgTable: res.data,
+        nhomTbs: slice,
+      });
+    });
+  };
+
+  handlePageClick = (e) => {
+    const selectedPage = e.selected;
+    const offset = selectedPage * this.state.perPage;
+    this.setState(
+      {
+        currentPage: selectedPage,
+        offset: offset,
+      },
+      () => {
+        this.loadMoreData();
+      }
+    );
+  };
+
+  loadMoreData = () => {
+    const data = this.state.orgTable;
+    const slice = data.slice(
+      this.state.offset,
+      this.state.offset + this.state.perPage
+    );
+    this.setState({
+      pageCount: Math.ceil(data.length / this.state.perPage),
+      nhomTbs: slice,
+    });
+  };
 
   render() {
     let contents = this.state.loading ? (
@@ -184,6 +234,25 @@ export class FetchNhomTBs extends Component {
                   </div>
                 </div>
               </div>
+              <ReactPaginate
+                previousLabel={
+                  <i style={{ color: "#7266ba" }} class="fas fa-chevron-left" />
+                }
+                nextLabel={
+                  <i
+                    style={{ color: "#7266ba" }}
+                    class="fas fa-chevron-right"
+                  ></i>
+                }
+                breakLabel={"..."}
+                breakClassName={"break-me"}
+                pageCount={this.state.pageCount}
+                marginPagesDisplayed={2}
+                pageRangeDisplayed={5}
+                onPageChange={this.handlePageClick}
+                containerClassName={"pagination"}
+                activeClassName={"active"}
+              />
             </div>
           </div>
         </div>

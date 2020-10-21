@@ -1,6 +1,8 @@
 ﻿import React, { Component } from "react";
 import { Modal, ModalHeader, ModalBody, ModalFooter, Button } from "reactstrap";
 import axios from "axios";
+import ReactPaginate from "react-paginate";
+import "./style/DonVi.css";
 
 export class FetchThietBi extends Component {
   constructor(props) {
@@ -12,6 +14,10 @@ export class FetchThietBi extends Component {
       showAdd: false,
       showEdit: false,
       showInformation: false,
+      offset: 0,
+      perPage: 30,
+      currentPage: 0,
+      orgTable: [],
     };
 
     this._click = this._click.bind(this);
@@ -57,7 +63,8 @@ export class FetchThietBi extends Component {
   };
 
   componentDidMount() {
-    this.populateDonVisData();
+    // this.populateDonVisData();
+    this.getData();
   }
 
   async populateDonVisData() {
@@ -68,6 +75,49 @@ export class FetchThietBi extends Component {
       loading: false,
     });
   }
+
+  getData = () => {
+    axios.get("api/MaTbs").then((res) => {
+      var data = res.data;
+      var slice = data.slice(
+        this.state.offset,
+        this.state.offset + this.state.perPage
+      );
+
+      this.setState({
+        loading: false,
+        pageCount: Math.ceil(data.length / this.state.perPage),
+        orgTable: res.data,
+        thietBis: slice,
+      });
+    });
+  };
+
+  handlePageClick = (e) => {
+    const selectedPage = e.selected;
+    const offset = selectedPage * this.state.perPage;
+    this.setState(
+      {
+        currentPage: selectedPage,
+        offset: offset,
+      },
+      () => {
+        this.loadMoreData();
+      }
+    );
+  };
+
+  loadMoreData = () => {
+    const data = this.state.orgTable;
+    const slice = data.slice(
+      this.state.offset,
+      this.state.offset + this.state.perPage
+    );
+    this.setState({
+      pageCount: Math.ceil(data.length / this.state.perPage),
+      thietBis: slice,
+    });
+  };
 
   render() {
     let contents = this.state.loading ? (
@@ -992,6 +1042,26 @@ export class FetchThietBi extends Component {
                   </div>
                 </div>
               </div>
+
+              <ReactPaginate
+                previousLabel={
+                  <i style={{ color: "#7266ba" }} class="fas fa-chevron-left" />
+                }
+                nextLabel={
+                  <i
+                    style={{ color: "#7266ba" }}
+                    class="fas fa-chevron-right"
+                  ></i>
+                }
+                breakLabel={"..."}
+                breakClassName={"break-me"}
+                pageCount={this.state.pageCount}
+                marginPagesDisplayed={2}
+                pageRangeDisplayed={5}
+                onPageChange={this.handlePageClick}
+                containerClassName={"pagination"}
+                activeClassName={"active"}
+              />
             </div>
           </div>
         </div>

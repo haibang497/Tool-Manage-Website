@@ -3,7 +3,7 @@ import { Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import axios from "axios";
 import "@fortawesome/fontawesome-free/css/fontawesome.min.css";
 import ReactPaginate from "react-paginate";
-import './style/DonVi.css'
+import "./style/DonVi.css";
 
 export class FectchDonVi extends Component {
   constructor(props) {
@@ -15,12 +15,11 @@ export class FectchDonVi extends Component {
       showAdd: false,
       showEdit: false,
       offset: 0,
-      perPage: 5,
+      perPage: 10,
       currentPage: 0,
       orgTable: [],
     };
 
-    this.handlePageClick=this.handlePageClick.bind(this);
     this._click = this._click.bind(this);
   }
   _click() {
@@ -65,26 +64,31 @@ export class FectchDonVi extends Component {
     });
   }
 
-  handlePageClick=(e)=>{
-    const selectedPage=e.selected;
-    const offset=selectedPage*this.state.perPage;
+  handlePageClick = (e) => {
+    const selectedPage = e.selected;
+    const offset = selectedPage * this.state.perPage;
+    this.setState(
+      {
+        currentPage: selectedPage,
+        offset: offset,
+      },
+      () => {
+        this.loadMoreData();
+      }
+    );
+  };
+
+  loadMoreData = () => {
+    const data = this.state.orgTable;
+    const slice = data.slice(
+      this.state.offset,
+      this.state.offset + this.state.perPage
+    );
     this.setState({
-      currentPage:selectedPage,
-      offset:offset
-    }, ()=>{
-      this.loadMoreData()
+      pageCount: Math.ceil(data.length / this.state.perPage),
+      donVis: slice,
     });
-  }
-
-
-  loadMoreData=()=>{
-    const data=this.state.orgTable;
-    const slice=data.slice(this.state.offset, this.state.offset+this.state.perPage)
-    this.setState({
-      pageCount: Math.ceil(data.length/this.state.perPage),
-      donVis:slice
-    })
-  }
+  };
 
   getData = () => {
     axios.get("api/DonVis").then((res) => {
@@ -230,6 +234,25 @@ export class FectchDonVi extends Component {
                 </div>
               </div>
               {contents}
+              <ReactPaginate
+                previousLabel={
+                  <i style={{ color: "#7266ba" }} class="fas fa-chevron-left" />
+                }
+                nextLabel={
+                  <i
+                    style={{ color: "#7266ba" }}
+                    class="fas fa-chevron-right"
+                  ></i>
+                }
+                breakLabel={"..."}
+                breakClassName={"break-me"}
+                pageCount={this.state.pageCount}
+                marginPagesDisplayed={2}
+                pageRangeDisplayed={5}
+                onPageChange={this.handlePageClick}
+                containerClassName={"pagination"}
+                activeClassName={"active"}
+              />
             </div>
           </div>
         </div>
@@ -284,18 +307,6 @@ export class FectchDonVi extends Component {
             ))}
           </tbody>
         </table>
-        <ReactPaginate
-          previousLabel={<i style={{color: "#7266ba"}} class="fas fa-chevron-left"/>}
-          nextLabel={<i style={{color: "#7266ba"}} class="fas fa-chevron-right"></i>}
-          breakLabel={"..."}
-          breakClassName={"break-me"}
-          pageCount={this.state.pageCount}
-          marginPagesDisplayed={2}
-          pageRangeDisplayed={5}
-          onPageChange={this.handlePageClick}
-          containerClassName={"pagination"}
-          activeClassName={"active"}
-        />
       </div>
     );
   }
