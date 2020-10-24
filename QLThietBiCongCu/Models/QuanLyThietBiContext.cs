@@ -22,8 +22,11 @@ namespace QLThietBiCongCu.Models
         public virtual DbSet<MaTb> MaTb { get; set; }
         public virtual DbSet<NhomKd> NhomKd { get; set; }
         public virtual DbSet<NhomTb> NhomTb { get; set; }
+        public virtual DbSet<PerDetail> PerDetail { get; set; }
+        public virtual DbSet<Permission> Permission { get; set; }
         public virtual DbSet<ThongTinKd> ThongTinKd { get; set; }
         public virtual DbSet<User> User { get; set; }
+        public virtual DbSet<UserPer> UserPer { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -256,6 +259,43 @@ namespace QLThietBiCongCu.Models
                     .HasMaxLength(255);
             });
 
+            modelBuilder.Entity<PerDetail>(entity =>
+            {
+                entity.HasKey(e => e.IdDetail);
+
+                entity.Property(e => e.IdDetail).HasColumnName("id_detail");
+
+                entity.Property(e => e.ActionCode)
+                    .HasColumnName("action_code")
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.ActionName)
+                    .HasColumnName("action_name")
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.CheckAction)
+                    .HasColumnName("check_action")
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.IdPer).HasColumnName("id_per");
+
+                entity.HasOne(d => d.IdPerNavigation)
+                    .WithMany(p => p.PerDetail)
+                    .HasForeignKey(d => d.IdPer)
+                    .HasConstraintName("FK_PerDetail_Permission");
+            });
+
+            modelBuilder.Entity<Permission>(entity =>
+            {
+                entity.HasKey(e => e.IdPer);
+
+                entity.Property(e => e.IdPer).HasColumnName("id_per");
+
+                entity.Property(e => e.NamePer)
+                    .HasColumnName("name_per")
+                    .HasMaxLength(50);
+            });
+
             modelBuilder.Entity<ThongTinKd>(entity =>
             {
                 entity.HasKey(e => e.MaKd)
@@ -321,23 +361,58 @@ namespace QLThietBiCongCu.Models
             {
                 entity.HasKey(e => e.IdUser);
 
-                entity.Property(e => e.IdUser).HasMaxLength(50);
+                entity.Property(e => e.IdUser).HasColumnName("id_user");
 
-                entity.Property(e => e.ChucVu).HasMaxLength(50);
+                entity.Property(e => e.Address)
+                    .HasColumnName("address")
+                    .HasMaxLength(50);
 
-                entity.Property(e => e.DiaChi).HasMaxLength(50);
+                entity.Property(e => e.Bday)
+                    .HasColumnName("bday")
+                    .HasMaxLength(50);
 
-                entity.Property(e => e.Email).HasMaxLength(50);
+                entity.Property(e => e.Email)
+                    .HasColumnName("email")
+                    .HasMaxLength(50);
 
-                entity.Property(e => e.MatKhau).HasMaxLength(50);
+                entity.Property(e => e.Password)
+                    .HasColumnName("password")
+                    .HasMaxLength(50);
 
-                entity.Property(e => e.SinhNhat).HasMaxLength(50);
+                entity.Property(e => e.PhoneNumber)
+                    .HasColumnName("phone_number")
+                    .HasMaxLength(50);
 
-                entity.Property(e => e.SoDienThoai).HasMaxLength(50);
+                entity.Property(e => e.UserAccount)
+                    .HasColumnName("user_account")
+                    .HasMaxLength(50);
 
-                entity.Property(e => e.TenNguoiDung).HasMaxLength(50);
+                entity.Property(e => e.UserName)
+                    .HasColumnName("user_name")
+                    .HasMaxLength(50);
+            });
 
-                entity.Property(e => e.TenTaiKhoan).HasMaxLength(50);
+            modelBuilder.Entity<UserPer>(entity =>
+            {
+                entity.HasKey(e => e.IdUserPer);
+
+                entity.Property(e => e.IdUserPer).HasColumnName("id_user_per");
+
+                entity.Property(e => e.IdPer).HasColumnName("id_per");
+
+                entity.Property(e => e.IdUser).HasColumnName("id_user");
+
+                entity.Property(e => e.Licensed).HasColumnName("licensed");
+
+                entity.HasOne(d => d.IdPerNavigation)
+                    .WithMany(p => p.UserPer)
+                    .HasForeignKey(d => d.IdPer)
+                    .HasConstraintName("FK_UserPer_Permission");
+
+                entity.HasOne(d => d.IdUserNavigation)
+                    .WithMany(p => p.UserPer)
+                    .HasForeignKey(d => d.IdUser)
+                    .HasConstraintName("FK_UserPer_User");
             });
 
             OnModelCreatingPartial(modelBuilder);
