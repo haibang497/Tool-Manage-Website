@@ -8,6 +8,8 @@ namespace QLThietBiCongCu.Models
 {
     public class UserModel
     {
+        [Key]
+        public int idUser { get; set; }
         [Required(ErrorMessage ="Yêu Cầu Nhập Username")]
         public string UserAccount { get; set; }
         [Required(ErrorMessage ="Yêu Cầu Nhập Mật Khẩu")]

@@ -24,12 +24,16 @@ export function DangNhap(props) {
   const login = async () => {
     await axios.get(baseUrl+`/${form.userAccount}/${md5(form.password)}`)
     .then(response=>{
-      return response.data;
+        return response.data;
+        console.log(response);
     }).then(response=>{
-      if(response.length>0){
-        var request=response[0];
-        console.log(request);
-      }
+        if (response.length > 0) {
+            var request = response[0];
+            console.log(request);
+        }
+        else {
+            alert("Tên Đăng Nhập Hoặc Mật Khẩu Không Đúng");
+        }
     })
     .catch(error=>{
       console.log(error);

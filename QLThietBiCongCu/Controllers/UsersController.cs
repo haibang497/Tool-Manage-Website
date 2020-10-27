@@ -102,7 +102,7 @@ namespace QLThietBiCongCu.Controllers
         }
 
         [HttpGet("{userAccount}/{password}")]
-        public ActionResult<List<User>> GetStartSession(string userAccount, string password)
+        public ActionResult<List<User>> Login(string userAccount, string password)
         {
             var user = _context.User.Where(user=>user.UserAccount.Equals(userAccount)&&user.Password.Equals(password)).ToList();
 

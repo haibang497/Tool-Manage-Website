@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+using QLThietBiCongCu.Models;
 
 namespace QLThietBiCongCu.Models
 {
@@ -419,5 +420,7 @@ namespace QLThietBiCongCu.Models
         }
 
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
+
+        public DbSet<QLThietBiCongCu.Models.UserModel> UserModel { get; set; }
     }
 }
