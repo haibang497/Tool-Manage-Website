@@ -13,6 +13,8 @@ import LeftSideBar from "./components/SideBarLeft";
 import RightSideBar from "./components/SideBarRight";
 import { FetchNhomKDs } from "./components/CRUDNhomKD";
 import { FetchNhomTBs } from "./components/CRUDNhomTB";
+import { DangKy } from "./components/DangKy";
+import { DangNhap } from "./components/DangNhap";
 
 export default class App extends Component {
   static displayName = App.name;
@@ -31,6 +33,8 @@ export default class App extends Component {
           <Route path="/loaithietbi" component={FetchLoaiTb} />
           <Route path="/nhomkiemdinh" component={FetchNhomKDs} />
           <Route path="/nhomthietbi" component={FetchNhomTBs}/>
+          <Route path="/dangky" component={DangKy}/>
+          <Route path="/dangnhap" component={DangNhap}/>
         </div>
         <RightSideBar />
         <div className="rightbar-overlay" />
