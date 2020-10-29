@@ -123,10 +123,13 @@ export class FetchLoaiTb extends Component {
                   >
                     <h2 style={{ textAlign: "center" }}>Loại Thiết Bị</h2>
                     <p>
-                    <Button
+                      <Button
                         type="button"
                         className="btn btn-bordered-primary waves-effect width-md waves-light"
-                        style={{ backgroundColor: "#1abc9c", border: "none" }}
+                        style={{
+                          backgroundColor: "#1abc9c",
+                          border: "none",
+                        }}
                         onClick={this.openModalAdd}
                       >
                         <i class="fas fa-plus" />
@@ -164,7 +167,10 @@ export class FetchLoaiTb extends Component {
                         <Button
                           type="button"
                           className="btn btn-icon waves-effect waves-light btn-success"
-                          style={{ backgroundColor: "#1abc9c", border:"none" }}
+                          style={{
+                            backgroundColor: "#1abc9c",
+                            border: "none",
+                          }}
                           onClick={this.handleSave}
                         >
                           <i class="fas fa-check"></i>
@@ -172,7 +178,10 @@ export class FetchLoaiTb extends Component {
                         <Button
                           type="button"
                           className="btn btn-icon waves-effect waves-light btn-danger"
-                          style={{ backgroundColor: "#f1556c", border:"none" }}
+                          style={{
+                            backgroundColor: "#f1556c",
+                            border: "none",
+                          }}
                           onClick={this.closeModalAdd}
                         >
                           <i className="fas fa-times" />
