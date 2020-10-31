@@ -6,15 +6,15 @@ function TopBar(props) {
   const logOut = () => {
     cookies.remove("userAccount", { path: "/" });
     cookies.remove("userName", { path: "/" });
-    window.location.href="/dangnhap";
+    window.location.href = "/dangnhap";
   };
 
-
-  // useEffect(()=>{
-  //   if(!cookies.get("userAccount")){
-  //     window.location.href="/dangnhap";
-  //   }
-  // }, []);
+  useEffect(()=>{
+    console.log("cccc",cookies.get("userAccount"));
+    if(cookies.get("userAccount")==undefined){
+      window.location.href="/dangnhap";
+    }
+  }, []);
 
   return (
     <div className="navbar-custom">
@@ -269,15 +269,14 @@ function TopBar(props) {
             </a>
             <div className="dropdown-divider" />
             {/* item*/}
-            <button onClick={() => logOut()}>
-              <a
-                href="javascript:void(0);"
-                className="dropdown-item notify-item"
-              >
-                <i className="remixicon-logout-box-line" />
-                <span>Logout</span>
-              </a>
-            </button>
+            <a
+              onClick={() => logOut()}
+              href="javascript:void(0);"
+              className="dropdown-item notify-item"
+            >
+              <i className="remixicon-logout-box-line" />
+              <span>Logout</span>
+            </a>
           </div>
         </li>
         <li className="dropdown notification-list">

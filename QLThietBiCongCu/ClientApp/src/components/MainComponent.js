@@ -18,8 +18,8 @@ export class MainLayout extends Component {
     return (
       <>
         <div id="wrapper">
-          <TopBar/>
-          <LeftSideBar/>
+          {/* <TopBar/>
+          <LeftSideBar/> */}
           <Route path="/donvi" component={FectchDonVi} />
           <Route path="/dongthietbi" component={FectchDongTb} />
           <Route path="/hoadon" component={FetchHoaDon} />

@@ -4,6 +4,8 @@ import axios from "axios";
 import "@fortawesome/fontawesome-free/css/fontawesome.min.css";
 import ReactPaginate from "react-paginate";
 import "./style/DonVi.css";
+import TopBar from "./TopBar";
+import LeftSideBar from "./SideBarLeft";
 
 export class FectchDonVi extends Component {
   constructor(props) {
@@ -116,6 +118,9 @@ export class FectchDonVi extends Component {
       this.renderDonVisTable(this.state.donVis)
     );
     return (
+      <>
+      <TopBar/>
+      <LeftSideBar/>
       <div className="content-page">
         <Modal isOpen={this.state.showEdit}>
           <ModalHeader>Chỉnh Sửa</ModalHeader>
@@ -257,6 +262,7 @@ export class FectchDonVi extends Component {
           </div>
         </div>
       </div>
+      </>
     );
   }
 

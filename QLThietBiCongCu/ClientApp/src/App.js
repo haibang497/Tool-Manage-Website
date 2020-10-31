@@ -12,7 +12,7 @@ export default class App extends Component {
     return (
       <div>
         <MainLayout/>
-        <Route path='/dangnhap' component={DangNhap}/>
+        <Route path='/' component={DangNhap}/>
       </div>
     );
   }
