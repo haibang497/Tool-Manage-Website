@@ -1,6 +1,9 @@
 ﻿import React, { Component } from "react";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import axios from "axios";
+import TopBar from "./TopBar";
+import LeftSideBar from "./SideBarLeft";
+import RightSideBar from "./SideBarRight";
 
 export class FetchLoaiTb extends Component {
   constructor(props) {
@@ -65,137 +68,143 @@ export class FetchLoaiTb extends Component {
       this.renderLoaiTbsTable(this.state.loaiTbs)
     );
     return (
-      <div className="content-page">
-        <Modal isOpen={this.state.showEdit}>
-          <ModalHeader>Chỉnh Sửa</ModalHeader>
-          <ModalBody>
-            <form className="needs-validation">
-              <div className="form-group mb-3">
-                <label for="maLoai">Mã Loại</label> &nbsp; &nbsp;
-                <input
-                  name="maLoai"
-                  id="maLoai"
-                  type="text"
-                  className="form-control"
-                  required=""
-                  readOnly
-                  value={this.state.loaiTbs.maLoai}
-                />
-              </div>
-              <div className="form-group mb-3">
-                <label for="loaiTb">Loại Thiết Bị</label> &nbsp; &nbsp;
-                <input
-                  name="loaiTb"
-                  id="loaiTb"
-                  type="text"
-                  className="form-control"
-                  value={this.state.loaiTbs.loaiTb}
-                  required=""
-                />
-              </div>
-            </form>
-          </ModalBody>
-          <ModalFooter>
-            <button
-              className="btn btn-icon waves-effect waves-light btn-success"
-              onClick={this.handleEdit}
-              style={{ backgroundColor: "#1abc9c" }}
-            >
-              <i class="fas fa-check"></i>
-            </button>
-            <button
-              className="btn btn-icon waves-effect waves-light btn-danger"
-              onClick={this.closeModal}
-              style={{ backgroundColor: "#f1556c" }}
-            >
-              <i className="fas fa-times" />
-            </button>
-          </ModalFooter>
-        </Modal>
-        <div className="row">
-          <div className="col-12">
-            <div className="card-box">
-              <div className="responsive-table-plugin">
-                <div className="table-rep-plugin">
-                  <div
-                    className="table-responsive"
-                    data-pattern="priority-columns"
-                  >
-                    <h2 style={{ textAlign: "center" }}>Loại Thiết Bị</h2>
-                    <p>
-                      <Button
-                        type="button"
-                        className="btn btn-bordered-primary waves-effect width-md waves-light"
-                        style={{
-                          backgroundColor: "#1abc9c",
-                          border: "none",
-                        }}
-                        onClick={this.openModalAdd}
-                      >
-                        <i class="fas fa-plus" />
-                        &nbsp; Thêm Loại Thiết Bị Mới
-                      </Button>
-                    </p>
-                    <Modal isOpen={this.state.showAdd}>
-                      <ModalHeader>Thêm Đơn Vị Mới</ModalHeader>
-                      <ModalBody>
-                        <form className="needs-validation">
-                          <div className="form-group mb-3">
-                            <label for="maLoai">Mã Loại</label> &nbsp; &nbsp;
-                            <input
-                              name="maLoai"
-                              id="maLoai"
-                              type="text"
-                              className="form-control"
-                              required=""
-                            />
-                          </div>
-                          <div className="form-group mb-3">
-                            <label for="loaiTb">Loại Thiết Bị</label> &nbsp;
-                            &nbsp;
-                            <input
-                              name="loaiTb"
-                              id="loaiTb"
-                              type="text"
-                              className="form-control"
-                              required=""
-                            />
-                          </div>
-                        </form>
-                      </ModalBody>
-                      <ModalFooter>
+      <>
+        <TopBar />
+        <LeftSideBar />
+        <div className="content-page">
+          <Modal isOpen={this.state.showEdit}>
+            <ModalHeader>Chỉnh Sửa</ModalHeader>
+            <ModalBody>
+              <form className="needs-validation">
+                <div className="form-group mb-3">
+                  <label for="maLoai">Mã Loại</label> &nbsp; &nbsp;
+                  <input
+                    name="maLoai"
+                    id="maLoai"
+                    type="text"
+                    className="form-control"
+                    required=""
+                    readOnly
+                    value={this.state.loaiTbs.maLoai}
+                  />
+                </div>
+                <div className="form-group mb-3">
+                  <label for="loaiTb">Loại Thiết Bị</label> &nbsp; &nbsp;
+                  <input
+                    name="loaiTb"
+                    id="loaiTb"
+                    type="text"
+                    className="form-control"
+                    value={this.state.loaiTbs.loaiTb}
+                    required=""
+                  />
+                </div>
+              </form>
+            </ModalBody>
+            <ModalFooter>
+              <button
+                className="btn btn-icon waves-effect waves-light btn-success"
+                onClick={this.handleEdit}
+                style={{ backgroundColor: "#1abc9c" }}
+              >
+                <i class="fas fa-check"></i>
+              </button>
+              <button
+                className="btn btn-icon waves-effect waves-light btn-danger"
+                onClick={this.closeModal}
+                style={{ backgroundColor: "#f1556c" }}
+              >
+                <i className="fas fa-times" />
+              </button>
+            </ModalFooter>
+          </Modal>
+          <div className="row">
+            <div className="col-12">
+              <div className="card-box">
+                <div className="responsive-table-plugin">
+                  <div className="table-rep-plugin">
+                    <div
+                      className="table-responsive"
+                      data-pattern="priority-columns"
+                    >
+                      <h2 style={{ textAlign: "center" }}>Loại Thiết Bị</h2>
+                      <p>
                         <Button
                           type="button"
-                          className="btn btn-icon waves-effect waves-light btn-success"
+                          className="btn btn-bordered-primary waves-effect width-md waves-light"
                           style={{
                             backgroundColor: "#1abc9c",
                             border: "none",
                           }}
-                          onClick={this.handleSave}
+                          onClick={this.openModalAdd}
                         >
-                          <i class="fas fa-check"></i>
+                          <i class="fas fa-plus" />
+                          &nbsp; Thêm Loại Thiết Bị Mới
                         </Button>
-                        <Button
-                          type="button"
-                          className="btn btn-icon waves-effect waves-light btn-danger"
-                          style={{
-                            backgroundColor: "#f1556c",
-                            border: "none",
-                          }}
-                          onClick={this.closeModalAdd}
-                        >
-                          <i className="fas fa-times" />
-                        </Button>
-                      </ModalFooter>
-                    </Modal>
-                    {contents}
+                      </p>
+                      <Modal isOpen={this.state.showAdd}>
+                        <ModalHeader>Thêm Đơn Vị Mới</ModalHeader>
+                        <ModalBody>
+                          <form className="needs-validation">
+                            <div className="form-group mb-3">
+                              <label for="maLoai">Mã Loại</label> &nbsp; &nbsp;
+                              <input
+                                name="maLoai"
+                                id="maLoai"
+                                type="text"
+                                className="form-control"
+                                required=""
+                              />
+                            </div>
+                            <div className="form-group mb-3">
+                              <label for="loaiTb">Loại Thiết Bị</label> &nbsp;
+                              &nbsp;
+                              <input
+                                name="loaiTb"
+                                id="loaiTb"
+                                type="text"
+                                className="form-control"
+                                required=""
+                              />
+                            </div>
+                          </form>
+                        </ModalBody>
+                        <ModalFooter>
+                          <Button
+                            type="button"
+                            className="btn btn-icon waves-effect waves-light btn-success"
+                            style={{
+                              backgroundColor: "#1abc9c",
+                              border: "none",
+                            }}
+                            onClick={this.handleSave}
+                          >
+                            <i class="fas fa-check"></i>
+                          </Button>
+                          <Button
+                            type="button"
+                            className="btn btn-icon waves-effect waves-light btn-danger"
+                            style={{
+                              backgroundColor: "#f1556c",
+                              border: "none",
+                            }}
+                            onClick={this.closeModalAdd}
+                          >
+                            <i className="fas fa-times" />
+                          </Button>
+                        </ModalFooter>
+                      </Modal>
+                      {contents}
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
+        <RightSideBar />
+        <div className="rightbar-overlay" />
+      </>
     );
   }
 

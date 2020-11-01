@@ -3,6 +3,9 @@ import { Modal, ModalHeader, ModalBody, ModalFooter, Button } from "reactstrap";
 import axios from "axios";
 import ReactPaginate from "react-paginate";
 import "./style/DonVi.css";
+import TopBar from "./TopBar";
+import LeftSideBar from "./SideBarLeft";
+import RightSideBar from "./SideBarRight";
 
 export class FetchThietBi extends Component {
   constructor(props) {
@@ -128,944 +131,962 @@ export class FetchThietBi extends Component {
       this.renderDonVisTable(this.state.thietBis)
     );
     return (
-      <div className="content-page">
-        <Modal isOpen={this.state.showInformation}>
-          <ModalHeader>Thông Tin Thiết Bị</ModalHeader>
-          <ModalBody>
-            <form className="needs-validation">
-              <div className="form-group mb-3">
-                <label for="stt">Số Thứ Tự</label> &nbsp; &nbsp;
-                <input
-                  name="stt"
-                  id="stt"
-                  type="text"
-                  className="form-control"
-                  required=""
-                  readOnly
-                  value={this.state.thietBis.stt}
-                />
-              </div>
-              <div className="form-group mb-3">
-                <label for="maTb1">Mã Thiết Bị</label> &nbsp; &nbsp;
-                <input
-                  name="maTb1"
-                  id="maTb1"
-                  type="text"
-                  className="form-control"
-                  required=""
-                  readOnly
-                  value={this.state.thietBis.maTb1}
-                />
-              </div>
-              <div className="form-group mb-3">
-                <label for="idnhomTb">Mã Nhóm Thiết Bị</label> &nbsp; &nbsp;
-                <input
-                  name="idnhomTb"
-                  id="idnhomTb"
-                  type="text"
-                  className="form-control"
-                  required=""
-                  readOnly
-                  value={this.state.thietBis.idnhomTb}
-                />
-              </div>
-              <div className="form-group mb-3">
-                <label for="maDonVi">Mã Đơn Vị</label> &nbsp; &nbsp;
-                <input
-                  name="maDonVi"
-                  id="maDonVi"
-                  type="text"
-                  className="form-control"
-                  required=""
-                  readOnly
-                  value={this.state.thietBis.maDonVi}
-                />
-              </div>
-              <div className="form-group mb-3">
-                <label for="maLoai">Mã Loại</label> &nbsp; &nbsp;
-                <input
-                  name="maLoai"
-                  id="maLoai"
-                  type="text"
-                  className="form-control"
-                  required=""
-                  readOnly
-                  value={this.state.thietBis.maLoai}
-                />
-              </div>
-              <div className="form-group mb-3">
-                <label for="maNhomKd">Mã Nhóm kiểm Định</label> &nbsp; &nbsp;
-                <input
-                  name="maNhomKd"
-                  id="maNhomKd"
-                  type="text"
-                  className="form-control"
-                  required=""
-                  readOnly
-                  value={this.state.thietBis.maNhomKd}
-                />
-              </div>
-              <div className="form-group mb-3">
-                <label for="idhoaDon">Mã Hóa Đơn</label>
-                &nbsp; &nbsp;
-                <input
-                  name="idhoaDon"
-                  id="idhoaDon"
-                  type="text"
-                  className="form-control"
-                  required=""
-                  readOnly
-                  value={this.state.thietBis.idhoaDon}
-                />
-              </div>
-              <div className="form-group mb-3">
-                <label for="iddongTb">Mã Dòng Thiết Bị</label>
-                &nbsp; &nbsp;
-                <input
-                  name="iddongTb"
-                  id="iddongTb"
-                  type="text"
-                  className="form-control"
-                  required=""
-                  readOnly
-                  value={this.state.thietBis.iddongTb}
-                />
-              </div>
-              <div className="form-group mb-3">
-                <label for="ngayPhieuXuat">Ngày Phiếu Xuất</label> &nbsp; &nbsp;
-                <input
-                  name="ngayPhieuXuat"
-                  id="ngayPhieuXuat"
-                  type="text"
-                  className="form-control"
-                  required=""
-                  readOnly
-                  value={this.state.thietBis.ngayPhieuXuat}
-                />
-              </div>
-              <div className="form-group mb-3">
-                <label for="ngayPhieuNhap">Ngày Phiếu Nhập</label> &nbsp; &nbsp;
-                <input
-                  name="ngayPhieuNhap"
-                  id="ngayPhieuNhap"
-                  type="text"
-                  className="form-control"
-                  required=""
-                  readOnly
-                  value={this.state.thietBis.ngayPhieuNhap}
-                />
-              </div>
-              <div className="form-group mb-3">
-                <label for="tenTb">Tên Thiết Bị</label>
-                &nbsp; &nbsp;
-                <input
-                  name="tenTb"
-                  id="tenTb"
-                  type="text"
-                  className="form-control"
-                  required=""
-                  readOnly
-                  value={this.state.thietBis.tenTb}
-                />
-              </div>
-              <div className="form-group mb-3">
-                <label for="tenChuan">Tên Chuẩn</label> &nbsp; &nbsp;
-                <input
-                  name="tenChuan"
-                  id="tenChuan"
-                  type="text"
-                  className="form-control"
-                  required=""
-                  readOnly
-                  value={this.state.thietBis.tenChuan}
-                />
-              </div>
-              <div className="form-group mb-3">
-                <label for="giaMua">Giá Mua</label> &nbsp; &nbsp;
-                <input
-                  name="giaMua"
-                  id="giaMua"
-                  type="text"
-                  className="form-control"
-                  required=""
-                  readOnly
-                  value={this.state.thietBis.giaMua}
-                />
-              </div>
-              <div className="form-group mb-3">
-                <label for="donViBan">Đơn Vị Bán</label> &nbsp; &nbsp;
-                <input
-                  name="donViBan"
-                  id="donViBan"
-                  type="text"
-                  className="form-control"
-                  required=""
-                  readOnly
-                  value={this.state.thietBis.donViBan}
-                />
-              </div>
-              <div className="form-group mb-3">
-                <label for="donViTinh">Đơn Vị Tính</label>
-                <input
-                  name="donViTinh"
-                  id="donViTinh"
-                  type="text"
-                  className="form-control"
-                  required=""
-                  readOnly
-                  value={this.state.thietBis.donViTinh}
-                />
-              </div>
-              <div className="form-group mb-3">
-                <label for="soluong">Số Lượng</label> &nbsp; &nbsp;
-                <input
-                  name="soluong"
-                  id="soluong"
-                  type="text"
-                  className="form-control"
-                  required=""
-                  readOnly
-                  value={this.state.thietBis.soluong}
-                />
-              </div>
-              <div className="form-group mb-3">
-                <label for="tinhTrang">Tình Trạng</label> &nbsp; &nbsp;
-                <input
-                  name="tinhTrang"
-                  id="tinhTrang"
-                  type="text"
-                  className="form-control"
-                  required=""
-                  readOnly
-                  value={this.state.thietBis.tinhTrang}
-                />
-              </div>
-              <div className="form-group mb-3">
-                <label for="ngayTinhTrang">Ngày Tình Trạng</label> &nbsp; &nbsp;
-                <input
-                  name="ngayTinhTrang"
-                  id="ngayTinhTrang"
-                  type="text"
-                  className="form-control"
-                  required=""
-                  readOnly
-                  value={this.state.thietBis.ngayTinhTrang}
-                />
-              </div>
-              <div className="form-group mb-3">
-                <label for="phapLy">Pháp Lý</label> &nbsp; &nbsp;
-                <input
-                  name="phapLy"
-                  id="phapLy"
-                  type="text"
-                  className="form-control"
-                  required=""
-                  readOnly
-                  value={this.state.thietBis.phapLy}
-                />
-              </div>
-              <div className="form-group mb-3">
-                <label for="viTriLuuTruBkk">Vị Trí Lưu</label> &nbsp; &nbsp;
-                <input
-                  name="viTriLuuTruBkk"
-                  id="viTriLuuTruBkk"
-                  type="text"
-                  className="form-control"
-                  required=""
-                  readOnly
-                  value={this.state.thietBis.viTriLuuTruBkk}
-                />
-              </div>
-              <div className="form-group mb-3">
-                <label for="maMay">Mã Máy</label> &nbsp; &nbsp;
-                <input
-                  name="maMay"
-                  id="maMay"
-                  type="text"
-                  className="form-control"
-                  required=""
-                  readOnly
-                  value={this.state.thietBis.maMay}
-                />
-              </div>
-              <div className="form-group mb-3">
-                <label for="nuocSanXuat">Nước Sản Xuất</label> &nbsp; &nbsp;
-                <input
-                  name="nuocSanXuat"
-                  id="nuocSanXuat"
-                  type="text"
-                  className="form-control"
-                  required=""
-                  readOnly
-                  value={this.state.thietBis.nuocSanXuat}
-                />
-              </div>
-              <div className="form-group mb-3">
-                <label for="namSx">Năm Sản Xuất</label> &nbsp; &nbsp;
-                <input
-                  name="namSx"
-                  id="namSx"
-                  type="text"
-                  className="form-control"
-                  required=""
-                  readOnly
-                  value={this.state.thietBis.namSx}
-                />
-              </div>
-              <div className="form-group mb-3">
-                <label for="ghiChu">Ghi Chú</label> &nbsp; &nbsp;
-                <input
-                  name="ghiChu"
-                  id="ghiChu"
-                  type="text"
-                  className="form-control"
-                  required=""
-                  readOnly
-                  value={this.state.thietBis.ghiChu}
-                />
-              </div>
-            </form>
-          </ModalBody>
-          <ModalFooter>
-            <button
-              type="button"
-              className="btn btn-icon waves-effect waves-light btn-danger"
-              style={{ backgroundColor: "#f1556c" }}
-              onClick={this.closeModalShowInformation}
-            >
-              <i className="fas fa-times" />
-            </button>
-          </ModalFooter>
-        </Modal>
-        <Modal isOpen={this.state.showEdit}>
-          <ModalHeader>Chỉnh Sửa</ModalHeader>
-          <ModalBody>
-            <form className="needs-validation">
-              <div className="form-group mb-3">
-                <label for="stt">Số Thứ Tự</label> &nbsp; &nbsp;
-                <input
-                  name="stt"
-                  id="stt"
-                  type="text"
-                  className="form-control"
-                  required=""
-                  readOnly
-                  value={this.state.thietBis.stt}
-                />
-              </div>
-              <div className="form-group mb-3">
-                <label for="maTb1">Mã Thiết Bị</label> &nbsp; &nbsp;
-                <input
-                  name="maTb1"
-                  id="maTb1"
-                  type="text"
-                  className="form-control"
-                  required=""
-                  readOnly
-                  value={this.state.thietBis.maTb1}
-                />
-              </div>
-              <div className="form-group mb-3">
-                <label for="idnhomTb">Mã Nhóm Thiết Bị</label> &nbsp; &nbsp;
-                <input
-                  name="idnhomTb"
-                  id="idnhomTb"
-                  type="text"
-                  className="form-control"
-                  required=""
-                  readOnly
-                  value={this.state.thietBis.idnhomTb}
-                />
-              </div>
-              <div className="form-group mb-3">
-                <label for="maDonVi">Mã Đơn Vị</label> &nbsp; &nbsp;
-                <input
-                  name="maDonVi"
-                  id="maDonVi"
-                  type="text"
-                  className="form-control"
-                  required=""
-                  readOnly
-                  value={this.state.thietBis.maDonVi}
-                />
-              </div>
-              <div className="form-group mb-3">
-                <label for="maLoai">Mã Loại</label> &nbsp; &nbsp;
-                <input
-                  name="maLoai"
-                  id="maLoai"
-                  type="text"
-                  className="form-control"
-                  required=""
-                  readOnly
-                  value={this.state.thietBis.maLoai}
-                />
-              </div>
-              <div className="form-group mb-3">
-                <label for="maNhomKd">Mã Nhóm kiểm Định</label> &nbsp; &nbsp;
-                <input
-                  name="maNhomKd"
-                  id="maNhomKd"
-                  type="text"
-                  className="form-control"
-                  required=""
-                  readOnly
-                  value={this.state.thietBis.maNhomKd}
-                />
-              </div>
-              <div className="form-group mb-3">
-                <label for="idhoaDon">Mã Hóa Đơn</label>
-                &nbsp; &nbsp;
-                <input
-                  name="idhoaDon"
-                  id="idhoaDon"
-                  type="text"
-                  className="form-control"
-                  required=""
-                  readOnly
-                  value={this.state.thietBis.idhoaDon}
-                />
-              </div>
-              <div className="form-group mb-3">
-                <label for="iddongTb">Mã Dòng Thiết Bị</label>
-                &nbsp; &nbsp;
-                <input
-                  name="iddongTb"
-                  id="iddongTb"
-                  type="text"
-                  className="form-control"
-                  required=""
-                  readOnly
-                  value={this.state.thietBis.iddongTb}
-                />
-              </div>
-              <div className="form-group mb-3">
-                <label for="ngayPhieuXuat">Ngày Phiếu Xuất</label> &nbsp; &nbsp;
-                <input
-                  name="ngayPhieuXuat"
-                  id="ngayPhieuXuat"
-                  type="text"
-                  className="form-control"
-                  required=""
-                  value={this.state.thietBis.ngayPhieuXuat}
-                />
-              </div>
-              <div className="form-group mb-3">
-                <label for="ngayPhieuNhap">Ngày Phiếu Nhập</label> &nbsp; &nbsp;
-                <input
-                  name="ngayPhieuNhap"
-                  id="ngayPhieuNhap"
-                  type="text"
-                  className="form-control"
-                  required=""
-                  value={this.state.thietBis.ngayPhieuNhap}
-                />
-              </div>
-              <div className="form-group mb-3">
-                <label for="tenTb">Tên Thiết Bị</label>
-                &nbsp; &nbsp;
-                <input
-                  name="tenTb"
-                  id="tenTb"
-                  type="text"
-                  className="form-control"
-                  required=""
-                  value={this.state.thietBis.tenTb}
-                />
-              </div>
-              <div className="form-group mb-3">
-                <label for="tenChuan">Tên Chuẩn</label> &nbsp; &nbsp;
-                <input
-                  name="tenChuan"
-                  id="tenChuan"
-                  type="text"
-                  className="form-control"
-                  required=""
-                  value={this.state.thietBis.tenChuan}
-                />
-              </div>
-              <div className="form-group mb-3">
-                <label for="giaMua">Giá Mua</label> &nbsp; &nbsp;
-                <input
-                  name="giaMua"
-                  id="giaMua"
-                  type="text"
-                  className="form-control"
-                  required=""
-                  value={this.state.thietBis.giaMua}
-                />
-              </div>
-              <div className="form-group mb-3">
-                <label for="donViBan">Đơn Vị Bán</label> &nbsp; &nbsp;
-                <input
-                  name="donViBan"
-                  id="donViBan"
-                  type="text"
-                  className="form-control"
-                  required=""
-                  value={this.state.thietBis.donViBan}
-                />
-              </div>
-              <div className="form-group mb-3">
-                <label for="donViTinh">Đơn Vị Tính</label>
-                <input
-                  name="donViTinh"
-                  id="donViTinh"
-                  type="text"
-                  className="form-control"
-                  required=""
-                  value={this.state.thietBis.donViTinh}
-                />
-              </div>
-              <div className="form-group mb-3">
-                <label for="soluong">Số Lượng</label> &nbsp; &nbsp;
-                <input
-                  name="soluong"
-                  id="soluong"
-                  type="text"
-                  className="form-control"
-                  required=""
-                  value={this.state.thietBis.soluong}
-                />
-              </div>
-              <div className="form-group mb-3">
-                <label for="tinhTrang">Tình Trạng</label> &nbsp; &nbsp;
-                <input
-                  name="tinhTrang"
-                  id="tinhTrang"
-                  type="text"
-                  className="form-control"
-                  required=""
-                  value={this.state.thietBis.tinhTrang}
-                />
-              </div>
-              <div className="form-group mb-3">
-                <label for="ngayTinhTrang">Ngày Tình Trạng</label> &nbsp; &nbsp;
-                <input
-                  name="ngayTinhTrang"
-                  id="ngayTinhTrang"
-                  type="text"
-                  className="form-control"
-                  required=""
-                  value={this.state.thietBis.ngayTinhTrang}
-                />
-              </div>
-              <div className="form-group mb-3">
-                <label for="phapLy">Pháp Lý</label> &nbsp; &nbsp;
-                <input
-                  name="phapLy"
-                  id="phapLy"
-                  type="text"
-                  className="form-control"
-                  required=""
-                  value={this.state.thietBis.phapLy}
-                />
-              </div>
-              <div className="form-group mb-3">
-                <label for="viTriLuuTruBkk">Vị Trí Lưu</label> &nbsp; &nbsp;
-                <input
-                  name="viTriLuuTruBkk"
-                  id="viTriLuuTruBkk"
-                  type="text"
-                  className="form-control"
-                  required=""
-                  value={this.state.thietBis.viTriLuuTruBkk}
-                />
-              </div>
-              <div className="form-group mb-3">
-                <label for="maMay">Mã Máy</label> &nbsp; &nbsp;
-                <input
-                  name="maMay"
-                  id="maMay"
-                  type="text"
-                  className="form-control"
-                  required=""
-                  readOnly
-                  value={this.state.thietBis.maMay}
-                />
-              </div>
-              <div className="form-group mb-3">
-                <label for="nuocSanXuat">Nước Sản Xuất</label> &nbsp; &nbsp;
-                <input
-                  name="nuocSanXuat"
-                  id="nuocSanXuat"
-                  type="text"
-                  className="form-control"
-                  required=""
-                  value={this.state.thietBis.nuocSanXuat}
-                />
-              </div>
-              <div className="form-group mb-3">
-                <label for="namSx">Năm Sản Xuất</label> &nbsp; &nbsp;
-                <input
-                  name="namSx"
-                  id="namSx"
-                  type="text"
-                  className="form-control"
-                  required=""
-                  value={this.state.thietBis.namSx}
-                />
-              </div>
-              <div className="form-group mb-3">
-                <label for="ghiChu">Ghi Chú</label> &nbsp; &nbsp;
-                <input
-                  name="ghiChu"
-                  id="ghiChu"
-                  type="text"
-                  className="form-control"
-                  required=""
-                  value={this.state.thietBis.ghiChu}
-                />
-              </div>
-            </form>
-          </ModalBody>
-          <ModalFooter>
-            <button
-              className="btn btn-icon waves-effect waves-light btn-success"
-              onClick={this.handleEdit}
-              style={{ backgroundColor: "#1abc9c" }}
-            >
-              <i class="fas fa-check"></i>
-            </button>
-            <button
-              type="button"
-              className="btn btn-icon waves-effect waves-light btn-danger"
-              style={{ backgroundColor: "#f1556c" }}
-              onClick={this.closeModal}
-            >
-              <i className="fas fa-times" />
-            </button>
-          </ModalFooter>
-        </Modal>
-        <div className="row">
-          <div className="col-12">
-            <div className="card-box">
-              <div className="responsive-table-plugin">
-                <div className="table-rep-plugin">
-                  <div
-                    className="table-responsive"
-                    data-pattern="priority-columns"
-                  >
-                    <h2 style={{ textAlign: "center" }}>Thiết Bị</h2>
-                    <p>
-                      <button
-                        type="button"
-                        className="btn btn-bordered-primary waves-effect width-md waves-light"
-                        style={{ backgroundColor: "#1abc9c" }}
-                        onClick={this.openModalAdd}
-                      >
-                        <i class="fas fa-plus" />
-                        &nbsp; Thêm Thiết Bị Mới
-                      </button>
-                    </p>
-
-                    <Modal isOpen={this.state.showAdd}>
-                      <ModalHeader>Thêm Thiết Bị Mới</ModalHeader>
-                      <ModalBody>
-                        <form className="needs-validation">
-                          <div className="form-group mb-3">
-                            <label for="stt">Số Thứ Tự</label> &nbsp; &nbsp;
-                            <input
-                              name="stt"
-                              id="stt"
-                              type="text"
-                              className="form-control"
-                              required=""
-                            />
-                          </div>
-                          <div className="form-group mb-3">
-                            <label for="maTb1">Mã Thiết Bị</label> &nbsp; &nbsp;
-                            <input
-                              name="maTb1"
-                              id="maTb1"
-                              type="text"
-                              className="form-control"
-                              required=""
-                            />
-                          </div>
-                          <div className="form-group mb-3">
-                            <label for="idnhomTb">Mã Nhóm Thiết Bị</label>{" "}
-                            &nbsp; &nbsp;
-                            <input
-                              name="idnhomTb"
-                              id="idnhomTb"
-                              type="text"
-                              className="form-control"
-                              required=""
-                            />
-                          </div>
-                          <div className="form-group mb-3">
-                            <label for="maDonVi">Mã Đơn Vị</label> &nbsp; &nbsp;
-                            <input
-                              name="maDonVi"
-                              id="maDonVi"
-                              type="text"
-                              className="form-control"
-                              required=""
-                            />
-                          </div>
-                          <div className="form-group mb-3">
-                            <label for="maLoai">Mã Loại</label> &nbsp; &nbsp;
-                            <input
-                              name="maLoai"
-                              id="maLoai"
-                              type="text"
-                              className="form-control"
-                              required=""
-                            />
-                          </div>
-                          <div className="form-group mb-3">
-                            <label for="maNhomKd">Mã Nhóm kiểm Định</label>{" "}
-                            &nbsp; &nbsp;
-                            <input
-                              name="maNhomKd"
-                              id="maNhomKd"
-                              type="text"
-                              className="form-control"
-                              required=""
-                            />
-                          </div>
-                          <div className="form-group mb-3">
-                            <label for="idhoaDon">Mã Hóa Đơn</label>
-                            &nbsp; &nbsp;
-                            <input
-                              name="idhoaDon"
-                              id="idhoaDon"
-                              type="text"
-                              className="form-control"
-                              required=""
-                            />
-                          </div>
-                          <div className="form-group mb-3">
-                            <label for="iddongTb">Mã Dòng Thiết Bị</label>
-                            &nbsp; &nbsp;
-                            <input
-                              name="iddongTb"
-                              id="iddongTb"
-                              type="text"
-                              className="form-control"
-                              required=""
-                            />
-                          </div>
-                          <div className="form-group mb-3">
-                            <label for="ngayPhieuXuat">Ngày Phiếu Xuất</label>{" "}
-                            &nbsp; &nbsp;
-                            <input
-                              name="ngayPhieuXuat"
-                              id="ngayPhieuXuat"
-                              type="text"
-                              className="form-control"
-                              required=""
-                            />
-                          </div>
-                          <div className="form-group mb-3">
-                            <label for="ngayPhieuNhap">Ngày Phiếu Nhập</label>{" "}
-                            &nbsp; &nbsp;
-                            <input
-                              name="ngayPhieuNhap"
-                              id="ngayPhieuNhap"
-                              type="text"
-                              className="form-control"
-                              required=""
-                            />
-                          </div>
-                          <div className="form-group mb-3">
-                            <label for="tenTb">Tên Thiết Bị</label>
-                            &nbsp; &nbsp;
-                            <input
-                              name="tenTb"
-                              id="tenTb"
-                              type="text"
-                              className="form-control"
-                              required=""
-                            />
-                          </div>
-                          <div className="form-group mb-3">
-                            <label for="tenChuan">Tên Chuẩn</label> &nbsp;
-                            &nbsp;
-                            <input
-                              name="tenChuan"
-                              id="tenChuan"
-                              type="text"
-                              className="form-control"
-                              required=""
-                            />
-                          </div>
-                          <div className="form-group mb-3">
-                            <label for="giaMua">Giá Mua</label> &nbsp; &nbsp;
-                            <input
-                              name="giaMua"
-                              id="giaMua"
-                              type="text"
-                              className="form-control"
-                              required=""
-                            />
-                          </div>
-                          <div className="form-group mb-3">
-                            <label for="donViBan">Đơn Vị Bán</label> &nbsp;
-                            &nbsp;
-                            <input
-                              name="donViBan"
-                              id="donViBan"
-                              type="text"
-                              className="form-control"
-                              required=""
-                            />
-                          </div>
-                          <div className="form-group mb-3">
-                            <label for="donViTinh">Đơn Vị Tính</label>
-                            <input
-                              name="donViTinh"
-                              id="donViTinh"
-                              type="text"
-                              className="form-control"
-                              required=""
-                            />
-                          </div>
-                          <div className="form-group mb-3">
-                            <label for="soluong">Số Lượng</label> &nbsp; &nbsp;
-                            <input
-                              name="soluong"
-                              id="soluong"
-                              type="text"
-                              className="form-control"
-                              required=""
-                            />
-                          </div>
-                          <div className="form-group mb-3">
-                            <label for="tinhTrang">Tình Trạng</label> &nbsp;
-                            &nbsp;
-                            <input
-                              name="tinhTrang"
-                              id="tinhTrang"
-                              type="text"
-                              className="form-control"
-                              required=""
-                            />
-                          </div>
-                          <div className="form-group mb-3">
-                            <label for="ngayTinhTrang">Ngày Tình Trạng</label>{" "}
-                            &nbsp; &nbsp;
-                            <input
-                              name="ngayTinhTrang"
-                              id="ngayTinhTrang"
-                              type="text"
-                              className="form-control"
-                              required=""
-                            />
-                          </div>
-                          <div className="form-group mb-3">
-                            <label for="phapLy">Pháp Lý</label> &nbsp; &nbsp;
-                            <input
-                              name="phapLy"
-                              id="phapLy"
-                              type="text"
-                              className="form-control"
-                              required=""
-                            />
-                          </div>
-                          <div className="form-group mb-3">
-                            <label for="viTriLuuTruBkk">Vị Trí Lưu</label>{" "}
-                            &nbsp; &nbsp;
-                            <input
-                              name="viTriLuuTruBkk"
-                              id="viTriLuuTruBkk"
-                              type="text"
-                              className="form-control"
-                              required=""
-                            />
-                          </div>
-                          <div className="form-group mb-3">
-                            <label for="maMay">Mã Máy</label> &nbsp; &nbsp;
-                            <input
-                              name="maMay"
-                              id="maMay"
-                              type="text"
-                              className="form-control"
-                              required=""
-                            />
-                          </div>
-                          <div className="form-group mb-3">
-                            <label for="nuocSanXuat">Nước Sản Xuất</label>{" "}
-                            &nbsp; &nbsp;
-                            <input
-                              name="nuocSanXuat"
-                              id="nuocSanXuat"
-                              type="text"
-                              className="form-control"
-                              required=""
-                            />
-                          </div>
-                          <div className="form-group mb-3">
-                            <label for="namSx">Năm Sản Xuất</label> &nbsp;
-                            &nbsp;
-                            <input
-                              name="namSx"
-                              id="namSx"
-                              type="text"
-                              className="form-control"
-                              required=""
-                            />
-                          </div>
-                          <div className="form-group mb-3">
-                            <label for="ghiChu">Ghi Chú</label> &nbsp; &nbsp;
-                            <input
-                              name="ghiChu"
-                              id="ghiChu"
-                              type="text"
-                              className="form-control"
-                              required=""
-                            />
-                          </div>
-                        </form>
-                      </ModalBody>
-                      <ModalFooter>
+      <>
+        <TopBar />
+        <LeftSideBar />
+        <div className="content-page">
+          <Modal isOpen={this.state.showInformation}>
+            <ModalHeader>Thông Tin Thiết Bị</ModalHeader>
+            <ModalBody>
+              <form className="needs-validation">
+                <div className="form-group mb-3">
+                  <label for="stt">Số Thứ Tự</label> &nbsp; &nbsp;
+                  <input
+                    name="stt"
+                    id="stt"
+                    type="text"
+                    className="form-control"
+                    required=""
+                    readOnly
+                    value={this.state.thietBis.stt}
+                  />
+                </div>
+                <div className="form-group mb-3">
+                  <label for="maTb1">Mã Thiết Bị</label> &nbsp; &nbsp;
+                  <input
+                    name="maTb1"
+                    id="maTb1"
+                    type="text"
+                    className="form-control"
+                    required=""
+                    readOnly
+                    value={this.state.thietBis.maTb1}
+                  />
+                </div>
+                <div className="form-group mb-3">
+                  <label for="idnhomTb">Mã Nhóm Thiết Bị</label> &nbsp; &nbsp;
+                  <input
+                    name="idnhomTb"
+                    id="idnhomTb"
+                    type="text"
+                    className="form-control"
+                    required=""
+                    readOnly
+                    value={this.state.thietBis.idnhomTb}
+                  />
+                </div>
+                <div className="form-group mb-3">
+                  <label for="maDonVi">Mã Đơn Vị</label> &nbsp; &nbsp;
+                  <input
+                    name="maDonVi"
+                    id="maDonVi"
+                    type="text"
+                    className="form-control"
+                    required=""
+                    readOnly
+                    value={this.state.thietBis.maDonVi}
+                  />
+                </div>
+                <div className="form-group mb-3">
+                  <label for="maLoai">Mã Loại</label> &nbsp; &nbsp;
+                  <input
+                    name="maLoai"
+                    id="maLoai"
+                    type="text"
+                    className="form-control"
+                    required=""
+                    readOnly
+                    value={this.state.thietBis.maLoai}
+                  />
+                </div>
+                <div className="form-group mb-3">
+                  <label for="maNhomKd">Mã Nhóm kiểm Định</label> &nbsp; &nbsp;
+                  <input
+                    name="maNhomKd"
+                    id="maNhomKd"
+                    type="text"
+                    className="form-control"
+                    required=""
+                    readOnly
+                    value={this.state.thietBis.maNhomKd}
+                  />
+                </div>
+                <div className="form-group mb-3">
+                  <label for="idhoaDon">Mã Hóa Đơn</label>
+                  &nbsp; &nbsp;
+                  <input
+                    name="idhoaDon"
+                    id="idhoaDon"
+                    type="text"
+                    className="form-control"
+                    required=""
+                    readOnly
+                    value={this.state.thietBis.idhoaDon}
+                  />
+                </div>
+                <div className="form-group mb-3">
+                  <label for="iddongTb">Mã Dòng Thiết Bị</label>
+                  &nbsp; &nbsp;
+                  <input
+                    name="iddongTb"
+                    id="iddongTb"
+                    type="text"
+                    className="form-control"
+                    required=""
+                    readOnly
+                    value={this.state.thietBis.iddongTb}
+                  />
+                </div>
+                <div className="form-group mb-3">
+                  <label for="ngayPhieuXuat">Ngày Phiếu Xuất</label> &nbsp;
+                  &nbsp;
+                  <input
+                    name="ngayPhieuXuat"
+                    id="ngayPhieuXuat"
+                    type="text"
+                    className="form-control"
+                    required=""
+                    readOnly
+                    value={this.state.thietBis.ngayPhieuXuat}
+                  />
+                </div>
+                <div className="form-group mb-3">
+                  <label for="ngayPhieuNhap">Ngày Phiếu Nhập</label> &nbsp;
+                  &nbsp;
+                  <input
+                    name="ngayPhieuNhap"
+                    id="ngayPhieuNhap"
+                    type="text"
+                    className="form-control"
+                    required=""
+                    readOnly
+                    value={this.state.thietBis.ngayPhieuNhap}
+                  />
+                </div>
+                <div className="form-group mb-3">
+                  <label for="tenTb">Tên Thiết Bị</label>
+                  &nbsp; &nbsp;
+                  <input
+                    name="tenTb"
+                    id="tenTb"
+                    type="text"
+                    className="form-control"
+                    required=""
+                    readOnly
+                    value={this.state.thietBis.tenTb}
+                  />
+                </div>
+                <div className="form-group mb-3">
+                  <label for="tenChuan">Tên Chuẩn</label> &nbsp; &nbsp;
+                  <input
+                    name="tenChuan"
+                    id="tenChuan"
+                    type="text"
+                    className="form-control"
+                    required=""
+                    readOnly
+                    value={this.state.thietBis.tenChuan}
+                  />
+                </div>
+                <div className="form-group mb-3">
+                  <label for="giaMua">Giá Mua</label> &nbsp; &nbsp;
+                  <input
+                    name="giaMua"
+                    id="giaMua"
+                    type="text"
+                    className="form-control"
+                    required=""
+                    readOnly
+                    value={this.state.thietBis.giaMua}
+                  />
+                </div>
+                <div className="form-group mb-3">
+                  <label for="donViBan">Đơn Vị Bán</label> &nbsp; &nbsp;
+                  <input
+                    name="donViBan"
+                    id="donViBan"
+                    type="text"
+                    className="form-control"
+                    required=""
+                    readOnly
+                    value={this.state.thietBis.donViBan}
+                  />
+                </div>
+                <div className="form-group mb-3">
+                  <label for="donViTinh">Đơn Vị Tính</label>
+                  <input
+                    name="donViTinh"
+                    id="donViTinh"
+                    type="text"
+                    className="form-control"
+                    required=""
+                    readOnly
+                    value={this.state.thietBis.donViTinh}
+                  />
+                </div>
+                <div className="form-group mb-3">
+                  <label for="soluong">Số Lượng</label> &nbsp; &nbsp;
+                  <input
+                    name="soluong"
+                    id="soluong"
+                    type="text"
+                    className="form-control"
+                    required=""
+                    readOnly
+                    value={this.state.thietBis.soluong}
+                  />
+                </div>
+                <div className="form-group mb-3">
+                  <label for="tinhTrang">Tình Trạng</label> &nbsp; &nbsp;
+                  <input
+                    name="tinhTrang"
+                    id="tinhTrang"
+                    type="text"
+                    className="form-control"
+                    required=""
+                    readOnly
+                    value={this.state.thietBis.tinhTrang}
+                  />
+                </div>
+                <div className="form-group mb-3">
+                  <label for="ngayTinhTrang">Ngày Tình Trạng</label> &nbsp;
+                  &nbsp;
+                  <input
+                    name="ngayTinhTrang"
+                    id="ngayTinhTrang"
+                    type="text"
+                    className="form-control"
+                    required=""
+                    readOnly
+                    value={this.state.thietBis.ngayTinhTrang}
+                  />
+                </div>
+                <div className="form-group mb-3">
+                  <label for="phapLy">Pháp Lý</label> &nbsp; &nbsp;
+                  <input
+                    name="phapLy"
+                    id="phapLy"
+                    type="text"
+                    className="form-control"
+                    required=""
+                    readOnly
+                    value={this.state.thietBis.phapLy}
+                  />
+                </div>
+                <div className="form-group mb-3">
+                  <label for="viTriLuuTruBkk">Vị Trí Lưu</label> &nbsp; &nbsp;
+                  <input
+                    name="viTriLuuTruBkk"
+                    id="viTriLuuTruBkk"
+                    type="text"
+                    className="form-control"
+                    required=""
+                    readOnly
+                    value={this.state.thietBis.viTriLuuTruBkk}
+                  />
+                </div>
+                <div className="form-group mb-3">
+                  <label for="maMay">Mã Máy</label> &nbsp; &nbsp;
+                  <input
+                    name="maMay"
+                    id="maMay"
+                    type="text"
+                    className="form-control"
+                    required=""
+                    readOnly
+                    value={this.state.thietBis.maMay}
+                  />
+                </div>
+                <div className="form-group mb-3">
+                  <label for="nuocSanXuat">Nước Sản Xuất</label> &nbsp; &nbsp;
+                  <input
+                    name="nuocSanXuat"
+                    id="nuocSanXuat"
+                    type="text"
+                    className="form-control"
+                    required=""
+                    readOnly
+                    value={this.state.thietBis.nuocSanXuat}
+                  />
+                </div>
+                <div className="form-group mb-3">
+                  <label for="namSx">Năm Sản Xuất</label> &nbsp; &nbsp;
+                  <input
+                    name="namSx"
+                    id="namSx"
+                    type="text"
+                    className="form-control"
+                    required=""
+                    readOnly
+                    value={this.state.thietBis.namSx}
+                  />
+                </div>
+                <div className="form-group mb-3">
+                  <label for="ghiChu">Ghi Chú</label> &nbsp; &nbsp;
+                  <input
+                    name="ghiChu"
+                    id="ghiChu"
+                    type="text"
+                    className="form-control"
+                    required=""
+                    readOnly
+                    value={this.state.thietBis.ghiChu}
+                  />
+                </div>
+              </form>
+            </ModalBody>
+            <ModalFooter>
+              <button
+                type="button"
+                className="btn btn-icon waves-effect waves-light btn-danger"
+                style={{ backgroundColor: "#f1556c" }}
+                onClick={this.closeModalShowInformation}
+              >
+                <i className="fas fa-times" />
+              </button>
+            </ModalFooter>
+          </Modal>
+          <Modal isOpen={this.state.showEdit}>
+            <ModalHeader>Chỉnh Sửa</ModalHeader>
+            <ModalBody>
+              <form className="needs-validation">
+                <div className="form-group mb-3">
+                  <label for="stt">Số Thứ Tự</label> &nbsp; &nbsp;
+                  <input
+                    name="stt"
+                    id="stt"
+                    type="text"
+                    className="form-control"
+                    required=""
+                    readOnly
+                    value={this.state.thietBis.stt}
+                  />
+                </div>
+                <div className="form-group mb-3">
+                  <label for="maTb1">Mã Thiết Bị</label> &nbsp; &nbsp;
+                  <input
+                    name="maTb1"
+                    id="maTb1"
+                    type="text"
+                    className="form-control"
+                    required=""
+                    readOnly
+                    value={this.state.thietBis.maTb1}
+                  />
+                </div>
+                <div className="form-group mb-3">
+                  <label for="idnhomTb">Mã Nhóm Thiết Bị</label> &nbsp; &nbsp;
+                  <input
+                    name="idnhomTb"
+                    id="idnhomTb"
+                    type="text"
+                    className="form-control"
+                    required=""
+                    readOnly
+                    value={this.state.thietBis.idnhomTb}
+                  />
+                </div>
+                <div className="form-group mb-3">
+                  <label for="maDonVi">Mã Đơn Vị</label> &nbsp; &nbsp;
+                  <input
+                    name="maDonVi"
+                    id="maDonVi"
+                    type="text"
+                    className="form-control"
+                    required=""
+                    readOnly
+                    value={this.state.thietBis.maDonVi}
+                  />
+                </div>
+                <div className="form-group mb-3">
+                  <label for="maLoai">Mã Loại</label> &nbsp; &nbsp;
+                  <input
+                    name="maLoai"
+                    id="maLoai"
+                    type="text"
+                    className="form-control"
+                    required=""
+                    readOnly
+                    value={this.state.thietBis.maLoai}
+                  />
+                </div>
+                <div className="form-group mb-3">
+                  <label for="maNhomKd">Mã Nhóm kiểm Định</label> &nbsp; &nbsp;
+                  <input
+                    name="maNhomKd"
+                    id="maNhomKd"
+                    type="text"
+                    className="form-control"
+                    required=""
+                    readOnly
+                    value={this.state.thietBis.maNhomKd}
+                  />
+                </div>
+                <div className="form-group mb-3">
+                  <label for="idhoaDon">Mã Hóa Đơn</label>
+                  &nbsp; &nbsp;
+                  <input
+                    name="idhoaDon"
+                    id="idhoaDon"
+                    type="text"
+                    className="form-control"
+                    required=""
+                    readOnly
+                    value={this.state.thietBis.idhoaDon}
+                  />
+                </div>
+                <div className="form-group mb-3">
+                  <label for="iddongTb">Mã Dòng Thiết Bị</label>
+                  &nbsp; &nbsp;
+                  <input
+                    name="iddongTb"
+                    id="iddongTb"
+                    type="text"
+                    className="form-control"
+                    required=""
+                    readOnly
+                    value={this.state.thietBis.iddongTb}
+                  />
+                </div>
+                <div className="form-group mb-3">
+                  <label for="ngayPhieuXuat">Ngày Phiếu Xuất</label> &nbsp;
+                  &nbsp;
+                  <input
+                    name="ngayPhieuXuat"
+                    id="ngayPhieuXuat"
+                    type="text"
+                    className="form-control"
+                    required=""
+                    value={this.state.thietBis.ngayPhieuXuat}
+                  />
+                </div>
+                <div className="form-group mb-3">
+                  <label for="ngayPhieuNhap">Ngày Phiếu Nhập</label> &nbsp;
+                  &nbsp;
+                  <input
+                    name="ngayPhieuNhap"
+                    id="ngayPhieuNhap"
+                    type="text"
+                    className="form-control"
+                    required=""
+                    value={this.state.thietBis.ngayPhieuNhap}
+                  />
+                </div>
+                <div className="form-group mb-3">
+                  <label for="tenTb">Tên Thiết Bị</label>
+                  &nbsp; &nbsp;
+                  <input
+                    name="tenTb"
+                    id="tenTb"
+                    type="text"
+                    className="form-control"
+                    required=""
+                    value={this.state.thietBis.tenTb}
+                  />
+                </div>
+                <div className="form-group mb-3">
+                  <label for="tenChuan">Tên Chuẩn</label> &nbsp; &nbsp;
+                  <input
+                    name="tenChuan"
+                    id="tenChuan"
+                    type="text"
+                    className="form-control"
+                    required=""
+                    value={this.state.thietBis.tenChuan}
+                  />
+                </div>
+                <div className="form-group mb-3">
+                  <label for="giaMua">Giá Mua</label> &nbsp; &nbsp;
+                  <input
+                    name="giaMua"
+                    id="giaMua"
+                    type="text"
+                    className="form-control"
+                    required=""
+                    value={this.state.thietBis.giaMua}
+                  />
+                </div>
+                <div className="form-group mb-3">
+                  <label for="donViBan">Đơn Vị Bán</label> &nbsp; &nbsp;
+                  <input
+                    name="donViBan"
+                    id="donViBan"
+                    type="text"
+                    className="form-control"
+                    required=""
+                    value={this.state.thietBis.donViBan}
+                  />
+                </div>
+                <div className="form-group mb-3">
+                  <label for="donViTinh">Đơn Vị Tính</label>
+                  <input
+                    name="donViTinh"
+                    id="donViTinh"
+                    type="text"
+                    className="form-control"
+                    required=""
+                    value={this.state.thietBis.donViTinh}
+                  />
+                </div>
+                <div className="form-group mb-3">
+                  <label for="soluong">Số Lượng</label> &nbsp; &nbsp;
+                  <input
+                    name="soluong"
+                    id="soluong"
+                    type="text"
+                    className="form-control"
+                    required=""
+                    value={this.state.thietBis.soluong}
+                  />
+                </div>
+                <div className="form-group mb-3">
+                  <label for="tinhTrang">Tình Trạng</label> &nbsp; &nbsp;
+                  <input
+                    name="tinhTrang"
+                    id="tinhTrang"
+                    type="text"
+                    className="form-control"
+                    required=""
+                    value={this.state.thietBis.tinhTrang}
+                  />
+                </div>
+                <div className="form-group mb-3">
+                  <label for="ngayTinhTrang">Ngày Tình Trạng</label> &nbsp;
+                  &nbsp;
+                  <input
+                    name="ngayTinhTrang"
+                    id="ngayTinhTrang"
+                    type="text"
+                    className="form-control"
+                    required=""
+                    value={this.state.thietBis.ngayTinhTrang}
+                  />
+                </div>
+                <div className="form-group mb-3">
+                  <label for="phapLy">Pháp Lý</label> &nbsp; &nbsp;
+                  <input
+                    name="phapLy"
+                    id="phapLy"
+                    type="text"
+                    className="form-control"
+                    required=""
+                    value={this.state.thietBis.phapLy}
+                  />
+                </div>
+                <div className="form-group mb-3">
+                  <label for="viTriLuuTruBkk">Vị Trí Lưu</label> &nbsp; &nbsp;
+                  <input
+                    name="viTriLuuTruBkk"
+                    id="viTriLuuTruBkk"
+                    type="text"
+                    className="form-control"
+                    required=""
+                    value={this.state.thietBis.viTriLuuTruBkk}
+                  />
+                </div>
+                <div className="form-group mb-3">
+                  <label for="maMay">Mã Máy</label> &nbsp; &nbsp;
+                  <input
+                    name="maMay"
+                    id="maMay"
+                    type="text"
+                    className="form-control"
+                    required=""
+                    readOnly
+                    value={this.state.thietBis.maMay}
+                  />
+                </div>
+                <div className="form-group mb-3">
+                  <label for="nuocSanXuat">Nước Sản Xuất</label> &nbsp; &nbsp;
+                  <input
+                    name="nuocSanXuat"
+                    id="nuocSanXuat"
+                    type="text"
+                    className="form-control"
+                    required=""
+                    value={this.state.thietBis.nuocSanXuat}
+                  />
+                </div>
+                <div className="form-group mb-3">
+                  <label for="namSx">Năm Sản Xuất</label> &nbsp; &nbsp;
+                  <input
+                    name="namSx"
+                    id="namSx"
+                    type="text"
+                    className="form-control"
+                    required=""
+                    value={this.state.thietBis.namSx}
+                  />
+                </div>
+                <div className="form-group mb-3">
+                  <label for="ghiChu">Ghi Chú</label> &nbsp; &nbsp;
+                  <input
+                    name="ghiChu"
+                    id="ghiChu"
+                    type="text"
+                    className="form-control"
+                    required=""
+                    value={this.state.thietBis.ghiChu}
+                  />
+                </div>
+              </form>
+            </ModalBody>
+            <ModalFooter>
+              <button
+                className="btn btn-icon waves-effect waves-light btn-success"
+                onClick={this.handleEdit}
+                style={{ backgroundColor: "#1abc9c" }}
+              >
+                <i class="fas fa-check"></i>
+              </button>
+              <button
+                type="button"
+                className="btn btn-icon waves-effect waves-light btn-danger"
+                style={{ backgroundColor: "#f1556c" }}
+                onClick={this.closeModal}
+              >
+                <i className="fas fa-times" />
+              </button>
+            </ModalFooter>
+          </Modal>
+          <div className="row">
+            <div className="col-12">
+              <div className="card-box">
+                <div className="responsive-table-plugin">
+                  <div className="table-rep-plugin">
+                    <div
+                      className="table-responsive"
+                      data-pattern="priority-columns"
+                    >
+                      <h2 style={{ textAlign: "center" }}>Thiết Bị</h2>
+                      <p>
                         <button
                           type="button"
-                          className="btn btn-icon waves-effect waves-light btn-success"
+                          className="btn btn-bordered-primary waves-effect width-md waves-light"
                           style={{ backgroundColor: "#1abc9c" }}
-                          onClick={this.handleSave}
+                          onClick={this.openModalAdd}
                         >
-                          <i class="fas fa-check"></i>
+                          <i class="fas fa-plus" />
+                          &nbsp; Thêm Thiết Bị Mới
                         </button>
-                        <button
-                          type="button"
-                          className="btn btn-icon waves-effect waves-light btn-danger"
-                          style={{ backgroundColor: "#f1556c" }}
-                          onClick={this.closeModalAdd}
-                        >
-                          <i className="fas fa-times" />
-                        </button>
-                      </ModalFooter>
-                    </Modal>
-                    {contents}
+                      </p>
+
+                      <Modal isOpen={this.state.showAdd}>
+                        <ModalHeader>Thêm Thiết Bị Mới</ModalHeader>
+                        <ModalBody>
+                          <form className="needs-validation">
+                            <div className="form-group mb-3">
+                              <label for="stt">Số Thứ Tự</label> &nbsp; &nbsp;
+                              <input
+                                name="stt"
+                                id="stt"
+                                type="text"
+                                className="form-control"
+                                required=""
+                              />
+                            </div>
+                            <div className="form-group mb-3">
+                              <label for="maTb1">Mã Thiết Bị</label> &nbsp;
+                              &nbsp;
+                              <input
+                                name="maTb1"
+                                id="maTb1"
+                                type="text"
+                                className="form-control"
+                                required=""
+                              />
+                            </div>
+                            <div className="form-group mb-3">
+                              <label for="idnhomTb">Mã Nhóm Thiết Bị</label>{" "}
+                              &nbsp; &nbsp;
+                              <input
+                                name="idnhomTb"
+                                id="idnhomTb"
+                                type="text"
+                                className="form-control"
+                                required=""
+                              />
+                            </div>
+                            <div className="form-group mb-3">
+                              <label for="maDonVi">Mã Đơn Vị</label> &nbsp;
+                              &nbsp;
+                              <input
+                                name="maDonVi"
+                                id="maDonVi"
+                                type="text"
+                                className="form-control"
+                                required=""
+                              />
+                            </div>
+                            <div className="form-group mb-3">
+                              <label for="maLoai">Mã Loại</label> &nbsp; &nbsp;
+                              <input
+                                name="maLoai"
+                                id="maLoai"
+                                type="text"
+                                className="form-control"
+                                required=""
+                              />
+                            </div>
+                            <div className="form-group mb-3">
+                              <label for="maNhomKd">Mã Nhóm kiểm Định</label>{" "}
+                              &nbsp; &nbsp;
+                              <input
+                                name="maNhomKd"
+                                id="maNhomKd"
+                                type="text"
+                                className="form-control"
+                                required=""
+                              />
+                            </div>
+                            <div className="form-group mb-3">
+                              <label for="idhoaDon">Mã Hóa Đơn</label>
+                              &nbsp; &nbsp;
+                              <input
+                                name="idhoaDon"
+                                id="idhoaDon"
+                                type="text"
+                                className="form-control"
+                                required=""
+                              />
+                            </div>
+                            <div className="form-group mb-3">
+                              <label for="iddongTb">Mã Dòng Thiết Bị</label>
+                              &nbsp; &nbsp;
+                              <input
+                                name="iddongTb"
+                                id="iddongTb"
+                                type="text"
+                                className="form-control"
+                                required=""
+                              />
+                            </div>
+                            <div className="form-group mb-3">
+                              <label for="ngayPhieuXuat">Ngày Phiếu Xuất</label>{" "}
+                              &nbsp; &nbsp;
+                              <input
+                                name="ngayPhieuXuat"
+                                id="ngayPhieuXuat"
+                                type="text"
+                                className="form-control"
+                                required=""
+                              />
+                            </div>
+                            <div className="form-group mb-3">
+                              <label for="ngayPhieuNhap">Ngày Phiếu Nhập</label>{" "}
+                              &nbsp; &nbsp;
+                              <input
+                                name="ngayPhieuNhap"
+                                id="ngayPhieuNhap"
+                                type="text"
+                                className="form-control"
+                                required=""
+                              />
+                            </div>
+                            <div className="form-group mb-3">
+                              <label for="tenTb">Tên Thiết Bị</label>
+                              &nbsp; &nbsp;
+                              <input
+                                name="tenTb"
+                                id="tenTb"
+                                type="text"
+                                className="form-control"
+                                required=""
+                              />
+                            </div>
+                            <div className="form-group mb-3">
+                              <label for="tenChuan">Tên Chuẩn</label> &nbsp;
+                              &nbsp;
+                              <input
+                                name="tenChuan"
+                                id="tenChuan"
+                                type="text"
+                                className="form-control"
+                                required=""
+                              />
+                            </div>
+                            <div className="form-group mb-3">
+                              <label for="giaMua">Giá Mua</label> &nbsp; &nbsp;
+                              <input
+                                name="giaMua"
+                                id="giaMua"
+                                type="text"
+                                className="form-control"
+                                required=""
+                              />
+                            </div>
+                            <div className="form-group mb-3">
+                              <label for="donViBan">Đơn Vị Bán</label> &nbsp;
+                              &nbsp;
+                              <input
+                                name="donViBan"
+                                id="donViBan"
+                                type="text"
+                                className="form-control"
+                                required=""
+                              />
+                            </div>
+                            <div className="form-group mb-3">
+                              <label for="donViTinh">Đơn Vị Tính</label>
+                              <input
+                                name="donViTinh"
+                                id="donViTinh"
+                                type="text"
+                                className="form-control"
+                                required=""
+                              />
+                            </div>
+                            <div className="form-group mb-3">
+                              <label for="soluong">Số Lượng</label> &nbsp;
+                              &nbsp;
+                              <input
+                                name="soluong"
+                                id="soluong"
+                                type="text"
+                                className="form-control"
+                                required=""
+                              />
+                            </div>
+                            <div className="form-group mb-3">
+                              <label for="tinhTrang">Tình Trạng</label> &nbsp;
+                              &nbsp;
+                              <input
+                                name="tinhTrang"
+                                id="tinhTrang"
+                                type="text"
+                                className="form-control"
+                                required=""
+                              />
+                            </div>
+                            <div className="form-group mb-3">
+                              <label for="ngayTinhTrang">Ngày Tình Trạng</label>{" "}
+                              &nbsp; &nbsp;
+                              <input
+                                name="ngayTinhTrang"
+                                id="ngayTinhTrang"
+                                type="text"
+                                className="form-control"
+                                required=""
+                              />
+                            </div>
+                            <div className="form-group mb-3">
+                              <label for="phapLy">Pháp Lý</label> &nbsp; &nbsp;
+                              <input
+                                name="phapLy"
+                                id="phapLy"
+                                type="text"
+                                className="form-control"
+                                required=""
+                              />
+                            </div>
+                            <div className="form-group mb-3">
+                              <label for="viTriLuuTruBkk">Vị Trí Lưu</label>{" "}
+                              &nbsp; &nbsp;
+                              <input
+                                name="viTriLuuTruBkk"
+                                id="viTriLuuTruBkk"
+                                type="text"
+                                className="form-control"
+                                required=""
+                              />
+                            </div>
+                            <div className="form-group mb-3">
+                              <label for="maMay">Mã Máy</label> &nbsp; &nbsp;
+                              <input
+                                name="maMay"
+                                id="maMay"
+                                type="text"
+                                className="form-control"
+                                required=""
+                              />
+                            </div>
+                            <div className="form-group mb-3">
+                              <label for="nuocSanXuat">Nước Sản Xuất</label>{" "}
+                              &nbsp; &nbsp;
+                              <input
+                                name="nuocSanXuat"
+                                id="nuocSanXuat"
+                                type="text"
+                                className="form-control"
+                                required=""
+                              />
+                            </div>
+                            <div className="form-group mb-3">
+                              <label for="namSx">Năm Sản Xuất</label> &nbsp;
+                              &nbsp;
+                              <input
+                                name="namSx"
+                                id="namSx"
+                                type="text"
+                                className="form-control"
+                                required=""
+                              />
+                            </div>
+                            <div className="form-group mb-3">
+                              <label for="ghiChu">Ghi Chú</label> &nbsp; &nbsp;
+                              <input
+                                name="ghiChu"
+                                id="ghiChu"
+                                type="text"
+                                className="form-control"
+                                required=""
+                              />
+                            </div>
+                          </form>
+                        </ModalBody>
+                        <ModalFooter>
+                          <button
+                            type="button"
+                            className="btn btn-icon waves-effect waves-light btn-success"
+                            style={{ backgroundColor: "#1abc9c" }}
+                            onClick={this.handleSave}
+                          >
+                            <i class="fas fa-check"></i>
+                          </button>
+                          <button
+                            type="button"
+                            className="btn btn-icon waves-effect waves-light btn-danger"
+                            style={{ backgroundColor: "#f1556c" }}
+                            onClick={this.closeModalAdd}
+                          >
+                            <i className="fas fa-times" />
+                          </button>
+                        </ModalFooter>
+                      </Modal>
+                      {contents}
+                    </div>
                   </div>
                 </div>
-              </div>
 
-              <ReactPaginate
-                previousLabel={
-                  <i style={{ color: "#7266ba" }} class="fas fa-chevron-left" />
-                }
-                nextLabel={
-                  <i
-                    style={{ color: "#7266ba" }}
-                    class="fas fa-chevron-right"
-                  ></i>
-                }
-                breakLabel={"..."}
-                breakClassName={"break-me"}
-                pageCount={this.state.pageCount}
-                marginPagesDisplayed={2}
-                pageRangeDisplayed={5}
-                onPageChange={this.handlePageClick}
-                containerClassName={"pagination"}
-                activeClassName={"active"}
-              />
+                <ReactPaginate
+                  previousLabel={
+                    <i
+                      style={{ color: "#7266ba" }}
+                      class="fas fa-chevron-left"
+                    />
+                  }
+                  nextLabel={
+                    <i
+                      style={{ color: "#7266ba" }}
+                      class="fas fa-chevron-right"
+                    ></i>
+                  }
+                  breakLabel={"..."}
+                  breakClassName={"break-me"}
+                  pageCount={this.state.pageCount}
+                  marginPagesDisplayed={2}
+                  pageRangeDisplayed={5}
+                  onPageChange={this.handlePageClick}
+                  containerClassName={"pagination"}
+                  activeClassName={"active"}
+                />
+              </div>
             </div>
           </div>
         </div>
-      </div>
+        <RightSideBar />
+        <div className="rightbar-overlay" />
+      </>
     );
   }
 

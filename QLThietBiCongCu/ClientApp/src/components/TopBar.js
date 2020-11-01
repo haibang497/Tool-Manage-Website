@@ -6,13 +6,13 @@ function TopBar(props) {
   const logOut = () => {
     cookies.remove("userAccount", { path: "/" });
     cookies.remove("userName", { path: "/" });
-    window.location.href = "/dangnhap";
+    window.location.href = "/";
   };
 
   useEffect(()=>{
     console.log("cccc",cookies.get("userAccount"));
     if(cookies.get("userAccount")==undefined){
-      window.location.href="/dangnhap";
+      window.location.href="/";
     }
   }, []);
 

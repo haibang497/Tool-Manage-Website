@@ -3,6 +3,9 @@ import { Modal, ModalHeader, ModalBody, ModalFooter, Button } from "reactstrap";
 import axios from "axios";
 import ReactPaginate from "react-paginate";
 import "./style/DonVi.css";
+import TopBar from "./TopBar";
+import LeftSideBar from "./SideBarLeft";
+import RightSideBar from "./SideBarRight";
 
 export class FetchHoaDon extends Component {
   constructor(props) {
@@ -115,242 +118,251 @@ export class FetchHoaDon extends Component {
       this.renderHoaDonsTable(this.state.hoaDons)
     );
     return (
-      <div className="content-page">
-        <Modal isOpen={this.state.showEdit}>
-          <ModalHeader>Chỉnh Sửa</ModalHeader>
-          <ModalBody>
-            <form className="needs-validation">
-              <div className="form-group mb-3">
-                <label for="idHoaDon">Mã Hóa Đơn</label> &nbsp; &nbsp;
-                <input
-                  name="idHoaDon"
-                  id="idHoaDon"
-                  type="text"
-                  className="form-control"
-                  required=""
-                  readOnly
-                  value={this.state.hoaDons.idhoaDon}
-                />
-              </div>
-              <div className="form-group mb-3">
-                <label for="soHoaDon">Số Hóa Đơn</label> &nbsp; &nbsp;
-                <input
-                  name="soHoaDon"
-                  id="soHoaDon"
-                  type="text"
-                  className="form-control"
-                  value={this.state.hoaDons.soHoaDon}
-                  required=""
-                />
-              </div>
-              <div className="form-group mb-3">
-                <label for="ngayHoaDon">Ngày Hóa Đơn</label> &nbsp; &nbsp;
-                <input
-                  name="ngayHoaDon"
-                  id="ngayHoaDon"
-                  type="text"
-                  className="form-control"
-                  value={this.state.hoaDons.ngayHoaDon}
-                  required=""
-                />
-              </div>
-              <div className="form-group mb-3">
-                <label for="loaiHoaDon">Loại Hóa Đơn</label> &nbsp; &nbsp;
-                <input
-                  name="loaiHoaDon"
-                  id="loaiHoaDon"
-                  type="text"
-                  className="form-control"
-                  value={this.state.hoaDons.loaiHoaDon}
-                  required=""
-                />
-              </div>
-              <div className="form-group mb-3">
-                <label for="tinhTrangHoaDon">Tình Trạng Hóa Đơn</label> &nbsp;
-                &nbsp;
-                <input
-                  name="tinhTrangHoaDon"
-                  id="tinhTrangHoaDon"
-                  type="text"
-                  className="form-control"
-                  value={this.state.hoaDons.tinhTrangHoaDon}
-                  required=""
-                />
-              </div>
-              <div className="form-group mb-3">
-                <label for="viTriLuuTruHoaDon">Vị Trí Lưu Trữ Hóa Đơn</label>{" "}
-                &nbsp; &nbsp;
-                <input
-                  name="viTriLuuTruHoaDon"
-                  id="viTriLuuTruHoaDon"
-                  type="text"
-                  className="form-control"
-                  value={this.state.hoaDons.viTriLuuTruHd}
-                  required=""
-                />
-              </div>
-            </form>
-          </ModalBody>
-          <ModalFooter>
-            <button
-              className="btn btn-icon waves-effect waves-light btn-success"
-              onClick={this.handleEdit}
-              style={{ backgroundColor: "#1abc9c" }}
-            >
-              <i class="fas fa-check"></i>
-            </button>
-            <button
-              className="btn btn-icon waves-effect waves-light btn-danger"
-              onClick={this.closeModal}
-              style={{ backgroundColor: "#f1556c" }}
-            >
-              <i className="fas fa-times" />
-            </button>
-          </ModalFooter>
-        </Modal>
-        <div className="row">
-          <div className="col-12">
-            <div className="card-box">
-              <div className="responsive-table-plugin">
-                <div className="table-rep-plugin">
-                  <div
-                    className="table-responsive"
-                    data-pattern="priority-columns"
-                  >
-                    <h2 style={{ textAlign: "center" }}> Hóa Đơn </h2>
-                    <p>
-                      <button
-                        type="button"
-                        className="btn btn-bordered-primary waves-effect width-md waves-light"
-                        style={{ backgroundColor: "#1abc9c" }}
-                        onClick={this.openModalAdd}
-                      >
-                        <i class="fas fa-plus" />
-                        &nbsp; Thêm Hóa Đơn Mới
-                      </button>
-                      <Modal isOpen={this.state.showAdd}>
-                        <ModalHeader>Thêm Đơn Vị Mới</ModalHeader>
-                        <ModalBody>
-                          <form className="needs-validation">
-                            <div className="form-group mb-3">
-                              <label for="idHoaDon">Mã Hóa Đơn</label> &nbsp;
-                              &nbsp;
-                              <input
-                                name="idHoaDon"
-                                id="idHoaDon"
-                                type="text"
-                                className="form-control"
-                                required=""
-                              />
-                            </div>
-                            <div className="form-group mb-3">
-                              <label for="soHoaDon">Số Hóa Đơn</label> &nbsp;
-                              &nbsp;
-                              <input
-                                name="soHoaDon"
-                                id="soHoaDon"
-                                type="text"
-                                className="form-control"
-                                required=""
-                              />
-                            </div>
-                            <div className="form-group mb-3">
-                              <label for="ngayHoaDon">Ngày Hóa Đơn</label>{" "}
-                              &nbsp; &nbsp;
-                              <input
-                                name="ngayHoaDon"
-                                id="ngayHoaDon"
-                                type="text"
-                                className="form-control"
-                                required=""
-                              />
-                            </div>
-                            <div className="form-group mb-3">
-                              <label for="loaiHoaDon">Loại Hóa Đơn</label>{" "}
-                              &nbsp; &nbsp;
-                              <input
-                                name="loaiHoaDon"
-                                id="loaiHoaDon"
-                                type="text"
-                                className="form-control"
-                                required=""
-                              />
-                            </div>
-                            <div className="form-group mb-3">
-                              <label for="tinhTrangHoaDon">
-                                Tình Trạng Hóa Đơn
-                              </label>
-                              &nbsp; &nbsp;
-                              <input
-                                name="tinhTrangHoaDon"
-                                id="tinhTrangHoaDon"
-                                type="text"
-                                className="form-control"
-                                required=""
-                              />
-                            </div>
-                            <div className="form-group mb-3">
-                              <label for="viTriLuuTruHoaDon">
-                                Vị Trí Lưu Trữ Hóa Đơn
-                              </label>
-                              &nbsp; &nbsp;
-                              <input
-                                name="viTriLuuTruHoaDon"
-                                id="viTriLuuTruHoaDon"
-                                type="text"
-                                className="form-control"
-                                required=""
-                              />
-                            </div>
-                          </form>
-                        </ModalBody>
-                        <ModalFooter>
-                          <button
-                            type="button"
-                            className="btn btn-icon waves-effect waves-light btn-success"
-                            style={{ backgroundColor: "#1abc9c" }}
-                            onClick={this.handleSave}
-                          >
-                            <i class="fas fa-check"></i>
-                          </button>
-                          <button
-                            type="button"
-                            className="btn btn-icon waves-effect waves-light btn-danger"
-                            style={{ backgroundColor: "#f1556c" }}
-                            onClick={this.closeModalAdd}
-                          >
-                            <i className="fas fa-times" />
-                          </button>
-                        </ModalFooter>
-                      </Modal>
-                    </p>
-                    {contents}
+      <>
+        <TopBar />
+        <LeftSideBar />
+        <div className="content-page">
+          <Modal isOpen={this.state.showEdit}>
+            <ModalHeader>Chỉnh Sửa</ModalHeader>
+            <ModalBody>
+              <form className="needs-validation">
+                <div className="form-group mb-3">
+                  <label for="idHoaDon">Mã Hóa Đơn</label> &nbsp; &nbsp;
+                  <input
+                    name="idHoaDon"
+                    id="idHoaDon"
+                    type="text"
+                    className="form-control"
+                    required=""
+                    readOnly
+                    value={this.state.hoaDons.idhoaDon}
+                  />
+                </div>
+                <div className="form-group mb-3">
+                  <label for="soHoaDon">Số Hóa Đơn</label> &nbsp; &nbsp;
+                  <input
+                    name="soHoaDon"
+                    id="soHoaDon"
+                    type="text"
+                    className="form-control"
+                    value={this.state.hoaDons.soHoaDon}
+                    required=""
+                  />
+                </div>
+                <div className="form-group mb-3">
+                  <label for="ngayHoaDon">Ngày Hóa Đơn</label> &nbsp; &nbsp;
+                  <input
+                    name="ngayHoaDon"
+                    id="ngayHoaDon"
+                    type="text"
+                    className="form-control"
+                    value={this.state.hoaDons.ngayHoaDon}
+                    required=""
+                  />
+                </div>
+                <div className="form-group mb-3">
+                  <label for="loaiHoaDon">Loại Hóa Đơn</label> &nbsp; &nbsp;
+                  <input
+                    name="loaiHoaDon"
+                    id="loaiHoaDon"
+                    type="text"
+                    className="form-control"
+                    value={this.state.hoaDons.loaiHoaDon}
+                    required=""
+                  />
+                </div>
+                <div className="form-group mb-3">
+                  <label for="tinhTrangHoaDon">Tình Trạng Hóa Đơn</label> &nbsp;
+                  &nbsp;
+                  <input
+                    name="tinhTrangHoaDon"
+                    id="tinhTrangHoaDon"
+                    type="text"
+                    className="form-control"
+                    value={this.state.hoaDons.tinhTrangHoaDon}
+                    required=""
+                  />
+                </div>
+                <div className="form-group mb-3">
+                  <label for="viTriLuuTruHoaDon">Vị Trí Lưu Trữ Hóa Đơn</label>{" "}
+                  &nbsp; &nbsp;
+                  <input
+                    name="viTriLuuTruHoaDon"
+                    id="viTriLuuTruHoaDon"
+                    type="text"
+                    className="form-control"
+                    value={this.state.hoaDons.viTriLuuTruHd}
+                    required=""
+                  />
+                </div>
+              </form>
+            </ModalBody>
+            <ModalFooter>
+              <button
+                className="btn btn-icon waves-effect waves-light btn-success"
+                onClick={this.handleEdit}
+                style={{ backgroundColor: "#1abc9c" }}
+              >
+                <i class="fas fa-check"></i>
+              </button>
+              <button
+                className="btn btn-icon waves-effect waves-light btn-danger"
+                onClick={this.closeModal}
+                style={{ backgroundColor: "#f1556c" }}
+              >
+                <i className="fas fa-times" />
+              </button>
+            </ModalFooter>
+          </Modal>
+          <div className="row">
+            <div className="col-12">
+              <div className="card-box">
+                <div className="responsive-table-plugin">
+                  <div className="table-rep-plugin">
+                    <div
+                      className="table-responsive"
+                      data-pattern="priority-columns"
+                    >
+                      <h2 style={{ textAlign: "center" }}> Hóa Đơn </h2>
+                      <p>
+                        <button
+                          type="button"
+                          className="btn btn-bordered-primary waves-effect width-md waves-light"
+                          style={{ backgroundColor: "#1abc9c" }}
+                          onClick={this.openModalAdd}
+                        >
+                          <i class="fas fa-plus" />
+                          &nbsp; Thêm Hóa Đơn Mới
+                        </button>
+                        <Modal isOpen={this.state.showAdd}>
+                          <ModalHeader>Thêm Đơn Vị Mới</ModalHeader>
+                          <ModalBody>
+                            <form className="needs-validation">
+                              <div className="form-group mb-3">
+                                <label for="idHoaDon">Mã Hóa Đơn</label> &nbsp;
+                                &nbsp;
+                                <input
+                                  name="idHoaDon"
+                                  id="idHoaDon"
+                                  type="text"
+                                  className="form-control"
+                                  required=""
+                                />
+                              </div>
+                              <div className="form-group mb-3">
+                                <label for="soHoaDon">Số Hóa Đơn</label> &nbsp;
+                                &nbsp;
+                                <input
+                                  name="soHoaDon"
+                                  id="soHoaDon"
+                                  type="text"
+                                  className="form-control"
+                                  required=""
+                                />
+                              </div>
+                              <div className="form-group mb-3">
+                                <label for="ngayHoaDon">Ngày Hóa Đơn</label>{" "}
+                                &nbsp; &nbsp;
+                                <input
+                                  name="ngayHoaDon"
+                                  id="ngayHoaDon"
+                                  type="text"
+                                  className="form-control"
+                                  required=""
+                                />
+                              </div>
+                              <div className="form-group mb-3">
+                                <label for="loaiHoaDon">Loại Hóa Đơn</label>{" "}
+                                &nbsp; &nbsp;
+                                <input
+                                  name="loaiHoaDon"
+                                  id="loaiHoaDon"
+                                  type="text"
+                                  className="form-control"
+                                  required=""
+                                />
+                              </div>
+                              <div className="form-group mb-3">
+                                <label for="tinhTrangHoaDon">
+                                  Tình Trạng Hóa Đơn
+                                </label>
+                                &nbsp; &nbsp;
+                                <input
+                                  name="tinhTrangHoaDon"
+                                  id="tinhTrangHoaDon"
+                                  type="text"
+                                  className="form-control"
+                                  required=""
+                                />
+                              </div>
+                              <div className="form-group mb-3">
+                                <label for="viTriLuuTruHoaDon">
+                                  Vị Trí Lưu Trữ Hóa Đơn
+                                </label>
+                                &nbsp; &nbsp;
+                                <input
+                                  name="viTriLuuTruHoaDon"
+                                  id="viTriLuuTruHoaDon"
+                                  type="text"
+                                  className="form-control"
+                                  required=""
+                                />
+                              </div>
+                            </form>
+                          </ModalBody>
+                          <ModalFooter>
+                            <button
+                              type="button"
+                              className="btn btn-icon waves-effect waves-light btn-success"
+                              style={{ backgroundColor: "#1abc9c" }}
+                              onClick={this.handleSave}
+                            >
+                              <i class="fas fa-check"></i>
+                            </button>
+                            <button
+                              type="button"
+                              className="btn btn-icon waves-effect waves-light btn-danger"
+                              style={{ backgroundColor: "#f1556c" }}
+                              onClick={this.closeModalAdd}
+                            >
+                              <i className="fas fa-times" />
+                            </button>
+                          </ModalFooter>
+                        </Modal>
+                      </p>
+                      {contents}
+                    </div>
                   </div>
                 </div>
+                <ReactPaginate
+                  previousLabel={
+                    <i
+                      style={{ color: "#7266ba" }}
+                      class="fas fa-chevron-left"
+                    />
+                  }
+                  nextLabel={
+                    <i
+                      style={{ color: "#7266ba" }}
+                      class="fas fa-chevron-right"
+                    ></i>
+                  }
+                  breakLabel={"..."}
+                  breakClassName={"break-me"}
+                  pageCount={this.state.pageCount}
+                  marginPagesDisplayed={2}
+                  pageRangeDisplayed={5}
+                  onPageChange={this.handlePageClick}
+                  containerClassName={"pagination"}
+                  activeClassName={"active"}
+                />
               </div>
-              <ReactPaginate
-                previousLabel={
-                  <i style={{ color: "#7266ba" }} class="fas fa-chevron-left" />
-                }
-                nextLabel={
-                  <i
-                    style={{ color: "#7266ba" }}
-                    class="fas fa-chevron-right"
-                  ></i>
-                }
-                breakLabel={"..."}
-                breakClassName={"break-me"}
-                pageCount={this.state.pageCount}
-                marginPagesDisplayed={2}
-                pageRangeDisplayed={5}
-                onPageChange={this.handlePageClick}
-                containerClassName={"pagination"}
-                activeClassName={"active"}
-              />
             </div>
           </div>
         </div>
-      </div>
+        <RightSideBar />
+        <div className="rightbar-overlay" />
+      </>
     );
   }
 

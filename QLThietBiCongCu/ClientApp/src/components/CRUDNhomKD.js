@@ -2,6 +2,9 @@ import React, { Component } from "react";
 import { Modal, ModalHeader, ModalBody, ModalFooter, Button } from "reactstrap";
 import axios from "axios";
 import "@fortawesome/fontawesome-free/css/fontawesome.min.css";
+import TopBar from "./TopBar";
+import LeftSideBar from "./SideBarLeft";
+import RightSideBar from "./SideBarRight";
 
 export class FetchNhomKDs extends Component {
   constructor(props) {
@@ -66,130 +69,136 @@ export class FetchNhomKDs extends Component {
       this.renderNhomKdsTable(this.state.nhomKds)
     );
     return (
-      <div className="content-page">
-        <Modal isOpen={this.state.showEdit}>
-          <ModalHeader>Chỉnh Sửa</ModalHeader>
-          <ModalBody>
-            <form className="needs-validation">
-              <div className="form-group mb-3">
-                <label for="maNhomKd">Mã Nhóm Kiểm Định</label> &nbsp; &nbsp;
-                <input
-                  name="maNhomKd"
-                  id="maNhomKd"
-                  type="text"
-                  className="form-control"
-                  required=""
-                  readOnly
-                  value={this.state.nhomKds.maNhomKd}
-                />
-              </div>
-              <div className="form-group mb-3">
-                <label for="nhomKd">Nhóm Kiểm Định</label> &nbsp; &nbsp;
-                <input
-                  name="nhomKd"
-                  id="nhomKd"
-                  type="text"
-                  className="form-control"
-                  value={this.state.nhomKds.nhomKd}
-                  required=""
-                />
-              </div>
-            </form>
-          </ModalBody>
-          <ModalFooter>
-            <button
-              className="btn btn-icon waves-effect waves-light btn-success"
-              onClick={this.handleEdit}
-              style={{ backgroundColor: "#1abc9c" }}
-            >
-              <i class="fas fa-check"></i>
-            </button>
-            <button
-              className="btn btn-icon waves-effect waves-light btn-danger"
-              onClick={this.closeModal}
-              style={{ backgroundColor: "#f1556c" }}
-            >
-              <i className="fas fa-times" />
-            </button>
-          </ModalFooter>
-        </Modal>
-        <div className="row">
-          <div className="col-12">
-            <div className="card-box">
-              <div className="responsive-table-plugin">
-                <div className="table-rep-plugin">
-                  <div
-                    className="table-responsive"
-                    data-pattern="priority-columns"
-                  >
-                    <h2 style={{ textAlign: "center" }}>Nhóm Kiểm Định</h2>
-                    <p>
-                      <button
-                        type="button"
-                        className="btn btn-bordered-primary waves-effect width-md waves-light"
-                        style={{ backgroundColor: "#1abc9c" }}
-                        onClick={this.openModalAdd}
-                      >
-                        <i class="fas fa-plus" />
-                        &nbsp; Thêm Nhóm Kiểm Định Mới
-                      </button>
-                    </p>
-                    <Modal isOpen={this.state.showAdd}>
-                      <ModalHeader>Thêm Đơn Vị Mới</ModalHeader>
-                      <ModalBody>
-                        <form className="needs-validation">
-                          <div className="form-group mb-3">
-                            <label for="maNhomKd">Mã Nhóm Kiểm Định</label>{" "}
-                            &nbsp; &nbsp;
-                            <input
-                              name="maNhomKd"
-                              id="maNhomKd"
-                              type="text"
-                              className="form-control"
-                              required=""
-                            />
-                          </div>
-                          <div className="form-group mb-3">
-                            <label for="nhomKd">Nhóm Kiểm Định</label> &nbsp;
-                            &nbsp;
-                            <input
-                              name="nhomKd"
-                              id="nhomKd"
-                              type="text"
-                              className="form-control"
-                              required=""
-                            />
-                          </div>
-                        </form>
-                      </ModalBody>
-                      <ModalFooter>
+      <>
+        <TopBar />
+        <LeftSideBar />
+        <div className="content-page">
+          <Modal isOpen={this.state.showEdit}>
+            <ModalHeader>Chỉnh Sửa</ModalHeader>
+            <ModalBody>
+              <form className="needs-validation">
+                <div className="form-group mb-3">
+                  <label for="maNhomKd">Mã Nhóm Kiểm Định</label> &nbsp; &nbsp;
+                  <input
+                    name="maNhomKd"
+                    id="maNhomKd"
+                    type="text"
+                    className="form-control"
+                    required=""
+                    readOnly
+                    value={this.state.nhomKds.maNhomKd}
+                  />
+                </div>
+                <div className="form-group mb-3">
+                  <label for="nhomKd">Nhóm Kiểm Định</label> &nbsp; &nbsp;
+                  <input
+                    name="nhomKd"
+                    id="nhomKd"
+                    type="text"
+                    className="form-control"
+                    value={this.state.nhomKds.nhomKd}
+                    required=""
+                  />
+                </div>
+              </form>
+            </ModalBody>
+            <ModalFooter>
+              <button
+                className="btn btn-icon waves-effect waves-light btn-success"
+                onClick={this.handleEdit}
+                style={{ backgroundColor: "#1abc9c" }}
+              >
+                <i class="fas fa-check"></i>
+              </button>
+              <button
+                className="btn btn-icon waves-effect waves-light btn-danger"
+                onClick={this.closeModal}
+                style={{ backgroundColor: "#f1556c" }}
+              >
+                <i className="fas fa-times" />
+              </button>
+            </ModalFooter>
+          </Modal>
+          <div className="row">
+            <div className="col-12">
+              <div className="card-box">
+                <div className="responsive-table-plugin">
+                  <div className="table-rep-plugin">
+                    <div
+                      className="table-responsive"
+                      data-pattern="priority-columns"
+                    >
+                      <h2 style={{ textAlign: "center" }}>Nhóm Kiểm Định</h2>
+                      <p>
                         <button
                           type="button"
-                          className="btn btn-icon waves-effect waves-light btn-success"
+                          className="btn btn-bordered-primary waves-effect width-md waves-light"
                           style={{ backgroundColor: "#1abc9c" }}
-                          onClick={this.handleSave}
+                          onClick={this.openModalAdd}
                         >
-                          <i class="fas fa-check"></i>
+                          <i class="fas fa-plus" />
+                          &nbsp; Thêm Nhóm Kiểm Định Mới
                         </button>
-                        <button
-                          type="button"
-                          className="btn btn-icon waves-effect waves-light btn-danger"
-                          style={{ backgroundColor: "#f1556c" }}
-                          onClick={this.closeModalAdd}
-                        >
-                          <i className="fas fa-times" />
-                        </button>
-                      </ModalFooter>
-                    </Modal>
+                      </p>
+                      <Modal isOpen={this.state.showAdd}>
+                        <ModalHeader>Thêm Đơn Vị Mới</ModalHeader>
+                        <ModalBody>
+                          <form className="needs-validation">
+                            <div className="form-group mb-3">
+                              <label for="maNhomKd">Mã Nhóm Kiểm Định</label>{" "}
+                              &nbsp; &nbsp;
+                              <input
+                                name="maNhomKd"
+                                id="maNhomKd"
+                                type="text"
+                                className="form-control"
+                                required=""
+                              />
+                            </div>
+                            <div className="form-group mb-3">
+                              <label for="nhomKd">Nhóm Kiểm Định</label> &nbsp;
+                              &nbsp;
+                              <input
+                                name="nhomKd"
+                                id="nhomKd"
+                                type="text"
+                                className="form-control"
+                                required=""
+                              />
+                            </div>
+                          </form>
+                        </ModalBody>
+                        <ModalFooter>
+                          <button
+                            type="button"
+                            className="btn btn-icon waves-effect waves-light btn-success"
+                            style={{ backgroundColor: "#1abc9c" }}
+                            onClick={this.handleSave}
+                          >
+                            <i class="fas fa-check"></i>
+                          </button>
+                          <button
+                            type="button"
+                            className="btn btn-icon waves-effect waves-light btn-danger"
+                            style={{ backgroundColor: "#f1556c" }}
+                            onClick={this.closeModalAdd}
+                          >
+                            <i className="fas fa-times" />
+                          </button>
+                        </ModalFooter>
+                      </Modal>
 
-                    {contents}
+                      {contents}
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
+        <RightSideBar />
+        <div className="rightbar-overlay" />
+      </>
     );
   }
 

@@ -1,25 +1,22 @@
 import React, { Component } from "react";
 import { Route } from "react-router";
 
-import TopBar from './TopBar';
-import LeftSideBar from './SideBarLeft';
-import RightSideBar from './SideBarRight';
-import {FectchDonVi} from './CRUDDonVi';
-import {FetchHoaDon} from './CRUDHoaDon';
-import {FetchLoaiTb} from './CRUDLoaiThietBi';
-import {FetchThietBi} from './CRUDThietBi';
-import {FectchDongTb} from './CRUDDongTB';
-import {FetchThongTinKD} from './CRUDThongTinKd';
-import {FetchNhomKDs} from './CRUDNhomKD';
-import {FetchNhomTBs} from './CRUDNhomTB';
+import { FectchDonVi } from "./CRUDDonVi";
+import { FetchHoaDon } from "./CRUDHoaDon";
+import { FetchLoaiTb } from "./CRUDLoaiThietBi";
+import { FetchThietBi } from "./CRUDThietBi";
+import { FectchDongTb } from "./CRUDDongTB";
+import { FetchThongTinKD } from "./CRUDThongTinKd";
+import { FetchNhomKDs } from "./CRUDNhomKD";
+import { FetchNhomTBs } from "./CRUDNhomTB";
+import { DangNhap } from "./DangNhap";
 
 export class MainLayout extends Component {
   render() {
     return (
       <>
         <div id="wrapper">
-          {/* <TopBar/>
-          <LeftSideBar/> */}
+          <Route exact path="/" component={DangNhap} />
           <Route path="/donvi" component={FectchDonVi} />
           <Route path="/dongthietbi" component={FectchDongTb} />
           <Route path="/hoadon" component={FetchHoaDon} />
@@ -29,8 +26,6 @@ export class MainLayout extends Component {
           <Route path="/nhomkiemdinh" component={FetchNhomKDs} />
           <Route path="/nhomthietbi" component={FetchNhomTBs} />
         </div>
-        <RightSideBar/>
-        <div className="rightbar-overlay" />
       </>
     );
   }

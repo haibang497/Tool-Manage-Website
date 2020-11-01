@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { Route } from "react-router";
 
 import "./custom.css";
-import { DangNhap } from "./components/DangNhap";
 import { MainLayout } from "./components/MainComponent";
 
 export default class App extends Component {
@@ -12,7 +11,6 @@ export default class App extends Component {
     return (
       <div>
         <MainLayout/>
-        <Route path='/' component={DangNhap}/>
       </div>
     );
   }

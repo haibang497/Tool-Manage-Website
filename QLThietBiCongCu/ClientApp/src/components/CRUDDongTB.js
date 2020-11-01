@@ -4,6 +4,9 @@ import "@fortawesome/fontawesome-free/css/fontawesome.min.css";
 import { Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import ReactPaginate from "react-paginate";
 import "./style/DonVi.css";
+import TopBar from "./TopBar";
+import LeftSideBar from "./SideBarLeft";
+import RightSideBar from "./SideBarRight";
 
 export class FectchDongTb extends Component {
   constructor(props) {
@@ -117,164 +120,173 @@ export class FectchDongTb extends Component {
       this.renderDongTbsTable(this.state.dongTbs)
     );
     return (
-      <div className="content-page">
-        <Modal isOpen={this.state.showEdit}>
-          <ModalHeader>Chỉnh Sửa</ModalHeader>
-          <ModalBody>
-            <form className="needs-validation">
-              <div className="form-group mb-3">
-                <label for="IdDongtb">Mã Dòng Thiết Bị</label> &nbsp; &nbsp;
-                <input
-                  name="IdDongtb"
-                  id="IdDongtb"
-                  type="text"
-                  className="form-control"
-                  readOnly
-                  value={this.state.dongTbs.iddongTb}
-                />
-              </div>
-              <div className="form-group mb-3">
-                <label for="tenDongTb">Tên Dòng Thiết Bị</label> &nbsp; &nbsp;
-                <input
-                  name="tenDongTb"
-                  id="tenDongTb"
-                  type="text"
-                  className="form-control"
-                  value={this.state.dongTbs.dongTb1}
-                />
-              </div>
-              <div className="form-group mb-3">
-                <label for="IdNhomTb">Mã Nhóm Thiết Bị</label> &nbsp; &nbsp;
-                <input
-                  name="IdNhomTb"
-                  id="IdNhomTb"
-                  type="text"
-                  className="form-control"
-                  value={this.state.dongTbs.idnhomTb}
-                />
-              </div>
-            </form>
-          </ModalBody>
-          <ModalFooter>
-            <button
-              className="btn btn-icon waves-effect waves-light btn-success"
-              onClick={this.handleEdit}
-              style={{ backgroundColor: "#1abc9c" }}
-            >
-              <i class="fas fa-check"></i>
-            </button>
-            <button
-              className="btn btn-icon waves-effect waves-light btn-danger"
-              onClick={this.closeModal}
-              style={{ backgroundColor: "#f1556c" }}
-            >
-              <i className="fas fa-times" />
-            </button>
-          </ModalFooter>
-        </Modal>
-        <div className="row">
-          <div className="col-12">
-            <div className="card-box">
-              <div className="responsive-table-plugin">
-                <div className="table-rep-plugin">
-                  <div
-                    className="table-responsive"
-                    data-pattern="priority-columns"
-                  >
-                    <h2 style={{ textAlign: "center" }}>Dòng Thiết Bị</h2>
-                    <p>
-                      <button
-                        type="button"
-                        className="btn btn-bordered-primary waves-effect width-md waves-light"
-                        style={{ backgroundColor: "#1abc9c" }}
-                        onClick={this.openModalAdd}
-                      >
-                        <i class="fas fa-plus" />
-                        &nbsp; Thêm Dòng Thiết Bị Mới
-                      </button>
-                    </p>
-                    <Modal isOpen={this.state.showAdd}>
-                      <ModalHeader>Thêm Đơn Vị Mới</ModalHeader>
-                      <ModalBody>
-                        <form className="needs-validation">
-                          <div className="form-group mb-3">
-                            <label for="IdDongtb">Mã Dòng Thiết Bị</label>{" "}
-                            &nbsp; &nbsp;
-                            <input
-                              name="IdDongtb"
-                              id="IdDongtb"
-                              type="text"
-                              className="form-control"
-                            />
-                          </div>
-                          <div className="form-group mb-3">
-                            <label for="tenDongTb">Tên Dòng Thiết Bị</label>{" "}
-                            &nbsp; &nbsp;
-                            <input
-                              name="tenDongTb"
-                              id="tenDongTb"
-                              type="text"
-                              className="form-control"
-                            />
-                          </div>
-                          <div className="form-group mb-3">
-                            <label for="IdNhomTb">Mã Nhóm Thiết Bị</label>{" "}
-                            &nbsp; &nbsp;
-                            <input
-                              name="IdNhomTb"
-                              id="IdNhomTb"
-                              type="text"
-                              className="form-control"
-                            />
-                          </div>
-                        </form>
-                      </ModalBody>
-                      <ModalFooter>
+      <>
+        <TopBar />
+        <LeftSideBar />
+        <div className="content-page">
+          <Modal isOpen={this.state.showEdit}>
+            <ModalHeader>Chỉnh Sửa</ModalHeader>
+            <ModalBody>
+              <form className="needs-validation">
+                <div className="form-group mb-3">
+                  <label for="IdDongtb">Mã Dòng Thiết Bị</label> &nbsp; &nbsp;
+                  <input
+                    name="IdDongtb"
+                    id="IdDongtb"
+                    type="text"
+                    className="form-control"
+                    readOnly
+                    value={this.state.dongTbs.iddongTb}
+                  />
+                </div>
+                <div className="form-group mb-3">
+                  <label for="tenDongTb">Tên Dòng Thiết Bị</label> &nbsp; &nbsp;
+                  <input
+                    name="tenDongTb"
+                    id="tenDongTb"
+                    type="text"
+                    className="form-control"
+                    value={this.state.dongTbs.dongTb1}
+                  />
+                </div>
+                <div className="form-group mb-3">
+                  <label for="IdNhomTb">Mã Nhóm Thiết Bị</label> &nbsp; &nbsp;
+                  <input
+                    name="IdNhomTb"
+                    id="IdNhomTb"
+                    type="text"
+                    className="form-control"
+                    value={this.state.dongTbs.idnhomTb}
+                  />
+                </div>
+              </form>
+            </ModalBody>
+            <ModalFooter>
+              <button
+                className="btn btn-icon waves-effect waves-light btn-success"
+                onClick={this.handleEdit}
+                style={{ backgroundColor: "#1abc9c" }}
+              >
+                <i class="fas fa-check"></i>
+              </button>
+              <button
+                className="btn btn-icon waves-effect waves-light btn-danger"
+                onClick={this.closeModal}
+                style={{ backgroundColor: "#f1556c" }}
+              >
+                <i className="fas fa-times" />
+              </button>
+            </ModalFooter>
+          </Modal>
+          <div className="row">
+            <div className="col-12">
+              <div className="card-box">
+                <div className="responsive-table-plugin">
+                  <div className="table-rep-plugin">
+                    <div
+                      className="table-responsive"
+                      data-pattern="priority-columns"
+                    >
+                      <h2 style={{ textAlign: "center" }}>Dòng Thiết Bị</h2>
+                      <p>
                         <button
                           type="button"
-                          className="btn btn-icon waves-effect waves-light btn-success"
+                          className="btn btn-bordered-primary waves-effect width-md waves-light"
                           style={{ backgroundColor: "#1abc9c" }}
-                          onClick={this.handleSave}
+                          onClick={this.openModalAdd}
                         >
-                          <i class="fas fa-check"></i>
+                          <i class="fas fa-plus" />
+                          &nbsp; Thêm Dòng Thiết Bị Mới
                         </button>
-                        <button
-                          type="button"
-                          className="btn btn-icon waves-effect waves-light btn-danger"
-                          style={{ backgroundColor: "#f1556c" }}
-                          onClick={this.closeModalAdd}
-                        >
-                          <i className="fas fa-times" />
-                        </button>
-                      </ModalFooter>
-                    </Modal>
-                    {contents}
+                      </p>
+                      <Modal isOpen={this.state.showAdd}>
+                        <ModalHeader>Thêm Đơn Vị Mới</ModalHeader>
+                        <ModalBody>
+                          <form className="needs-validation">
+                            <div className="form-group mb-3">
+                              <label for="IdDongtb">Mã Dòng Thiết Bị</label>{" "}
+                              &nbsp; &nbsp;
+                              <input
+                                name="IdDongtb"
+                                id="IdDongtb"
+                                type="text"
+                                className="form-control"
+                              />
+                            </div>
+                            <div className="form-group mb-3">
+                              <label for="tenDongTb">Tên Dòng Thiết Bị</label>{" "}
+                              &nbsp; &nbsp;
+                              <input
+                                name="tenDongTb"
+                                id="tenDongTb"
+                                type="text"
+                                className="form-control"
+                              />
+                            </div>
+                            <div className="form-group mb-3">
+                              <label for="IdNhomTb">Mã Nhóm Thiết Bị</label>{" "}
+                              &nbsp; &nbsp;
+                              <input
+                                name="IdNhomTb"
+                                id="IdNhomTb"
+                                type="text"
+                                className="form-control"
+                              />
+                            </div>
+                          </form>
+                        </ModalBody>
+                        <ModalFooter>
+                          <button
+                            type="button"
+                            className="btn btn-icon waves-effect waves-light btn-success"
+                            style={{ backgroundColor: "#1abc9c" }}
+                            onClick={this.handleSave}
+                          >
+                            <i class="fas fa-check"></i>
+                          </button>
+                          <button
+                            type="button"
+                            className="btn btn-icon waves-effect waves-light btn-danger"
+                            style={{ backgroundColor: "#f1556c" }}
+                            onClick={this.closeModalAdd}
+                          >
+                            <i className="fas fa-times" />
+                          </button>
+                        </ModalFooter>
+                      </Modal>
+                      {contents}
+                    </div>
                   </div>
                 </div>
+                <ReactPaginate
+                  previousLabel={
+                    <i
+                      style={{ color: "#7266ba" }}
+                      class="fas fa-chevron-left"
+                    />
+                  }
+                  nextLabel={
+                    <i
+                      style={{ color: "#7266ba" }}
+                      class="fas fa-chevron-right"
+                    ></i>
+                  }
+                  breakLabel={"..."}
+                  breakClassName={"break-me"}
+                  pageCount={this.state.pageCount}
+                  marginPagesDisplayed={2}
+                  pageRangeDisplayed={5}
+                  onPageChange={this.handlePageClick}
+                  containerClassName={"pagination"}
+                  activeClassName={"active"}
+                />
               </div>
-              <ReactPaginate
-                previousLabel={
-                  <i style={{ color: "#7266ba" }} class="fas fa-chevron-left" />
-                }
-                nextLabel={
-                  <i
-                    style={{ color: "#7266ba" }}
-                    class="fas fa-chevron-right"
-                  ></i>
-                }
-                breakLabel={"..."}
-                breakClassName={"break-me"}
-                pageCount={this.state.pageCount}
-                marginPagesDisplayed={2}
-                pageRangeDisplayed={5}
-                onPageChange={this.handlePageClick}
-                containerClassName={"pagination"}
-                activeClassName={"active"}
-              />
             </div>
           </div>
         </div>
-      </div>
+        <RightSideBar />
+        <div className="rightbar-overlay" />
+      </>
     );
   }
 

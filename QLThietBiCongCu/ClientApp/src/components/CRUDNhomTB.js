@@ -3,6 +3,9 @@ import { Modal, ModalHeader, ModalBody, ModalFooter, Button } from "reactstrap";
 import axios from "axios";
 import ReactPaginate from "react-paginate";
 import "./style/DonVi.css";
+import TopBar from "./TopBar";
+import LeftSideBar from "./SideBarLeft";
+import RightSideBar from "./SideBarRight";
 
 export class FetchNhomTBs extends Component {
   constructor(props) {
@@ -115,148 +118,157 @@ export class FetchNhomTBs extends Component {
       this.renderNhomTbsTable(this.state.nhomTbs)
     );
     return (
-      <div className="content-page">
-        <Modal isOpen={this.state.showEdit}>
-          <ModalHeader>Chỉnh Sửa</ModalHeader>
-          <ModalBody>
-            <form className="needs-validation">
-              <div className="form-group mb-3">
-                <label for="idnhomTb">Mã Nhóm Thiết Bị</label> &nbsp; &nbsp;
-                <input
-                  name="idnhomTb"
-                  id="idnhomTb"
-                  type="text"
-                  className="form-control"
-                  required=""
-                  readOnly
-                  value={this.state.nhomTbs.idnhomTb}
-                />
-              </div>
-              <div className="form-group mb-3">
-                <label for="nhomTb">Nhóm Thiết Bị</label> &nbsp; &nbsp;
-                <input
-                  name="nhomTb"
-                  id="nhomTb"
-                  type="text"
-                  className="form-control"
-                  value={this.state.nhomTbs.nhomTb1}
-                  required=""
-                />
-              </div>
-            </form>
-          </ModalBody>
-          <ModalFooter>
-            <button
-              className="btn btn-icon waves-effect waves-light btn-success"
-              onClick={this.handleEdit}
-              style={{ backgroundColor: "#1abc9c" }}
-            >
-              <i class="fas fa-check"></i>
-            </button>
-            <button
-              className="btn btn-icon waves-effect waves-light btn-danger"
-              onClick={this.closeModal}
-              style={{ backgroundColor: "#f1556c" }}
-            >
-              <i className="fas fa-times" />
-            </button>
-          </ModalFooter>
-        </Modal>
-        <div className="row">
-          <div className="col-12">
-            <div className="card-box">
-              <div className="responsive-table-plugin">
-                <div className="table-rep-plugin">
-                  <div
-                    className="table-responsive"
-                    data-pattern="priority-columns"
-                  >
-                    <h2 style={{ textAlign: "center" }}>Nhóm Thiết Bị</h2>
-                    <p>
-                      <button
-                        type="button"
-                        className="btn btn-bordered-primary waves-effect width-md waves-light"
-                        style={{ backgroundColor: "#1abc9c" }}
-                        onClick={this.openModalAdd}
-                      >
-                        <i class="fas fa-plus" />
-                        &nbsp; Thêm Nhóm Thiết Bị Mới
-                      </button>
-                    </p>
-                    <Modal isOpen={this.state.showAdd}>
-                      <ModalHeader>Thêm Nhóm Thiết Bị Mới</ModalHeader>
-                      <ModalBody>
-                        <form className="needs-validation">
-                          <div className="form-group mb-3">
-                            <label for="idnhomTb">Mã Nhóm Thiết Bị</label>{" "}
-                            &nbsp; &nbsp;
-                            <input
-                              name="idnhomTb"
-                              id="idnhomTb"
-                              type="text"
-                              className="form-control"
-                              required=""
-                            />
-                          </div>
-                          <div className="form-group mb-3">
-                            <label for="nhomTb">Tên Nhóm Thiết Bị</label> &nbsp;
-                            &nbsp;
-                            <input
-                              name="nhomTb"
-                              id="nhomTb"
-                              type="text"
-                              className="form-control"
-                              required=""
-                            />
-                          </div>
-                        </form>
-                      </ModalBody>
-                      <ModalFooter>
+      <>
+        <TopBar />
+        <LeftSideBar />
+        <div className="content-page">
+          <Modal isOpen={this.state.showEdit}>
+            <ModalHeader>Chỉnh Sửa</ModalHeader>
+            <ModalBody>
+              <form className="needs-validation">
+                <div className="form-group mb-3">
+                  <label for="idnhomTb">Mã Nhóm Thiết Bị</label> &nbsp; &nbsp;
+                  <input
+                    name="idnhomTb"
+                    id="idnhomTb"
+                    type="text"
+                    className="form-control"
+                    required=""
+                    readOnly
+                    value={this.state.nhomTbs.idnhomTb}
+                  />
+                </div>
+                <div className="form-group mb-3">
+                  <label for="nhomTb">Nhóm Thiết Bị</label> &nbsp; &nbsp;
+                  <input
+                    name="nhomTb"
+                    id="nhomTb"
+                    type="text"
+                    className="form-control"
+                    value={this.state.nhomTbs.nhomTb1}
+                    required=""
+                  />
+                </div>
+              </form>
+            </ModalBody>
+            <ModalFooter>
+              <button
+                className="btn btn-icon waves-effect waves-light btn-success"
+                onClick={this.handleEdit}
+                style={{ backgroundColor: "#1abc9c" }}
+              >
+                <i class="fas fa-check"></i>
+              </button>
+              <button
+                className="btn btn-icon waves-effect waves-light btn-danger"
+                onClick={this.closeModal}
+                style={{ backgroundColor: "#f1556c" }}
+              >
+                <i className="fas fa-times" />
+              </button>
+            </ModalFooter>
+          </Modal>
+          <div className="row">
+            <div className="col-12">
+              <div className="card-box">
+                <div className="responsive-table-plugin">
+                  <div className="table-rep-plugin">
+                    <div
+                      className="table-responsive"
+                      data-pattern="priority-columns"
+                    >
+                      <h2 style={{ textAlign: "center" }}>Nhóm Thiết Bị</h2>
+                      <p>
                         <button
                           type="button"
-                          className="btn btn-icon waves-effect waves-light btn-success"
+                          className="btn btn-bordered-primary waves-effect width-md waves-light"
                           style={{ backgroundColor: "#1abc9c" }}
-                          onClick={this.handleSave}
+                          onClick={this.openModalAdd}
                         >
-                          <i class="fas fa-check"></i>
+                          <i class="fas fa-plus" />
+                          &nbsp; Thêm Nhóm Thiết Bị Mới
                         </button>
-                        <button
-                          type="button"
-                          className="btn btn-icon waves-effect waves-light btn-danger"
-                          style={{ backgroundColor: "#f1556c" }}
-                          onClick={this.closeModalAdd}
-                        >
-                          <i className="fas fa-times" />
-                        </button>
-                      </ModalFooter>
-                    </Modal>
-                    {contents}
+                      </p>
+                      <Modal isOpen={this.state.showAdd}>
+                        <ModalHeader>Thêm Nhóm Thiết Bị Mới</ModalHeader>
+                        <ModalBody>
+                          <form className="needs-validation">
+                            <div className="form-group mb-3">
+                              <label for="idnhomTb">Mã Nhóm Thiết Bị</label>{" "}
+                              &nbsp; &nbsp;
+                              <input
+                                name="idnhomTb"
+                                id="idnhomTb"
+                                type="text"
+                                className="form-control"
+                                required=""
+                              />
+                            </div>
+                            <div className="form-group mb-3">
+                              <label for="nhomTb">Tên Nhóm Thiết Bị</label>{" "}
+                              &nbsp; &nbsp;
+                              <input
+                                name="nhomTb"
+                                id="nhomTb"
+                                type="text"
+                                className="form-control"
+                                required=""
+                              />
+                            </div>
+                          </form>
+                        </ModalBody>
+                        <ModalFooter>
+                          <button
+                            type="button"
+                            className="btn btn-icon waves-effect waves-light btn-success"
+                            style={{ backgroundColor: "#1abc9c" }}
+                            onClick={this.handleSave}
+                          >
+                            <i class="fas fa-check"></i>
+                          </button>
+                          <button
+                            type="button"
+                            className="btn btn-icon waves-effect waves-light btn-danger"
+                            style={{ backgroundColor: "#f1556c" }}
+                            onClick={this.closeModalAdd}
+                          >
+                            <i className="fas fa-times" />
+                          </button>
+                        </ModalFooter>
+                      </Modal>
+                      {contents}
+                    </div>
                   </div>
                 </div>
+                <ReactPaginate
+                  previousLabel={
+                    <i
+                      style={{ color: "#7266ba" }}
+                      class="fas fa-chevron-left"
+                    />
+                  }
+                  nextLabel={
+                    <i
+                      style={{ color: "#7266ba" }}
+                      class="fas fa-chevron-right"
+                    ></i>
+                  }
+                  breakLabel={"..."}
+                  breakClassName={"break-me"}
+                  pageCount={this.state.pageCount}
+                  marginPagesDisplayed={2}
+                  pageRangeDisplayed={5}
+                  onPageChange={this.handlePageClick}
+                  containerClassName={"pagination"}
+                  activeClassName={"active"}
+                />
               </div>
-              <ReactPaginate
-                previousLabel={
-                  <i style={{ color: "#7266ba" }} class="fas fa-chevron-left" />
-                }
-                nextLabel={
-                  <i
-                    style={{ color: "#7266ba" }}
-                    class="fas fa-chevron-right"
-                  ></i>
-                }
-                breakLabel={"..."}
-                breakClassName={"break-me"}
-                pageCount={this.state.pageCount}
-                marginPagesDisplayed={2}
-                pageRangeDisplayed={5}
-                onPageChange={this.handlePageClick}
-                containerClassName={"pagination"}
-                activeClassName={"active"}
-              />
             </div>
           </div>
         </div>
-      </div>
+        <RightSideBar />
+        <div className="rightbar-overlay" />
+      </>
     );
   }
 
