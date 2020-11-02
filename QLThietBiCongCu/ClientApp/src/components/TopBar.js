@@ -233,11 +233,6 @@ function TopBar(props) {
             aria-haspopup="false"
             aria-expanded="false"
           >
-            <img
-              src="assets\images\users\avatar-1.jpg"
-              alt="user-image"
-              className="rounded-circle"
-            />
             <span className="pro-user-name ml-1">
               {cookies.get("userName")} <i className="mdi mdi-chevron-down" />
             </span>

@@ -36,7 +36,7 @@ export function DangNhap(props) {
           alert("Đăng Nhập Thành Công");
           cookies.get("userAccount");
           console.log("aaaaaa", cookies.get("userAccount"));
-          window.location.href="/donvi";
+          window.location.href="/dangky";
         } else {
           alert("Tên Đăng Nhập Hoặc Mật Khẩu Không Đúng");
         }
@@ -48,8 +48,7 @@ export function DangNhap(props) {
 
   useEffect(()=>{
     if(cookies.get("userAccount")){
-      console.log("bbbbb", cookies.get("userAccount"));
-      window.location.href="/donvi";
+      window.location.href="/dangky";
     }
   }, []);
 

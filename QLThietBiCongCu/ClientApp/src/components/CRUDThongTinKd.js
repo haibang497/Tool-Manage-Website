@@ -777,7 +777,7 @@ export class FetchThongTinKD extends Component {
       this.renderDonVisTable(thongTins);
     });
   };
-  handleEdit = (event) => {
+  handleEdit = () => {
     var id = document.getElementById("maKd").value;
     var newThongTin = {
       maKd: document.getElementById("maKd").value,
@@ -802,7 +802,6 @@ export class FetchThongTinKD extends Component {
         window.location.href = "/thongtinkiemdinh";
       } else {
         alert("Không Thể Chỉnh Sửa");
-        // window.location.href = "/test-fetch-donvi";
       }
     });
   };

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -79,6 +81,7 @@ namespace QLThietBiCongCu.Controllers
         [HttpPost]
         public async Task<ActionResult<User>> PostUser(User user)
         {
+            
             _context.User.Add(user);
             await _context.SaveChangesAsync();
 

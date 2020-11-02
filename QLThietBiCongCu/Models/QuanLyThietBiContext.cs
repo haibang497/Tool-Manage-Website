@@ -421,6 +421,5 @@ namespace QLThietBiCongCu.Models
 
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
 
-        public DbSet<QLThietBiCongCu.Models.UserModel> UserModel { get; set; }
     }
 }
