@@ -13,6 +13,7 @@ namespace QLThietBiCongCu.Models
         public string MaDonVi { get; set; }
         public string TenDonVi { get; set; }
         public int? Delete { get; set; }
+        public string UserDo { get; set; }
 
         public virtual ICollection<MaTb> MaTb { get; set; }
     }
