@@ -445,13 +445,14 @@ export class DangKy extends Component {
                 <thead style={{ backgroundColor: "#7266ba", color: "#fff" }}>
                     <tr>
                         <th> ID </th>
-                        <th> User Account </th>
-                        <th> UserName </th>
+                        <th> Tên Tài Khoản </th>
+                        <th> Tên Người Dùng </th>
                         <th> Số Điện Thoại </th>
                         <th> Ngày Sinh </th>
                         <th> Email </th>
                         <th> Địa Chỉ </th>
                         <th>Quyền</th>
+                        <th>Thao tác</th>
                     </tr>
                 </thead>
                 <tbody>
