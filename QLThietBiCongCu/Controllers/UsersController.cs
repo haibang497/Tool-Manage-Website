@@ -22,26 +22,46 @@ namespace QLThietBiCongCu.Controllers
             _context = context;
         }
 
-        // GET: api/Users
-        [HttpGet]
+        //GET: api/Users
+       //[HttpGet]
         public async Task<ActionResult<IEnumerable<User>>> GetUser()
         {
             return await _context.User.ToListAsync();
         }
+        //[HttpGet]
+        //public List<User> GetUser(){
+        //    var query = from u in _context.User
+        //                join m in _context.UserPer
+        //                on u.IdUser equals m.IdUser
+        //                join p in _context.Permission
+        //                on m.IdPer equals p.IdPer
+        //                select new
+        //                {
+        //                    u.UserAccount,
+        //                    u.Password,
+        //                    u.UserName,
+        //                    u.PhoneNumber,
+        //                    u.Bday,
+        //                    u.Email,
+        //                    u.Address,
+        //                    p.NamePer
+        //                };
+        //    return query.ToList();
+        //}
 
-        // GET: api/Users/5
-        // [HttpGet("{id}")]
-        // public async Task<ActionResult<User>> GetUser(int id)
-        // {
-        //     var user = await _context.User.FindAsync(id);
+        //GET: api/Users/5
+        [HttpGet("{id}")]
+        public async Task<ActionResult<User>> GetUser(int id)
+        {
+            var user = await _context.User.FindAsync(id);
 
-        //     if (user == null)
-        //     {
-        //         return NotFound();
-        //     }
+            if (user == null)
+            {
+                return NotFound();
+            }
 
-        //     return user;
-        // }
+            return user;
+        }
 
         // PUT: api/Users/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for

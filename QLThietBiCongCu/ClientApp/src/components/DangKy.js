@@ -69,7 +69,7 @@ export class DangKy extends Component {
     }
 
     getData = () => {
-        axios.get("api/Users").then((res) => {
+        axios.get("api/users").then((res) => {
             var data = res.data;
             var slice = data.slice(
                 this.state.offset,

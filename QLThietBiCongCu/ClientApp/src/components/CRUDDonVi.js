@@ -240,6 +240,7 @@ export class FectchDonVi extends Component {
                                                                 className="form-control"
                                                                 required=""
                                                                 value={this.cookies.get("userAccount")}
+                                                                readOnly
                                                             />
                                                         </div>
                                                     </form>
