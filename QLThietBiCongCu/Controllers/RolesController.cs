@@ -19,7 +19,10 @@ namespace QLThietBiCongCu.Controllers {
         // GET: api/<RolesController>
         [HttpGet]
         public List<RoleModel> GetRole () {
-            var query = (from u in _context.User join up in _context.UserPer on u.IdUser equals up.IdUser join p in _context.Permission on up.IdPer equals p.IdPer select new RoleModel {
+            var query = (from u in _context.User 
+            join up in _context.UserPer on u.IdUser equals up.IdUser 
+            join p in _context.Permission on up.IdPer equals p.IdPer 
+            select new RoleModel {
                 IdUser = u.IdUser,
                     UserAccount = u.UserAccount,
                     UserName = u.UserName,
@@ -34,8 +37,12 @@ namespace QLThietBiCongCu.Controllers {
         }
 
         [HttpGet ("{id}")]
-        public List<RoleModel> GetRole (int id) {
-            var query = (from u in _context.User join up in _context.UserPer on u.IdUser equals up.IdUser join p in _context.Permission on up.IdPer equals p.IdPer select new RoleModel {
+        public RoleModel GetRole (int id) {
+            var query = (from u in _context.User 
+            join up in _context.UserPer on u.IdUser equals up.IdUser 
+            join p in _context.Permission on up.IdPer equals p.IdPer 
+            where u.IdUser == up.IdUser &&  up.IdPer == p.IdPer && u.IdUser== id
+            select new RoleModel {
                 IdUser = u.IdUser,
                     UserAccount = u.UserAccount,
                     UserName = u.UserName,
@@ -45,7 +52,7 @@ namespace QLThietBiCongCu.Controllers {
                     Bday = u.Bday,
                     Email = u.Email,
                     Address = u.Address
-            }).Where ();
+            }).SingleOrDefault();
             return query;
         }
 
