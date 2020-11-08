@@ -7,7 +7,9 @@ namespace QLThietBiCongCu.Models
 {
     public class RoleModel
     {
+        public int IdUser { get; set; }
         public string UserAccount { get; set; }
+        public string Password { get; set; }
         public string UserName { get; set; }
         public string PhoneNumber { get; set; }
         public string Bday { get; set; }

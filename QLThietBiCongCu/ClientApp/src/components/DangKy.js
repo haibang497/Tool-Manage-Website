@@ -59,14 +59,7 @@ export class DangKy extends Component {
         this.getData();
     }
 
-    async populateUsersData() {
-        const response = await fetch("api/Users");
-        const data = await response.json();
-        this.setState({
-            users: data,
-            loading: false,
-        });
-    }
+    
 
     getData = () => {
         axios.get("api/users").then((res) => {

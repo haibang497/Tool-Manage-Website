@@ -11,6 +11,7 @@ import { FetchNhomKDs } from "./CRUDNhomKD";
 import { FetchNhomTBs } from "./CRUDNhomTB";
 import { DangNhap } from "./DangNhap";
 import { DangKy } from "./DangKy";
+import { DangKyAdmin } from "./DangKyAdmin";
 
 export class MainLayout extends Component {
   render() {
@@ -25,8 +26,9 @@ export class MainLayout extends Component {
           <Route path="/thietbi" component={FetchThietBi} />
           <Route path="/loaithietbi" component={FetchLoaiTb} />
           <Route path="/nhomkiemdinh" component={FetchNhomKDs} />
-                <Route path="/nhomthietbi" component={FetchNhomTBs} />
-                <Route path="/dangky" component={DangKy}/>
+          <Route path="/nhomthietbi" component={FetchNhomTBs} />
+          <Route path="/dangky" component={DangKy} />
+          <Route path="/dangkyadmin" component={DangKyAdmin} />
         </div>
       </>
     );
