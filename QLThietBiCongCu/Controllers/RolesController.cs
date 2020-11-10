@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using QLThietBiCongCu.Models;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -53,6 +54,26 @@ namespace QLThietBiCongCu.Controllers {
                     Email = u.Email,
                     Address = u.Address
             }).SingleOrDefault();
+            return query;
+        }
+        [HttpGet("{userAccount}/{password}")]
+        public List<RoleModel> Login(string userAccount, string password)
+        {
+            var query=(from u in _context.User 
+            join up in _context.UserPer on u.IdUser equals up.IdUser 
+            join p in _context.Permission on up.IdPer equals p.IdPer 
+            where u.UserAccount.Equals(userAccount)&&u.Password.Equals(password)
+            select new RoleModel {
+                IdUser = u.IdUser,
+                    UserAccount = u.UserAccount,
+                    UserName = u.UserName,
+                    Password = u.Password,
+                    NamePer = p.NamePer,
+                    PhoneNumber = u.PhoneNumber,
+                    Bday = u.Bday,
+                    Email = u.Email,
+                    Address = u.Address
+            }).ToList();
             return query;
         }
 

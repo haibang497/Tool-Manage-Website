@@ -186,17 +186,7 @@ export class DangKyAdmin extends Component {
                     required=""
                   />
                 </div>
-                <div className="form-group mb-3">
-                  <label for="email">Ngày Sinh</label> &nbsp; &nbsp;
-                  <input
-                    name="email"
-                    id="email"
-                    type="text"
-                    className="form-control"
-                    value={this.state.users.BDay}
-                    required=""
-                  />
-                </div>
+                
                 <div className="form-group mb-3">
                   <label for="email">Email</label> &nbsp; &nbsp;
                   <input

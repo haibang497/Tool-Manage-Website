@@ -12,13 +12,14 @@ import { FetchNhomTBs } from "./CRUDNhomTB";
 import { DangNhap } from "./DangNhap";
 import { DangKy } from "./DangKy";
 import { DangKyAdmin } from "./DangKyAdmin";
+import {DangNhapAdmin} from "./DangNhapAdmin";
 
 export class MainLayout extends Component {
   render() {
     return (
       <>
         <div id="wrapper">
-          <Route exact path="/" component={DangNhap} />
+          <Route exact path="/" component={DangNhapAdmin} />
           <Route path="/donvi" component={FectchDonVi} />
           <Route path="/dongthietbi" component={FectchDongTb} />
           <Route path="/hoadon" component={FetchHoaDon} />

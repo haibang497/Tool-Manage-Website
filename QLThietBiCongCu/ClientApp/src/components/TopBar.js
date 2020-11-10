@@ -6,15 +6,21 @@ function TopBar(props) {
   const logOut = () => {
     cookies.remove("userAccount", { path: "/" });
     cookies.remove("userName", { path: "/" });
+    cookies.remove("namePer", { path: "/" });
     window.location.href = "/";
   };
 
   useEffect(()=>{
-    console.log("cccc",cookies.get("userAccount"));
     if(cookies.get("userAccount")==undefined){
       window.location.href="/";
     }
   }, []);
+
+  // useEffect(()=>{
+  //   if(cookies.get("namePer")!="Full"){
+  //     window.location.href="/dangky";
+  //   }
+  // }, []);
 
   return (
     <div className="navbar-custom">
