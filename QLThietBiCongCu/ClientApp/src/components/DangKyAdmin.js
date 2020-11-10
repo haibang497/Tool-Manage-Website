@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Modal, ModalHeader, ModalBody, ModalFooter, Button } from "reactstrap";
+import { Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import axios from "axios";
 import md5 from "md5";
 

@@ -40,7 +40,7 @@ export function DangNhapAdmin(props) {
           if (cookies.get("namePer") == "Full") {
             window.location.href = "/dangkyadmin";
           } else {
-              window.location.href="/dangky";
+              window.location.href="/donvi";
           }
         } else {
           alert("Tên Đăng Nhập Hoặc Mật Khẩu Không Đúng");
@@ -57,11 +57,6 @@ export function DangNhapAdmin(props) {
     }
   }, []);
 
-  useEffect(()=>{
-    if(cookies.get("namePer")=="Full"){
-        window.location.href="/dangkyadmin";
-    }
-  }, [])
 
   return (
     <div className="account-pages mt-5 mb-5">
