@@ -8,6 +8,7 @@ import "./style/DonVi.css";
 import TopBar from "./TopBar";
 import LeftSideBar from "./SideBarLeft";
 import RightSideBar from "./SideBarRight";
+import Cookies from "universal-cookie";
 
 export class DangKyAdmin extends Component {
   constructor(props) {
@@ -26,6 +27,7 @@ export class DangKyAdmin extends Component {
 
     this._click = this._click.bind(this);
   }
+  cookies = new Cookies();
   _click() {
     this.setState((prevState) => ({ readOnly: !prevState.readOnly }));
   }
@@ -55,7 +57,6 @@ export class DangKyAdmin extends Component {
   };
 
   componentDidMount() {
-    // this.populateHoaDonsData();
     this.getData();
   }
 
@@ -101,6 +102,16 @@ export class DangKyAdmin extends Component {
       users: slice,
     });
   };
+
+  loadDataFromTable(users) {
+    // if(this.cookies.get("namePer")=="Full"){
+    //   console.log(this.cookies.get("namePer"));
+    //   this.renderUsersTable(this.state.users);
+    // }
+    // else {
+    //   alert("Bạn Không Được Quyền Xem Bảng Này");
+    // }
+  }
 
   render() {
     let contents = this.state.loading ? (
@@ -186,7 +197,7 @@ export class DangKyAdmin extends Component {
                     required=""
                   />
                 </div>
-                
+
                 <div className="form-group mb-3">
                   <label for="email">Email</label> &nbsp; &nbsp;
                   <input
@@ -249,17 +260,7 @@ export class DangKyAdmin extends Component {
                       className="table-responsive"
                       data-pattern="priority-columns"
                     >
-                      <h2 style={{ textAlign: "center" }}> Thành Viên </h2>
                       <p>
-                        <button
-                          type="button"
-                          className="btn btn-bordered-primary waves-effect width-md waves-light"
-                          style={{ backgroundColor: "#1abc9c" }}
-                          onClick={this.openModalAdd}
-                        >
-                          <i class="fas fa-plus" />
-                          &nbsp; Thêm Thành Viên Mới
-                        </button>
                         <Modal isOpen={this.state.showAdd}>
                           <ModalHeader>Thêm Thành Viên Mới</ModalHeader>
                           <ModalBody>
@@ -403,28 +404,6 @@ export class DangKyAdmin extends Component {
                     </div>
                   </div>
                 </div>
-                <ReactPaginate
-                  previousLabel={
-                    <i
-                      style={{ color: "#7266ba" }}
-                      class="fas fa-chevron-left"
-                    />
-                  }
-                  nextLabel={
-                    <i
-                      style={{ color: "#7266ba" }}
-                      class="fas fa-chevron-right"
-                    ></i>
-                  }
-                  breakLabel={"..."}
-                  breakClassName={"break-me"}
-                  pageCount={this.state.pageCount}
-                  marginPagesDisplayed={2}
-                  pageRangeDisplayed={5}
-                  onPageChange={this.handlePageClick}
-                  containerClassName={"pagination"}
-                  activeClassName={"active"}
-                />
               </div>
             </div>
           </div>
@@ -436,54 +415,94 @@ export class DangKyAdmin extends Component {
   }
 
   renderUsersTable(users) {
-    return (
-      <table id="tech-companies-1" className="table table-striped">
-        <thead style={{ backgroundColor: "#7266ba", color: "#fff" }}>
-          <tr>
-            <th>Mã Tài Khoản</th>
-            <th> Tên Tài Khoản </th>
-            <th> Tên Người Dùng </th>
-            <th> Số Điện Thoại </th>
-            <th> Ngày Sinh </th>
-            <th> Email </th>
-            <th> Địa Chỉ </th>
-            <th>Quyền</th>
-            <th>Thao Tác</th>
-          </tr>
-        </thead>
-        <tbody>
-          {users.map((User) => (
-            <tr key={User.idUser}>
-              <td>{User.idUser}</td>
-              <td> {User.userAccount} </td>
-              <td> {User.userName} </td>
-              <td> {User.phoneNumber} </td>
-              <td> {User.bday} </td>
-              <td> {User.email} </td>
-              <td> {User.address}</td>
-              <td>{User.namePer}</td>
-              <td onClick={() => this.lnk_Click(User.idUser)}>
-                <button
-                  className="btn btn-icon waves-effect waves-light btn-warning"
-                  onClick={this.openModal}
-                  style={{ backgroundColor: "#f7b84b" }}
-                >
-                  <i class="far fa-edit" style={{ color: "white" }}></i>
-                </button>
-                &nbsp;
-                <button
-                  className="btn btn-icon waves-effect waves-light btn-danger"
-                  onClick={this.handleDeleted}
-                  style={{ backgroundColor: "#f1556c" }}
-                >
-                  <i class="far fa-trash-alt"></i>
-                </button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    );
+    if (this.cookies.get("namePer") == "Full") {
+      return (
+        <>
+          <h2 style={{ textAlign: "center" }}> Thành Viên </h2>
+          <div>
+            <button
+              type="button"
+              className="btn btn-bordered-primary waves-effect width-md waves-light"
+              style={{ backgroundColor: "#1abc9c" }}
+              onClick={this.openModalAdd}
+            >
+              <i class="fas fa-plus" />
+              &nbsp; Thêm Thành Viên Mới
+            </button>
+          </div>
+          <table id="tech-companies-1" className="table table-striped">
+            <thead style={{ backgroundColor: "#7266ba", color: "#fff" }}>
+              <tr>
+                <th>Mã Tài Khoản</th>
+                <th> Tên Tài Khoản </th>
+                <th> Tên Người Dùng </th>
+                <th> Số Điện Thoại </th>
+                <th> Ngày Sinh </th>
+                <th> Email </th>
+                <th> Địa Chỉ </th>
+                <th>Quyền</th>
+                <th>Thao Tác</th>
+              </tr>
+            </thead>
+            <tbody>
+              {users.map((User) => (
+                <tr key={User.idUser}>
+                  <td>{User.idUser}</td>
+                  <td> {User.userAccount} </td>
+                  <td> {User.userName} </td>
+                  <td> {User.phoneNumber} </td>
+                  <td> {User.bday} </td>
+                  <td> {User.email} </td>
+                  <td> {User.address}</td>
+                  <td>{User.namePer}</td>
+                  <td onClick={() => this.lnk_Click(User.idUser)}>
+                    <button
+                      className="btn btn-icon waves-effect waves-light btn-warning"
+                      onClick={this.openModal}
+                      style={{ backgroundColor: "#f7b84b" }}
+                    >
+                      <i class="far fa-edit" style={{ color: "white" }}></i>
+                    </button>
+                    &nbsp;
+                    <button
+                      className="btn btn-icon waves-effect waves-light btn-danger"
+                      onClick={this.handleDeleted}
+                      style={{ backgroundColor: "#f1556c" }}
+                    >
+                      <i class="far fa-trash-alt"></i>
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          <ReactPaginate
+            previousLabel={
+              <i style={{ color: "#7266ba" }} class="fas fa-chevron-left" />
+            }
+            nextLabel={
+              <i style={{ color: "#7266ba" }} class="fas fa-chevron-right"></i>
+            }
+            breakLabel={"..."}
+            breakClassName={"break-me"}
+            pageCount={this.state.pageCount}
+            marginPagesDisplayed={2}
+            pageRangeDisplayed={5}
+            onPageChange={this.handlePageClick}
+            containerClassName={"pagination"}
+            activeClassName={"active"}
+          />
+        </>
+      );
+    } else {
+      return (
+        <>
+          <h1 style={{ textAlign: "center" }}>
+            Bạn Không Có Quyền Vào Trang Này
+          </h1>
+        </>
+      );
+    }
   }
 
   handleSave = (event) => {

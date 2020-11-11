@@ -13,6 +13,7 @@ import { DangNhap } from "./DangNhap";
 import { DangKy } from "./DangKy";
 import { DangKyAdmin } from "./DangKyAdmin";
 import {DangNhapAdmin} from "./DangNhapAdmin";
+import Cookies from "universal-cookie";
 
 export class MainLayout extends Component {
   render() {
