@@ -4,6 +4,7 @@ import axios from "axios";
 import TopBar from "./TopBar";
 import LeftSideBar from "./SideBarLeft";
 import RightSideBar from "./SideBarRight";
+import Cookies from "universal-cookie";
 
 export class FetchLoaiTb extends Component {
   constructor(props) {
@@ -18,6 +19,7 @@ export class FetchLoaiTb extends Component {
 
     this._click = this._click.bind(this);
   }
+  cookies = new Cookies();
   _click() {
     this.setState((prevState) => ({ readOnly: !prevState.readOnly }));
   }
@@ -167,6 +169,19 @@ export class FetchLoaiTb extends Component {
                                 required=""
                               />
                             </div>
+                            <div className="form-group mb-3">
+                              <label for="nguoiThucHien">Người Thực Hiện</label>{" "}
+                              &nbsp; &nbsp;
+                              <input
+                                name="nguoiThucHien"
+                                id="nguoiThucHien"
+                                type="text"
+                                className="form-control"
+                                required=""
+                                value={this.cookies.get("userAccount")}
+                                readOnly
+                              />
+                            </div>
                           </form>
                         </ModalBody>
                         <ModalFooter>
@@ -215,6 +230,7 @@ export class FetchLoaiTb extends Component {
           <tr>
             <th data-priority="1">Mã Loại</th>
             <th data-priority="3">Loại Thiết Bị</th>
+            <th>Người Thực Hiện</th>
             <th data-priority="1">Thao Tác</th>
           </tr>
         </thead>
@@ -226,6 +242,7 @@ export class FetchLoaiTb extends Component {
             >
               <td>{loaiTb.maLoai}</td>
               <td>{loaiTb.loaiThietBi}</td>
+              <td>{loaiTb.userDo}</td>
               <td>
                 <button
                   className="btn btn-icon waves-effect waves-light btn-warning"
@@ -255,6 +272,7 @@ export class FetchLoaiTb extends Component {
     var newLoaiTb = {
       maLoai: document.getElementById("maLoai").value,
       loaiThietBi: document.getElementById("loaiTb").value,
+      userDo: document.getElementById("nguoiThucHien").value,
     };
     axios.post("api/LoaiTbs/", newLoaiTb).then((response) => {
       var result = response.data;

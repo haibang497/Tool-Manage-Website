@@ -24,8 +24,10 @@ namespace QLThietBiCongCu
         {
             services.AddDbContext<QuanLyThietBiContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("QuanLyThietBi")));
-            services.AddControllersWithViews();
-
+            services.AddControllersWithViews().AddJsonOptions(options => {
+                options.JsonSerializerOptions.MaxDepth = 10;
+            });
+            
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {

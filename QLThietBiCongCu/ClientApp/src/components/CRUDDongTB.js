@@ -7,6 +7,7 @@ import "./style/DonVi.css";
 import TopBar from "./TopBar";
 import LeftSideBar from "./SideBarLeft";
 import RightSideBar from "./SideBarRight";
+import Cookies from "universal-cookie";
 
 export class FectchDongTb extends Component {
   constructor(props) {
@@ -25,7 +26,7 @@ export class FectchDongTb extends Component {
 
     this._click = this._click.bind(this);
   }
-
+    cookies = new Cookies();
   _click() {
     this.setState((prevState) => ({ readOnly: !prevState.readOnly }));
   }
@@ -158,7 +159,19 @@ export class FectchDongTb extends Component {
                     className="form-control"
                     value={this.state.dongTbs.idnhomTb}
                   />
-                </div>
+                            </div>
+                            <div className="form-group mb-3">
+                                <label for="nguoiThucHien">Người Thực Hiện</label> &nbsp; &nbsp;
+                  <input
+                                    name="nguoiThucHien"
+                                    id="nguoiThucHien"
+                                    type="text"
+                                    className="form-control"
+                                    value={this.state.dongTbs.userDo}
+                                    required="" 
+                                    readOnly
+                                />
+                            </div>
               </form>
             </ModalBody>
             <ModalFooter>
@@ -232,7 +245,19 @@ export class FectchDongTb extends Component {
                                 type="text"
                                 className="form-control"
                               />
-                            </div>
+                                                    </div>
+                                                    <div className="form-group mb-3">
+                                                        <label for="nguoiThucHien">Người Thực Hiện</label> &nbsp;
+                              &nbsp;
+                              <input
+                                                            name="nguoiThucHien"
+                                                            id="nguoiThucHien"
+                                                            type="text"
+                                                            className="form-control"
+                                                            required=""
+                                                            value={this.cookies.get("userAccount")}
+                                                        />
+                                                    </div>
                           </form>
                         </ModalBody>
                         <ModalFooter>
@@ -303,7 +328,10 @@ export class FectchDongTb extends Component {
                 Tên Dòng Thiết Bị
               </th>
               <th data-priority="3" style={{ textAlign: "center" }}>
-                Mã Nhóm Thiết Bị
+                            Mã Nhóm Thiết Bị
+              </th>
+                        <th data-priority="3" style={{ textAlign: "center" }}>
+                           Người Thực Hiện
               </th>
               <th data-priority="3" style={{ textAlign: "center" }}>
                 Thao Tác
@@ -315,7 +343,8 @@ export class FectchDongTb extends Component {
               <tr key={dongTb.iddongTb}>
                 <td style={{ textAlign: "center" }}>{dongTb.iddongTb}</td>
                 <td style={{ textAlign: "center" }}>{dongTb.dongTb1}</td>
-                <td style={{ textAlign: "center" }}>{dongTb.idnhomTb}</td>
+                    <td style={{ textAlign: "center" }}>{dongTb.idnhomTb}</td>
+                    <td style={{ textAlign: "center" }}>{dongTb.userDo}</td>
                 <td onClick={() => this.lnk_Click(dongTb.iddongTb)}>
                   <button
                     className="btn btn-icon waves-effect waves-light btn-warning"
@@ -346,7 +375,8 @@ export class FectchDongTb extends Component {
     var newDongTb = {
       iddongTb: document.getElementById("IdDongtb").value,
       dongTb1: document.getElementById("tenDongTb").value,
-      idnhomTb: document.getElementById("IdNhomTb").value,
+        idnhomTb: document.getElementById("IdNhomTb").value,
+        userDo: document.getElementById("nguoiThucHien").value,
     };
     axios.post("api/DongTbs/", newDongTb).then((response) => {
       var result = response.data;

@@ -6,6 +6,7 @@ import "./style/DonVi.css";
 import TopBar from "./TopBar";
 import LeftSideBar from "./SideBarLeft";
 import RightSideBar from "./SideBarRight";
+import Cookies from "universal-cookie";
 
 export class FetchNhomTBs extends Component {
   constructor(props) {
@@ -23,7 +24,8 @@ export class FetchNhomTBs extends Component {
     };
 
     this._click = this._click.bind(this);
-  }
+    }
+    cookies = new Cookies();
   _click() {
     this.setState((prevState) => ({ readOnly: !prevState.readOnly }));
   }
@@ -148,7 +150,19 @@ export class FetchNhomTBs extends Component {
                     value={this.state.nhomTbs.nhomTb1}
                     required=""
                   />
-                </div>
+                            </div>
+                            <div>
+                                <label for="nguoiThucHien">Người Thực Hiện</label> &nbsp; &nbsp;
+                  <input
+                                    name="nguoiThucHien"
+                                    id="nguoiThucHien"
+                                    type="text"
+                                    className="form-control"
+                                    value={this.state.nhomTbs.userDo}
+                                    required=""
+                                    readOnly
+                                />
+                            </div>
               </form>
             </ModalBody>
             <ModalFooter>
@@ -214,7 +228,19 @@ export class FetchNhomTBs extends Component {
                                 className="form-control"
                                 required=""
                               />
-                            </div>
+                                                    </div>
+                                                    <div>
+                                                        <label for="nguoiThucHien">Người Thực Hiện</label> &nbsp; &nbsp;
+                  <input
+                                                            name="nguoiThucHien"
+                                                            id="nguoiThucHien"
+                                                            type="text"
+                                                            className="form-control"
+                                                            value={this.cookies.get("userAccount")}
+                                                            required=""
+                                                            readOnly
+                                                        />
+                                                    </div>
                           </form>
                         </ModalBody>
                         <ModalFooter>
@@ -286,7 +312,8 @@ export class FetchNhomTBs extends Component {
           {nhomTbs.map((nhomTb) => (
             <tr key={nhomTb.idnhomTb}>
               <td>{nhomTb.idnhomTb}</td>
-              <td>{nhomTb.nhomTb1}</td>
+                  <td>{nhomTb.nhomTb1}</td>
+                  <td>{nhomTb.userDo}</td>
               <td onClick={(id) => this.lnk_Click(nhomTb.idnhomTb)}>
                 <button
                   className="btn btn-icon waves-effect waves-light btn-warning"
@@ -315,7 +342,8 @@ export class FetchNhomTBs extends Component {
   handleSave = (event) => {
     var newNhomTb = {
       idnhomTb: document.getElementById("idnhomTb").value,
-      nhomTb1: document.getElementById("nhomTb").value,
+        nhomTb1: document.getElementById("nhomTb").value,
+        userDo: document.getElementById("nguoiThucHien").value
     };
     axios.post("api/NhomTbs/", newNhomTb).then((response) => {
       var result = response.data;

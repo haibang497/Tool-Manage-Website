@@ -6,7 +6,7 @@ import "./style/DonVi.css";
 import TopBar from "./TopBar";
 import LeftSideBar from "./SideBarLeft";
 import RightSideBar from "./SideBarRight";
-
+import Cookies from "universal-cookie";
 export class FetchHoaDon extends Component {
   constructor(props) {
     super(props);
@@ -24,6 +24,7 @@ export class FetchHoaDon extends Component {
 
     this._click = this._click.bind(this);
   }
+  cookies = new Cookies();
   _click() {
     this.setState((prevState) => ({ readOnly: !prevState.readOnly }));
   }
@@ -195,6 +196,19 @@ export class FetchHoaDon extends Component {
                     required=""
                   />
                 </div>
+                <div className="form-group mb-3">
+                  <label for="nguoiThucHien">Người Thực Hiện</label> &nbsp;
+                  &nbsp;
+                  <input
+                    name="nguoiThucHien"
+                    id="nguoiThucHien"
+                    type="text"
+                    className="form-control"
+                    value={this.state.hoaDons.userDo}
+                    required=""
+                    readOnly
+                  />
+                </div>
               </form>
             </ModalBody>
             <ModalFooter>
@@ -308,6 +322,20 @@ export class FetchHoaDon extends Component {
                                   required=""
                                 />
                               </div>
+                              <div className="form-group mb-3">
+                                <label for="nguoiThucHien">
+                                  Người Thực Hiện
+                                </label>{" "}
+                                &nbsp; &nbsp;
+                                <input
+                                  name="nguoiThucHien"
+                                  id="nguoiThucHien"
+                                  type="text"
+                                  className="form-control"
+                                  required=""
+                                  value={this.cookies.get("userAccount")}
+                                />
+                              </div>
                             </form>
                           </ModalBody>
                           <ModalFooter>
@@ -377,6 +405,7 @@ export class FetchHoaDon extends Component {
             <th> Loại Hóa Đơn </th>
             <th> Tình Trạng Hóa Đơn </th>
             <th> Vị Trí Lưu Trữ </th>
+            <th>Người Thực Hiện</th>
             <th>Thao Tác</th>
           </tr>
         </thead>
@@ -387,6 +416,7 @@ export class FetchHoaDon extends Component {
               <td> {hoaDon.ngayHoaDon} </td> <td> {hoaDon.loaiHoaDon} </td>
               <td> {hoaDon.tinhTrangHoaDon} </td>
               <td> {hoaDon.viTriLuuTruHd} </td>
+              <td style={{ textAlign: "center" }}>{hoaDons.userDo}</td>
               <td onClick={() => this.lnk_Click(hoaDon.idhoaDon)}>
                 <button
                   className="btn btn-icon waves-effect waves-light btn-warning"
@@ -419,6 +449,7 @@ export class FetchHoaDon extends Component {
       loaiHoaDon: document.getElementById("loaiHoaDon").value,
       tinhTrangHoaDon: document.getElementById("tinhTrangHoaDon").value,
       viTriLuuTruHd: document.getElementById("viTriLuuTruHoaDon").value,
+      userDo: document.getElementById("nguoiThucHien").value,
       delete: 0,
     };
     axios.post("api/HoaDons/", newHoaDon).then((response) => {

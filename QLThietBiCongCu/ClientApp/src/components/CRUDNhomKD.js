@@ -5,7 +5,7 @@ import "@fortawesome/fontawesome-free/css/fontawesome.min.css";
 import TopBar from "./TopBar";
 import LeftSideBar from "./SideBarLeft";
 import RightSideBar from "./SideBarRight";
-
+import Cookies from "universal-cookie";
 export class FetchNhomKDs extends Component {
   constructor(props) {
     super(props);
@@ -18,7 +18,8 @@ export class FetchNhomKDs extends Component {
     };
 
     this._click = this._click.bind(this);
-  }
+    }
+    cookies = new Cookies();
   _click() {
     this.setState((prevState) => ({ readOnly: !prevState.readOnly }));
   }
@@ -99,7 +100,19 @@ export class FetchNhomKDs extends Component {
                     value={this.state.nhomKds.nhomKd}
                     required=""
                   />
-                </div>
+                            </div>
+                            <div>
+                            <label for="nguoiThucHien">Người Thực Hiện</label> &nbsp; &nbsp;
+                  <input
+                                name="nguoiThucHien"
+                                id="nguoiThucHien"
+                                type="text"
+                                    className="form-control"
+                                    value={this.state.nhomKds.userDo}
+                                required=""
+                                readOnly
+                            />
+                                </div>
               </form>
             </ModalBody>
             <ModalFooter>
@@ -165,7 +178,19 @@ export class FetchNhomKDs extends Component {
                                 className="form-control"
                                 required=""
                               />
-                            </div>
+                                                </div>
+                                                   <div>
+                                            <label for="nguoiThucHien">Người Thực Hiện</label> &nbsp; &nbsp;
+                  <input
+                                                            name="nguoiThucHien"
+                                                            id="nguoiThucHien"
+                                                            type="text"
+                                                            className="form-control"
+                                                            value={this.cookies.get("userAccount")}
+                                                required=""
+                                                readOnly
+                                            />
+                                </div>
                           </form>
                         </ModalBody>
                         <ModalFooter>
@@ -216,7 +241,8 @@ export class FetchNhomKDs extends Component {
           {nhomKds.map((nhomKd) => (
             <tr key={nhomKd.maNhomKd}>
               <td>{nhomKd.maNhomKd}</td>
-              <td>{nhomKd.nhomKiemDinh}</td>
+                  <td>{nhomKd.nhomKiemDinh}</td>
+                  <td>{nhomKd.userDo}</td>
               <td onClick={(id) => this.lnk_Click(nhomKd.maNhomKd)}>
                 <button
                   className="btn btn-icon waves-effect waves-light btn-warning"
@@ -245,7 +271,8 @@ export class FetchNhomKDs extends Component {
   handleSave = (event) => {
     var newNhomKd = {
       maNhomKd: document.getElementById("maNhomKd").value,
-      nhomKiemDinh: document.getElementById("nhomKd").value,
+        nhomKiemDinh: document.getElementById("nhomKd").value,
+        userDo: document.getElementById("nguoiThucHien").value
     };
     axios.post("api/NhomKds/", newNhomKd).then((response) => {
       var result = response.data;

@@ -22,7 +22,6 @@ export class FectchDonVi extends Component {
       perPage: 10,
       currentPage: 0,
       orgTable: [],
-      showButton: true,
     };
 
     this._click = this._click.bind(this);
@@ -60,21 +59,6 @@ export class FectchDonVi extends Component {
     // this.populateDonVisData();
     this.getData();
   }
-
-  showButtonRole = () => {
-    if (
-      this.cookies.get("namePer") == "Staff" &&
-      this.cookies.get("userAccount") == this.state.donVis.userDo
-    ) {
-      this.setState({
-        showButton: true,
-      });
-    } else {
-      this.setState({
-        showButton: false,
-      });
-    }
-  };
 
   handlePageClick = (e) => {
     const selectedPage = e.selected;
@@ -471,10 +455,10 @@ export class FectchDonVi extends Component {
           alert("Lỗi chỉnh sửa");
         }
       });
-    }
-    if (
+    } else if (
       this.cookies.get("namePer") == "Staff" &&
-      this.cookies.get("userAccount") === document.getElementById("nguoiThucHien").value
+      this.cookies.get("userAccount") ===
+        document.getElementById("nguoiThucHien").value
     ) {
       var id = document.getElementById("maDonVi").value;
       var newDonVi = {

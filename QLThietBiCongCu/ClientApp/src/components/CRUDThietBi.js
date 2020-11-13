@@ -6,6 +6,7 @@ import "./style/DonVi.css";
 import TopBar from "./TopBar";
 import LeftSideBar from "./SideBarLeft";
 import RightSideBar from "./SideBarRight";
+import Cookies from "universal-cookie";
 
 export class FetchThietBi extends Component {
   constructor(props) {
@@ -24,7 +25,8 @@ export class FetchThietBi extends Component {
     };
 
     this._click = this._click.bind(this);
-  }
+    }
+    cookies = new Cookies();
   _click() {
     this.setState((prevState) => ({ readOnly: !prevState.readOnly }));
   }
@@ -432,7 +434,19 @@ export class FetchThietBi extends Component {
                     readOnly
                     value={this.state.thietBis.ghiChu}
                   />
-                </div>
+                            </div>
+                            <div className="form-group mb-3">
+                                <label for="nguoiThucHien">Người Thực Hiện</label> &nbsp; &nbsp;
+                  <input
+                                    name="nguoiThucHien"
+                                    id="nguoiThucHien"
+                                    type="text"
+                                    className="form-control"
+                                    value={this.state.thietBis.userDo}
+                                    required=""
+                                    readOnly
+                                />
+                            </div>
               </form>
             </ModalBody>
             <ModalFooter>
@@ -728,7 +742,19 @@ export class FetchThietBi extends Component {
                     required=""
                     value={this.state.thietBis.ghiChu}
                   />
-                </div>
+                            </div>
+                            <div className="form-group mb-3">
+                                <label for="nguoiThucHien">Người Thực Hiện</label> &nbsp;
+                              &nbsp;
+                              <input
+                                    name="nguoiThucHien"
+                                    id="nguoiThucHien"
+                                    type="text"
+                                    className="form-control"
+                                    required=""
+                                    value={this.state.thietBis.userDo}
+                                />
+                            </div>
               </form>
             </ModalBody>
             <ModalFooter>
@@ -1031,7 +1057,18 @@ export class FetchThietBi extends Component {
                                 className="form-control"
                                 required=""
                               />
-                            </div>
+                                                    </div>
+                                                    <div className="form-group mb-3">
+                                                        <label for="nguoiThucHien">Người Thực Hiện</label> &nbsp; &nbsp;
+                              <input
+                                                            name="nguoiThucHien"
+                                                            id="nguoiThucHien"
+                                                            type="text"
+                                                            className="form-control"
+                                                            required=""
+                                                            value={this.cookies.get("userAccount")}
+                                                        />
+                                                    </div>
                           </form>
                         </ModalBody>
                         <ModalFooter>
@@ -1107,8 +1144,8 @@ export class FetchThietBi extends Component {
             <tr key={thietBi.maTb1}>
               <td>{thietBi.maTb1}</td>
               <td>{thietBi.tenTb}</td>
-              <td>{thietBi.soluong}</td>
-              <td>{thietBi.namSx}</td>
+                  <td>{thietBi.soluong}</td>
+                  <td>{thietBi.tinhTrang}</td>
               <td onClick={(id) => this.lnk_Click(thietBi.maTb1)}>
                 <button
                   className="btn btn-info waves-effect waves-light"
@@ -1164,7 +1201,8 @@ export class FetchThietBi extends Component {
       maMay: document.getElementById("maMay").value,
       nuocSanXuat: document.getElementById("nuocSanXuat").value,
       nuocSanXuat: document.getElementById("nuocSanXuat").value,
-      ghiChu: document.getElementById("ghiChu").value,
+        ghiChu: document.getElementById("ghiChu").value,
+        userDo: document.getElementById("nguoiThucHien").value,
       deleted: 0,
     };
     axios.post("api/MaTbs/", newThietBi).then((response) => {

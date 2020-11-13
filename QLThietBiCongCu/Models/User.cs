@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace QLThietBiCongCu.Models
 {
@@ -10,6 +11,7 @@ namespace QLThietBiCongCu.Models
             UserPer = new HashSet<UserPer>();
         }
 
+        [Column("id_user")]
         public int IdUser { get; set; }
         public string UserAccount { get; set; }
         public string Password { get; set; }

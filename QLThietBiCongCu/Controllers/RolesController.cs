@@ -77,9 +77,26 @@ namespace QLThietBiCongCu.Controllers {
             return query;
         }
 
-        [HttpPost]
-        public List<RoleModel> AddNew () {
-            return null;
+        [HttpPost("{value}")]
+        public async Task<ActionResult<User>> PostUser([FromBody]User user, int value)
+        {
+
+            _context.User.Add(user);
+            await _context.SaveChangesAsync();
+            //var u = _context.User;
+            //var up = _context.UserPer;
+            //var p = _context.Permission;
+            UserPer up = new UserPer();
+            up.IdUser = user.IdUser;
+            up.IdPer = value;
+            up.Licensed = 1;
+            _context.UserPer.Add(up);
+            
+            
+
+            await _context.SaveChangesAsync();
+
+            return CreatedAtAction("GetUser", new { id = user.IdUser }, user);
         }
     }
 }

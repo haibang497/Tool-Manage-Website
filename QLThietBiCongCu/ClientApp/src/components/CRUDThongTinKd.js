@@ -7,6 +7,7 @@ import "./style/DonVi.css";
 import TopBar from "./TopBar";
 import LeftSideBar from "./SideBarLeft";
 import RightSideBar from "./SideBarRight";
+import Cookies from "universal-cookie";
 
 export class FetchThongTinKD extends Component {
   constructor(props) {
@@ -26,6 +27,7 @@ export class FetchThongTinKD extends Component {
 
     this._click = this._click.bind(this);
   }
+  cookies = new Cookies();
   _click() {
     this.setState((prevState) => ({ readOnly: !prevState.readOnly }));
   }
@@ -290,6 +292,19 @@ export class FetchThongTinKD extends Component {
                     value={this.state.thongTins.soSeri}
                   />
                 </div>
+                <div className="form-group mb-3">
+                  <label for="nguoiThucHien">Người Thực Hiện</label> &nbsp;
+                  &nbsp;
+                  <input
+                    name="nguoiThucHien"
+                    id="nguoiThucHien"
+                    type="text"
+                    className="form-control"
+                    required=""
+                    readOnly
+                    value={this.state.thongTins.userDo}
+                  />
+                </div>
               </form>
             </ModalBody>
             <ModalFooter>
@@ -443,6 +458,18 @@ export class FetchThongTinKD extends Component {
                     className="form-control"
                     required=""
                     value={this.state.thongTins.soSeri}
+                  />
+                </div>
+                <div className="form-group mb-3">
+                  <label for="nguoiThucHien">Người Thực Hiện</label> &nbsp;
+                  &nbsp;
+                  <input
+                    name="nguoiThucHien"
+                    id="nguoiThucHien"
+                    type="text"
+                    className="form-control"
+                    required=""
+                    value={this.state.thongTins.userDo}
                   />
                 </div>
               </form>
@@ -631,6 +658,18 @@ export class FetchThongTinKD extends Component {
                                 required=""
                               />
                             </div>
+                            <div className="form-group mb-3">
+                              <label for="nguoiThucHien">Người Thực Hiện</label>{" "}
+                              &nbsp; &nbsp;
+                              <input
+                                name="nguoiThucHien"
+                                id="soSeri"
+                                type="text"
+                                className="form-control"
+                                required=""
+                                value={this.cookies.get("userAccount")}
+                              />
+                            </div>
                           </form>
                         </ModalBody>
                         <ModalFooter>
@@ -759,6 +798,7 @@ export class FetchThongTinKD extends Component {
       tinhTrangKd: document.getElementById("tinhTrangKd").value,
       viTriLuuTruKd: document.getElementById("viTriLuuTruKd").value,
       soSeri: document.getElementById("soSeri").value,
+      userDo: document.getElementById("nguoiThucHien").value,
       delete: 0,
     };
     axios.post("api/ThongTinKds/", newThongTin).then((response) => {
