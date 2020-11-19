@@ -101,6 +101,19 @@ export class FetchLoaiTb extends Component {
                     required=""
                   />
                 </div>
+                <div className="form-group mb-3">
+                  <label for="nguoiThucHien">Người Thực Hiện</label> &nbsp;
+                  &nbsp;
+                  <input
+                    name="nguoiThucHien"
+                    id="nguoiThucHien"
+                    type="text"
+                    className="form-control"
+                    required=""
+                    value={this.state.loaiTbs.userDo}
+                    readOnly
+                  />
+                </div>
               </form>
             </ModalBody>
             <ModalFooter>
@@ -224,48 +237,94 @@ export class FetchLoaiTb extends Component {
   }
 
   renderLoaiTbsTable(loaiTbs) {
-    return (
-      <table id="tech-companies-1" className="table table-striped">
-        <thead style={{ backgroundColor: "#7266ba", color: "#fff" }}>
-          <tr>
-            <th data-priority="1">Mã Loại</th>
-            <th data-priority="3">Loại Thiết Bị</th>
-            <th>Người Thực Hiện</th>
-            <th data-priority="1">Thao Tác</th>
-          </tr>
-        </thead>
-        <tbody>
-          {loaiTbs.map((loaiTb) => (
-            <tr
-              key={loaiTb.maLoai}
-              onClick={(id) => this.lnk_Click(loaiTb.maLoai)}
-            >
-              <td>{loaiTb.maLoai}</td>
-              <td>{loaiTb.loaiThietBi}</td>
-              <td>{loaiTb.userDo}</td>
-              <td>
-                <button
-                  className="btn btn-icon waves-effect waves-light btn-warning"
-                  onClick={this.openModal}
-                  style={{ backgroundColor: "#f7b84b" }}
-                >
-                  <i class="far fa-edit" style={{ color: "white" }}></i>
-                </button>
-                &nbsp;
-                <button
-                  className="btn btn-icon waves-effect waves-light btn-danger"
-                  onClick={this.handleDeleted}
-                  style={{ backgroundColor: "#f1556c" }}
-                >
-                  <i class="far fa-trash-alt"></i>
-                </button>
-                &nbsp;
-              </td>
+    if (
+      this.cookies.get("namePer") == "Full" ||
+      this.cookies.get("namePer") == "Manager"
+    ) {
+      return (
+        <table id="tech-companies-1" className="table table-striped">
+          <thead style={{ backgroundColor: "#7266ba", color: "#fff" }}>
+            <tr>
+              <th data-priority="1">Mã Loại</th>
+              <th data-priority="3">Loại Thiết Bị</th>
+              <th>Người Thực Hiện</th>
+              <th data-priority="1">Thao Tác</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
-    );
+          </thead>
+          <tbody>
+            {loaiTbs.map((loaiTb) => (
+              <tr
+                key={loaiTb.maLoai}
+                onClick={(id) => this.lnk_Click(loaiTb.maLoai)}
+              >
+                <td>{loaiTb.maLoai}</td>
+                <td>{loaiTb.loaiThietBi}</td>
+                <td>{loaiTb.userDo}</td>
+                <td>
+                  <button
+                    className="btn btn-icon waves-effect waves-light btn-warning"
+                    onClick={this.openModal}
+                    style={{ backgroundColor: "#f7b84b" }}
+                  >
+                    <i class="far fa-edit" style={{ color: "white" }}></i>
+                  </button>
+                  &nbsp;
+                  <button
+                    className="btn btn-icon waves-effect waves-light btn-danger"
+                    onClick={this.handleDeleted}
+                    style={{ backgroundColor: "#f1556c" }}
+                  >
+                    <i class="far fa-trash-alt"></i>
+                  </button>
+                  &nbsp;
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      );
+    } else {
+      return (
+        <table id="tech-companies-1" className="table table-striped">
+          <thead style={{ backgroundColor: "#7266ba", color: "#fff" }}>
+            <tr>
+              <th data-priority="1">Mã Loại</th>
+              <th data-priority="3">Loại Thiết Bị</th>
+              <th data-priority="1">Thao Tác</th>
+            </tr>
+          </thead>
+          <tbody>
+            {loaiTbs.map((loaiTb) => (
+              <tr
+                key={loaiTb.maLoai}
+                onClick={(id) => this.lnk_Click(loaiTb.maLoai)}
+              >
+                <td>{loaiTb.maLoai}</td>
+                <td>{loaiTb.loaiThietBi}</td>
+                <td>
+                  <button
+                    className="btn btn-icon waves-effect waves-light btn-warning"
+                    onClick={this.openModal}
+                    style={{ backgroundColor: "#f7b84b" }}
+                  >
+                    <i class="far fa-edit" style={{ color: "white" }}></i>
+                  </button>
+                  &nbsp;
+                  <button
+                    className="btn btn-icon waves-effect waves-light btn-danger"
+                    onClick={this.handleDeleted}
+                    style={{ backgroundColor: "#f1556c" }}
+                  >
+                    <i class="far fa-trash-alt"></i>
+                  </button>
+                  &nbsp;
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      );
+    }
   }
 
   handleSave = (event) => {
@@ -291,22 +350,50 @@ export class FetchLoaiTb extends Component {
     });
   };
   handleEdit = (event) => {
-    var id = document.getElementById("maLoai").value;
-    var newLoaiTb = {
-      maLoai: document.getElementById("maLoai").value,
-      loaiThietBi: document.getElementById("loaiTb").value,
-    };
-    axios.put("api/LoaiTbs/" + id, newLoaiTb).then((response) => {
-      console.log(response);
-      var result = response.data;
-      console.log(result);
-      if (!result) {
-        this.getAll();
-        window.location.href = "/loaithietbi";
-      } else {
-        alert("Không Thể Chỉnh Sửa");
-      }
-    });
+    if (
+      this.cookies.get("namePer") == "Full" ||
+      this.cookies.get("namePer") == "Manager"
+    ) {
+      var id = document.getElementById("maLoai").value;
+      var newLoaiTb = {
+        maLoai: document.getElementById("maLoai").value,
+        loaiThietBi: document.getElementById("loaiTb").value,
+      };
+      axios.put("api/LoaiTbs/" + id, newLoaiTb).then((response) => {
+        console.log(response);
+        var result = response.data;
+        console.log(result);
+        if (!result) {
+          this.getAll();
+          window.location.href = "/loaithietbi";
+        } else {
+          alert("Không Thể Chỉnh Sửa");
+        }
+      });
+    } else if (
+      this.cookies.get("namePer") == "Staff" &&
+      this.cookies.get("userAccount") ===
+        document.getElementById("nguoiThucHien").value
+    ) {
+      var id = document.getElementById("maLoai").value;
+      var newLoaiTb = {
+        maLoai: document.getElementById("maLoai").value,
+        loaiThietBi: document.getElementById("loaiTb").value,
+      };
+      axios.put("api/LoaiTbs/" + id, newLoaiTb).then((response) => {
+        console.log(response);
+        var result = response.data;
+        console.log(result);
+        if (!result) {
+          this.getAll();
+          window.location.href = "/loaithietbi";
+        } else {
+          alert("Không Thể Chỉnh Sửa");
+        }
+      });
+    } else {
+      alert("Bạn Không Được Phép Thực Hiện Thao Tác Này");
+    }
   };
   handleDeleted = (event) => {
     var deleted = 1;
@@ -338,6 +425,7 @@ export class FetchLoaiTb extends Component {
       var LoaiTb = response.data;
       document.getElementById("maLoai").value = LoaiTb.maLoai;
       document.getElementById("loaiTb").value = LoaiTb.loaiThietBi;
+      document.getElementById("nguoiThucHien").value = LoaiTb.userDo;
     });
   }
 }

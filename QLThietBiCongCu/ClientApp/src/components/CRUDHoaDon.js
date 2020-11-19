@@ -334,6 +334,7 @@ export class FetchHoaDon extends Component {
                                   className="form-control"
                                   required=""
                                   value={this.cookies.get("userAccount")}
+                                  readOnly
                                 />
                               </div>
                             </form>
@@ -395,50 +396,98 @@ export class FetchHoaDon extends Component {
   }
 
   renderHoaDonsTable(hoaDons) {
-    return (
-      <table id="tech-companies-1" className="table table-striped">
-        <thead style={{ backgroundColor: "#7266ba", color: "#fff" }}>
-          <tr>
-            <th> Mã Hóa Đơn </th>
-            <th> Số Hóa Đơn </th>
-            <th> Ngày Hóa Đơn </th>
-            <th> Loại Hóa Đơn </th>
-            <th> Tình Trạng Hóa Đơn </th>
-            <th> Vị Trí Lưu Trữ </th>
-            <th>Người Thực Hiện</th>
-            <th>Thao Tác</th>
-          </tr>
-        </thead>
-        <tbody>
-          {hoaDons.map((hoaDon) => (
-            <tr key={hoaDon.idhoaDon}>
-              <td> {hoaDon.idhoaDon} </td> <td> {hoaDon.soHoaDon} </td>
-              <td> {hoaDon.ngayHoaDon} </td> <td> {hoaDon.loaiHoaDon} </td>
-              <td> {hoaDon.tinhTrangHoaDon} </td>
-              <td> {hoaDon.viTriLuuTruHd} </td>
-              <td style={{ textAlign: "center" }}>{hoaDons.userDo}</td>
-              <td onClick={() => this.lnk_Click(hoaDon.idhoaDon)}>
-                <button
-                  className="btn btn-icon waves-effect waves-light btn-warning"
-                  onClick={this.openModal}
-                  style={{ backgroundColor: "#f7b84b" }}
-                >
-                  <i class="far fa-edit" style={{ color: "white" }}></i>
-                </button>
-                &nbsp;
-                <button
-                  className="btn btn-icon waves-effect waves-light btn-danger"
-                  onClick={this.handleDeleted}
-                  style={{ backgroundColor: "#f1556c" }}
-                >
-                  <i class="far fa-trash-alt"></i>
-                </button>
-              </td>
+    if (
+      this.cookies.get("namePer") == "Full" ||
+      this.cookies.get("namePer") == "Manager"
+    ) {
+      return (
+        <table id="tech-companies-1" className="table table-striped">
+          <thead style={{ backgroundColor: "#7266ba", color: "#fff" }}>
+            <tr>
+              <th> Mã Hóa Đơn </th>
+              <th> Số Hóa Đơn </th>
+              <th> Ngày Hóa Đơn </th>
+              <th> Loại Hóa Đơn </th>
+              <th> Tình Trạng Hóa Đơn </th>
+              <th> Vị Trí Lưu Trữ </th>
+              <th>Người Thực Hiện</th>
+              <th>Thao Tác</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
-    );
+          </thead>
+          <tbody>
+            {hoaDons.map((hoaDon) => (
+              <tr key={hoaDon.idhoaDon}>
+                <td> {hoaDon.idhoaDon} </td> <td> {hoaDon.soHoaDon} </td>
+                <td> {hoaDon.ngayHoaDon} </td> <td> {hoaDon.loaiHoaDon} </td>
+                <td> {hoaDon.tinhTrangHoaDon} </td>
+                <td> {hoaDon.viTriLuuTruHd} </td>
+                <td style={{ textAlign: "center" }}>{hoaDons.userDo}</td>
+                <td onClick={() => this.lnk_Click(hoaDon.idhoaDon)}>
+                  <button
+                    className="btn btn-icon waves-effect waves-light btn-warning"
+                    onClick={this.openModal}
+                    style={{ backgroundColor: "#f7b84b" }}
+                  >
+                    <i class="far fa-edit" style={{ color: "white" }}></i>
+                  </button>
+                  &nbsp;
+                  <button
+                    className="btn btn-icon waves-effect waves-light btn-danger"
+                    onClick={this.handleDeleted}
+                    style={{ backgroundColor: "#f1556c" }}
+                  >
+                    <i class="far fa-trash-alt"></i>
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      );
+    } else {
+      return (
+        <table id="tech-companies-1" className="table table-striped">
+          <thead style={{ backgroundColor: "#7266ba", color: "#fff" }}>
+            <tr>
+              <th> Mã Hóa Đơn </th>
+              <th> Số Hóa Đơn </th>
+              <th> Ngày Hóa Đơn </th>
+              <th> Loại Hóa Đơn </th>
+              <th> Tình Trạng Hóa Đơn </th>
+              <th> Vị Trí Lưu Trữ </th>
+              <th>Thao Tác</th>
+            </tr>
+          </thead>
+          <tbody>
+            {hoaDons.map((hoaDon) => (
+              <tr key={hoaDon.idhoaDon}>
+                <td> {hoaDon.idhoaDon} </td> <td> {hoaDon.soHoaDon} </td>
+                <td> {hoaDon.ngayHoaDon} </td> <td> {hoaDon.loaiHoaDon} </td>
+                <td> {hoaDon.tinhTrangHoaDon} </td>
+                <td> {hoaDon.viTriLuuTruHd} </td>
+                <td onClick={() => this.lnk_Click(hoaDon.idhoaDon)}>
+                  <button
+                    className="btn btn-icon waves-effect waves-light btn-warning"
+                    onClick={this.openModal}
+                    style={{ backgroundColor: "#f7b84b" }}
+                  >
+                    <i class="far fa-edit" style={{ color: "white" }}></i>
+                  </button>
+                  &nbsp;
+                  <button
+                    className="btn btn-icon waves-effect waves-light btn-danger"
+                    onClick={this.handleDeleted}
+                    style={{ backgroundColor: "#f1556c" }}
+                  >
+                    <i class="far fa-trash-alt"></i>
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      );
+    }
   }
 
   handleSave = (event) => {
@@ -470,26 +519,58 @@ export class FetchHoaDon extends Component {
     });
   };
   handleEdit = (event) => {
-    var id = document.getElementById("idHoaDon").value;
-    var newHoaDon = {
-      idhoaDon: document.getElementById("idHoaDon").value,
-      soHoaDon: document.getElementById("soHoaDon").value,
-      ngayHoaDon: document.getElementById("ngayHoaDon").value,
-      loaiHoaDon: document.getElementById("loaiHoaDon").value,
-      tinhTrangHoaDon: document.getElementById("tinhTrangHoaDon").value,
-      viTriLuuTruHd: document.getElementById("viTriLuuTruHoaDon").value,
-    };
-    axios.put("api/HoaDons/" + id, newHoaDon).then((response) => {
-      console.log(response);
-      var result = response.data;
-      console.log(result);
-      if (!result) {
-        this.getAll();
-        window.location.href = "/hoadon";
-      } else {
-        alert("Không Thể Chỉnh Sửa");
-      }
-    });
+    if (
+      this.cookies.get("namePer") == "Full" ||
+      this.cookies.get("namePer") == "Manager"
+    ) {
+      var id = document.getElementById("idHoaDon").value;
+      var newHoaDon = {
+        idhoaDon: document.getElementById("idHoaDon").value,
+        soHoaDon: document.getElementById("soHoaDon").value,
+        ngayHoaDon: document.getElementById("ngayHoaDon").value,
+        loaiHoaDon: document.getElementById("loaiHoaDon").value,
+        tinhTrangHoaDon: document.getElementById("tinhTrangHoaDon").value,
+        viTriLuuTruHd: document.getElementById("viTriLuuTruHoaDon").value,
+      };
+      axios.put("api/HoaDons/" + id, newHoaDon).then((response) => {
+        console.log(response);
+        var result = response.data;
+        console.log(result);
+        if (!result) {
+          this.getAll();
+          window.location.href = "/hoadon";
+        } else {
+          alert("Không Thể Chỉnh Sửa");
+        }
+      });
+    } else if (
+      this.cookies.get("namePer") == "Staff" &&
+      this.cookies.get("userAccount") ===
+        document.getElementById("nguoiThucHien").value
+    ) {
+      var id = document.getElementById("idHoaDon").value;
+      var newHoaDon = {
+        idhoaDon: document.getElementById("idHoaDon").value,
+        soHoaDon: document.getElementById("soHoaDon").value,
+        ngayHoaDon: document.getElementById("ngayHoaDon").value,
+        loaiHoaDon: document.getElementById("loaiHoaDon").value,
+        tinhTrangHoaDon: document.getElementById("tinhTrangHoaDon").value,
+        viTriLuuTruHd: document.getElementById("viTriLuuTruHoaDon").value,
+      };
+      axios.put("api/HoaDons/" + id, newHoaDon).then((response) => {
+        console.log(response);
+        var result = response.data;
+        console.log(result);
+        if (!result) {
+          this.getAll();
+          window.location.href = "/hoadon";
+        } else {
+          alert("Không Thể Chỉnh Sửa");
+        }
+      });
+    } else {
+      alert("Bạn Không Được Phép Thực Hiện Thao Tác Này");
+    }
   };
   handleDeleted = (event) => {
     var id = document.getElementById("idHoaDon").value;
@@ -528,6 +609,7 @@ export class FetchHoaDon extends Component {
       document.getElementById("loaiHoaDon").value = HoaDon.loaiHoaDon;
       document.getElementById("tinhTrangHoaDon").value = HoaDon.tinhTrangHoaDon;
       document.getElementById("viTriLuuTruHoaDon").value = HoaDon.viTriLuuTruHd;
+      document.getElementById("nguoiThucHien").value = HoaDon.userDo;
     });
   }
 }

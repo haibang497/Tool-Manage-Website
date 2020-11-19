@@ -24,8 +24,8 @@ export class FetchNhomTBs extends Component {
     };
 
     this._click = this._click.bind(this);
-    }
-    cookies = new Cookies();
+  }
+  cookies = new Cookies();
   _click() {
     this.setState((prevState) => ({ readOnly: !prevState.readOnly }));
   }
@@ -150,19 +150,20 @@ export class FetchNhomTBs extends Component {
                     value={this.state.nhomTbs.nhomTb1}
                     required=""
                   />
-                            </div>
-                            <div>
-                                <label for="nguoiThucHien">Người Thực Hiện</label> &nbsp; &nbsp;
+                </div>
+                <div>
+                  <label for="nguoiThucHien">Người Thực Hiện</label> &nbsp;
+                  &nbsp;
                   <input
-                                    name="nguoiThucHien"
-                                    id="nguoiThucHien"
-                                    type="text"
-                                    className="form-control"
-                                    value={this.state.nhomTbs.userDo}
-                                    required=""
-                                    readOnly
-                                />
-                            </div>
+                    name="nguoiThucHien"
+                    id="nguoiThucHien"
+                    type="text"
+                    className="form-control"
+                    value={this.state.nhomTbs.userDo}
+                    required=""
+                    readOnly
+                  />
+                </div>
               </form>
             </ModalBody>
             <ModalFooter>
@@ -228,19 +229,20 @@ export class FetchNhomTBs extends Component {
                                 className="form-control"
                                 required=""
                               />
-                                                    </div>
-                                                    <div>
-                                                        <label for="nguoiThucHien">Người Thực Hiện</label> &nbsp; &nbsp;
-                  <input
-                                                            name="nguoiThucHien"
-                                                            id="nguoiThucHien"
-                                                            type="text"
-                                                            className="form-control"
-                                                            value={this.cookies.get("userAccount")}
-                                                            required=""
-                                                            readOnly
-                                                        />
-                                                    </div>
+                            </div>
+                            <div>
+                              <label for="nguoiThucHien">Người Thực Hiện</label>{" "}
+                              &nbsp; &nbsp;
+                              <input
+                                name="nguoiThucHien"
+                                id="nguoiThucHien"
+                                type="text"
+                                className="form-control"
+                                value={this.cookies.get("userAccount")}
+                                required=""
+                                readOnly
+                              />
+                            </div>
                           </form>
                         </ModalBody>
                         <ModalFooter>
@@ -299,51 +301,95 @@ export class FetchNhomTBs extends Component {
   }
 
   renderNhomTbsTable(nhomTbs) {
-    return (
-      <table id="tech-companies-1" className="table table-striped">
-        <thead style={{ backgroundColor: "#7266ba", color: "#fff" }}>
-          <tr>
-            <th>Mã Nhóm Thiết Bị</th>
-            <th>Nhóm Thiết Bị</th>
-            <th>Thao Tác</th>
-          </tr>
-        </thead>
-        <tbody>
-          {nhomTbs.map((nhomTb) => (
-            <tr key={nhomTb.idnhomTb}>
-              <td>{nhomTb.idnhomTb}</td>
-                  <td>{nhomTb.nhomTb1}</td>
-                  <td>{nhomTb.userDo}</td>
-              <td onClick={(id) => this.lnk_Click(nhomTb.idnhomTb)}>
-                <button
-                  className="btn btn-icon waves-effect waves-light btn-warning"
-                  onClick={this.openModal}
-                  style={{ backgroundColor: "#f7b84b" }}
-                >
-                  <i class="far fa-edit" style={{ color: "white" }}></i>
-                </button>
-                &nbsp;
-                <button
-                  className="btn btn-icon waves-effect waves-light btn-danger"
-                  onClick={this.handleDeleted}
-                  style={{ backgroundColor: "#f1556c" }}
-                >
-                  <i class="far fa-trash-alt"></i>
-                </button>
-                &nbsp;
-              </td>
+    if (
+      this.cookies.get("namePer") == "Full" ||
+      this.cookies.get("namePer") == "Manager"
+    ) {
+      return (
+        <table id="tech-companies-1" className="table table-striped">
+          <thead style={{ backgroundColor: "#7266ba", color: "#fff" }}>
+            <tr>
+              <th>Mã Nhóm Thiết Bị</th>
+              <th>Nhóm Thiết Bị</th>
+              <th>Người Thực Hiện</th>
+              <th>Thao Tác</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
-    );
+          </thead>
+          <tbody>
+            {nhomTbs.map((nhomTb) => (
+              <tr key={nhomTb.idnhomTb}>
+                <td>{nhomTb.idnhomTb}</td>
+                <td>{nhomTb.nhomTb1}</td>
+                <td>{nhomTb.userDo}</td>
+                <td onClick={(id) => this.lnk_Click(nhomTb.idnhomTb)}>
+                  <button
+                    className="btn btn-icon waves-effect waves-light btn-warning"
+                    onClick={this.openModal}
+                    style={{ backgroundColor: "#f7b84b" }}
+                  >
+                    <i class="far fa-edit" style={{ color: "white" }}></i>
+                  </button>
+                  &nbsp;
+                  <button
+                    className="btn btn-icon waves-effect waves-light btn-danger"
+                    onClick={this.handleDeleted}
+                    style={{ backgroundColor: "#f1556c" }}
+                  >
+                    <i class="far fa-trash-alt"></i>
+                  </button>
+                  &nbsp;
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      );
+    } else {
+      return (
+        <table id="tech-companies-1" className="table table-striped">
+          <thead style={{ backgroundColor: "#7266ba", color: "#fff" }}>
+            <tr>
+              <th>Mã Nhóm Thiết Bị</th>
+              <th>Nhóm Thiết Bị</th>
+              <th>Thao Tác</th>
+            </tr>
+          </thead>
+          <tbody>
+            {nhomTbs.map((nhomTb) => (
+              <tr key={nhomTb.idnhomTb}>
+                <td>{nhomTb.idnhomTb}</td>
+                <td>{nhomTb.nhomTb1}</td>
+                <td onClick={(id) => this.lnk_Click(nhomTb.idnhomTb)}>
+                  <button
+                    className="btn btn-icon waves-effect waves-light btn-warning"
+                    onClick={this.openModal}
+                    style={{ backgroundColor: "#f7b84b" }}
+                  >
+                    <i class="far fa-edit" style={{ color: "white" }}></i>
+                  </button>
+                  &nbsp;
+                  <button
+                    className="btn btn-icon waves-effect waves-light btn-danger"
+                    onClick={this.handleDeleted}
+                    style={{ backgroundColor: "#f1556c" }}
+                  >
+                    <i class="far fa-trash-alt"></i>
+                  </button>
+                  &nbsp;
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      );
+    }
   }
 
   handleSave = (event) => {
     var newNhomTb = {
       idnhomTb: document.getElementById("idnhomTb").value,
-        nhomTb1: document.getElementById("nhomTb").value,
-        userDo: document.getElementById("nguoiThucHien").value
+      nhomTb1: document.getElementById("nhomTb").value,
+      userDo: document.getElementById("nguoiThucHien").value,
     };
     axios.post("api/NhomTbs/", newNhomTb).then((response) => {
       var result = response.data;
@@ -365,23 +411,52 @@ export class FetchNhomTBs extends Component {
   };
 
   handleEdit = (event) => {
-    var id = document.getElementById("idnhomTb").value;
-    var newNhomTb = {
-      idnhomTb: document.getElementById("idnhomTb").value,
-      nhomTb1: document.getElementById("nhomTb").value,
-    };
-    axios.put("api/NhomTbs/" + id, newNhomTb).then((response) => {
-      console.log(response);
-      var result = response.data;
-      console.log(result);
-      if (!result) {
-        this.getAll();
-        window.location.href = "/nhomthietbi";
-      } else {
-        alert("Không Thể Chỉnh Sửa");
-        // window.location.href = "/test-fetch-donvi";
-      }
-    });
+    if (
+      this.cookies.get("namePer") == "Full" ||
+      this.cookies.get("namePer") == "Manager"
+    ) {
+      var id = document.getElementById("idnhomTb").value;
+      var newNhomTb = {
+        idnhomTb: document.getElementById("idnhomTb").value,
+        nhomTb1: document.getElementById("nhomTb").value,
+      };
+      axios.put("api/NhomTbs/" + id, newNhomTb).then((response) => {
+        console.log(response);
+        var result = response.data;
+        console.log(result);
+        if (!result) {
+          this.getAll();
+          window.location.href = "/nhomthietbi";
+        } else {
+          alert("Không Thể Chỉnh Sửa");
+          // window.location.href = "/test-fetch-donvi";
+        }
+      });
+    } else if (
+      this.cookies.get("namePer") == "Staff" &&
+      this.cookies.get("userAccount") ===
+        document.getElementById("nguoiThucHien").value
+    ) {
+      var id = document.getElementById("idnhomTb").value;
+      var newNhomTb = {
+        idnhomTb: document.getElementById("idnhomTb").value,
+        nhomTb1: document.getElementById("nhomTb").value,
+      };
+      axios.put("api/NhomTbs/" + id, newNhomTb).then((response) => {
+        console.log(response);
+        var result = response.data;
+        console.log(result);
+        if (!result) {
+          this.getAll();
+          window.location.href = "/nhomthietbi";
+        } else {
+          alert("Không Thể Chỉnh Sửa");
+          // window.location.href = "/test-fetch-donvi";
+        }
+      });
+    } else {
+      alert("Bạn Không Được Phép Thực Hiện Thao Tác Này");
+    }
   };
   handleDeleted = (event) => {
     var deleted = 1;
@@ -413,6 +488,7 @@ export class FetchNhomTBs extends Component {
       var NhomTb = response.data;
       document.getElementById("idnhomTb").value = NhomTb.idnhomTb;
       document.getElementById("nhomTb").value = NhomTb.nhomTb1;
+      document.getElementById("nguoiThucHien").value = NhomTb.userDo;
     });
   }
 }

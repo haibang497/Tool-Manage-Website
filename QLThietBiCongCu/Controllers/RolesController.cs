@@ -77,26 +77,35 @@ namespace QLThietBiCongCu.Controllers {
             return query;
         }
 
-        [HttpPost("{value}")]
-        public async Task<ActionResult<User>> PostUser([FromBody]User user, int value)
+        [HttpPost]
+        public async Task<ActionResult<UserModel>> PostUser([FromBody]UserModel user)
         {
-
-            _context.User.Add(user);
+            User user1 = new User();
+            user1.IdUser = user.IdUser;
+            user1.UserAccount = user.UserAccount; ;
+            user1.Password = user.Password;
+            user1.UserName = user.UserName;
+            user1.PhoneNumber = user.PhoneNumber;
+            user1.Bday = user.Bday;
+            user1.Email = user.Email;
+            user1.Address = user.Address;
+            _context.User.Add(user1);
             await _context.SaveChangesAsync();
             //var u = _context.User;
             //var up = _context.UserPer;
             //var p = _context.Permission;
             UserPer up = new UserPer();
-            up.IdUser = user.IdUser;
-            up.IdPer = value;
+            up.IdUser = user1.IdUser;
+            up.IdPer = user.IdPer;
             up.Licensed = 1;
             _context.UserPer.Add(up);
-            
-            
+           
+           
 
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetUser", new { id = user.IdUser }, user);
         }
+
     }
 }

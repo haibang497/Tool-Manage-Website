@@ -25,8 +25,8 @@ export class FetchThietBi extends Component {
     };
 
     this._click = this._click.bind(this);
-    }
-    cookies = new Cookies();
+  }
+  cookies = new Cookies();
   _click() {
     this.setState((prevState) => ({ readOnly: !prevState.readOnly }));
   }
@@ -434,19 +434,20 @@ export class FetchThietBi extends Component {
                     readOnly
                     value={this.state.thietBis.ghiChu}
                   />
-                            </div>
-                            <div className="form-group mb-3">
-                                <label for="nguoiThucHien">Người Thực Hiện</label> &nbsp; &nbsp;
+                </div>
+                <div className="form-group mb-3">
+                  <label for="nguoiThucHien">Người Thực Hiện</label> &nbsp;
+                  &nbsp;
                   <input
-                                    name="nguoiThucHien"
-                                    id="nguoiThucHien"
-                                    type="text"
-                                    className="form-control"
-                                    value={this.state.thietBis.userDo}
-                                    required=""
-                                    readOnly
-                                />
-                            </div>
+                    name="nguoiThucHien"
+                    id="nguoiThucHien"
+                    type="text"
+                    className="form-control"
+                    value={this.state.thietBis.userDo}
+                    required=""
+                    readOnly
+                  />
+                </div>
               </form>
             </ModalBody>
             <ModalFooter>
@@ -742,19 +743,20 @@ export class FetchThietBi extends Component {
                     required=""
                     value={this.state.thietBis.ghiChu}
                   />
-                            </div>
-                            <div className="form-group mb-3">
-                                <label for="nguoiThucHien">Người Thực Hiện</label> &nbsp;
-                              &nbsp;
-                              <input
-                                    name="nguoiThucHien"
-                                    id="nguoiThucHien"
-                                    type="text"
-                                    className="form-control"
-                                    required=""
-                                    value={this.state.thietBis.userDo}
-                                />
-                            </div>
+                </div>
+                <div className="form-group mb-3">
+                  <label for="nguoiThucHien">Người Thực Hiện</label> &nbsp;
+                  &nbsp;
+                  <input
+                    name="nguoiThucHien"
+                    id="nguoiThucHien"
+                    type="text"
+                    className="form-control"
+                    required=""
+                    value={this.state.thietBis.userDo}
+                    readOnly
+                  />
+                </div>
               </form>
             </ModalBody>
             <ModalFooter>
@@ -1057,18 +1059,19 @@ export class FetchThietBi extends Component {
                                 className="form-control"
                                 required=""
                               />
-                                                    </div>
-                                                    <div className="form-group mb-3">
-                                                        <label for="nguoiThucHien">Người Thực Hiện</label> &nbsp; &nbsp;
+                            </div>
+                            <div className="form-group mb-3">
+                              <label for="nguoiThucHien">Người Thực Hiện</label>{" "}
+                              &nbsp; &nbsp;
                               <input
-                                                            name="nguoiThucHien"
-                                                            id="nguoiThucHien"
-                                                            type="text"
-                                                            className="form-control"
-                                                            required=""
-                                                            value={this.cookies.get("userAccount")}
-                                                        />
-                                                    </div>
+                                name="nguoiThucHien"
+                                id="nguoiThucHien"
+                                type="text"
+                                className="form-control"
+                                required=""
+                                value={this.cookies.get("userAccount")}
+                              />
+                            </div>
                           </form>
                         </ModalBody>
                         <ModalFooter>
@@ -1144,8 +1147,8 @@ export class FetchThietBi extends Component {
             <tr key={thietBi.maTb1}>
               <td>{thietBi.maTb1}</td>
               <td>{thietBi.tenTb}</td>
-                  <td>{thietBi.soluong}</td>
-                  <td>{thietBi.tinhTrang}</td>
+              <td>{thietBi.soluong}</td>
+              <td>{thietBi.tinhTrang}</td>
               <td onClick={(id) => this.lnk_Click(thietBi.maTb1)}>
                 <button
                   className="btn btn-info waves-effect waves-light"
@@ -1201,8 +1204,8 @@ export class FetchThietBi extends Component {
       maMay: document.getElementById("maMay").value,
       nuocSanXuat: document.getElementById("nuocSanXuat").value,
       nuocSanXuat: document.getElementById("nuocSanXuat").value,
-        ghiChu: document.getElementById("ghiChu").value,
-        userDo: document.getElementById("nguoiThucHien").value,
+      ghiChu: document.getElementById("ghiChu").value,
+      userDo: document.getElementById("nguoiThucHien").value,
       deleted: 0,
     };
     axios.post("api/MaTbs/", newThietBi).then((response) => {
@@ -1222,45 +1225,96 @@ export class FetchThietBi extends Component {
     });
   };
   handleEdit = (event) => {
-    var id = document.getElementById("maTb1").value;
-    var newThietBi = {
-      stt: document.getElementById("stt").value,
-      maTb1: document.getElementById("maTb1").value,
-      idnhomTb: document.getElementById("idnhomTb").value,
-      maDonVi: document.getElementById("maDonVi").value,
-      maLoai: document.getElementById("maLoai").value,
-      maNhomKd: document.getElementById("maNhomKd").value,
-      idhoaDon: document.getElementById("idhoaDon").value,
-      iddongTb: document.getElementById("iddongTb").value,
-      ngayPhieuXuat: document.getElementById("ngayPhieuXuat").value,
-      ngayPhieuNhap: document.getElementById("ngayPhieuNhap").value,
-      tenTb: document.getElementById("tenTb").value,
-      tenChuan: document.getElementById("tenChuan").value,
-      giaMua: document.getElementById("giaMua").value,
-      donViBan: document.getElementById("donViBan").value,
-      donViTinh: document.getElementById("donViTinh").value,
-      soluong: document.getElementById("soluong").value,
-      tinhTrang: document.getElementById("tinhTrang").value,
-      ngayTinhTrang: document.getElementById("ngayTinhTrang").value,
-      phapLy: document.getElementById("phapLy").value,
-      viTriLuuTruBkk: document.getElementById("viTriLuuTruBkk").value,
-      maMay: document.getElementById("maMay").value,
-      nuocSanXuat: document.getElementById("nuocSanXuat").value,
-      nuocSanXuat: document.getElementById("nuocSanXuat").value,
-      ghiChu: document.getElementById("ghiChu").value,
-    };
-    axios.put("api/MaTbs/" + id, newThietBi).then((response) => {
-      console.log(response);
-      var result = response.data;
-      console.log(result);
-      if (!result) {
-        this.getAll();
-        window.location.href = "/thietbi";
-      } else {
-        alert("Không Thể Chỉnh Sửa");
-        // window.location.href = "/test-fetch-donvi";
-      }
-    });
+    if (
+      this.cookies.get("namePer") == "Full" ||
+      this.cookies.get("namePer") == "Manager"
+    ) {
+      var id = document.getElementById("maTb1").value;
+      var newThietBi = {
+        stt: document.getElementById("stt").value,
+        maTb1: document.getElementById("maTb1").value,
+        idnhomTb: document.getElementById("idnhomTb").value,
+        maDonVi: document.getElementById("maDonVi").value,
+        maLoai: document.getElementById("maLoai").value,
+        maNhomKd: document.getElementById("maNhomKd").value,
+        idhoaDon: document.getElementById("idhoaDon").value,
+        iddongTb: document.getElementById("iddongTb").value,
+        ngayPhieuXuat: document.getElementById("ngayPhieuXuat").value,
+        ngayPhieuNhap: document.getElementById("ngayPhieuNhap").value,
+        tenTb: document.getElementById("tenTb").value,
+        tenChuan: document.getElementById("tenChuan").value,
+        giaMua: document.getElementById("giaMua").value,
+        donViBan: document.getElementById("donViBan").value,
+        donViTinh: document.getElementById("donViTinh").value,
+        soluong: document.getElementById("soluong").value,
+        tinhTrang: document.getElementById("tinhTrang").value,
+        ngayTinhTrang: document.getElementById("ngayTinhTrang").value,
+        phapLy: document.getElementById("phapLy").value,
+        viTriLuuTruBkk: document.getElementById("viTriLuuTruBkk").value,
+        maMay: document.getElementById("maMay").value,
+        nuocSanXuat: document.getElementById("nuocSanXuat").value,
+        nuocSanXuat: document.getElementById("nuocSanXuat").value,
+        ghiChu: document.getElementById("ghiChu").value,
+      };
+      axios.put("api/MaTbs/" + id, newThietBi).then((response) => {
+        console.log(response);
+        var result = response.data;
+        console.log(result);
+        if (!result) {
+          this.getAll();
+          window.location.href = "/thietbi";
+        } else {
+          alert("Không Thể Chỉnh Sửa");
+          // window.location.href = "/test-fetch-donvi";
+        }
+      });
+    } else if (
+      this.cookies.get("namePer") == "Staff" &&
+      this.cookies.get("userAccount") ===
+        document.getElementById("nguoiThucHien").value
+    ) {
+      var id = document.getElementById("maTb1").value;
+      var newThietBi = {
+        stt: document.getElementById("stt").value,
+        maTb1: document.getElementById("maTb1").value,
+        idnhomTb: document.getElementById("idnhomTb").value,
+        maDonVi: document.getElementById("maDonVi").value,
+        maLoai: document.getElementById("maLoai").value,
+        maNhomKd: document.getElementById("maNhomKd").value,
+        idhoaDon: document.getElementById("idhoaDon").value,
+        iddongTb: document.getElementById("iddongTb").value,
+        ngayPhieuXuat: document.getElementById("ngayPhieuXuat").value,
+        ngayPhieuNhap: document.getElementById("ngayPhieuNhap").value,
+        tenTb: document.getElementById("tenTb").value,
+        tenChuan: document.getElementById("tenChuan").value,
+        giaMua: document.getElementById("giaMua").value,
+        donViBan: document.getElementById("donViBan").value,
+        donViTinh: document.getElementById("donViTinh").value,
+        soluong: document.getElementById("soluong").value,
+        tinhTrang: document.getElementById("tinhTrang").value,
+        ngayTinhTrang: document.getElementById("ngayTinhTrang").value,
+        phapLy: document.getElementById("phapLy").value,
+        viTriLuuTruBkk: document.getElementById("viTriLuuTruBkk").value,
+        maMay: document.getElementById("maMay").value,
+        nuocSanXuat: document.getElementById("nuocSanXuat").value,
+        nuocSanXuat: document.getElementById("nuocSanXuat").value,
+        ghiChu: document.getElementById("ghiChu").value,
+      };
+      axios.put("api/MaTbs/" + id, newThietBi).then((response) => {
+        console.log(response);
+        var result = response.data;
+        console.log(result);
+        if (!result) {
+          this.getAll();
+          window.location.href = "/thietbi";
+        } else {
+          alert("Không Thể Chỉnh Sửa");
+          // window.location.href = "/test-fetch-donvi";
+        }
+      });
+    } else {
+      alert("Bạn Không Được Phép Thực Hiện Thao Tác Này");
+    }
   };
   handleDeleted = (event) => {
     var id = document.getElementById("maTb1").value;
@@ -1335,6 +1389,7 @@ export class FetchThietBi extends Component {
       document.getElementById("nuocSanXuat").value = ThietBi.nuocSanXuat;
       document.getElementById("namSx").value = ThietBi.namSx;
       document.getElementById("ghiChu").value = ThietBi.ghiChu;
+      document.getElementById("nguoiThucHien").value = ThietBi.userDo;
     });
   }
 }

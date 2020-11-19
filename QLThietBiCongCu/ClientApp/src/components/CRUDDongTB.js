@@ -26,7 +26,7 @@ export class FectchDongTb extends Component {
 
     this._click = this._click.bind(this);
   }
-    cookies = new Cookies();
+  cookies = new Cookies();
   _click() {
     this.setState((prevState) => ({ readOnly: !prevState.readOnly }));
   }
@@ -60,14 +60,6 @@ export class FectchDongTb extends Component {
     this.getData();
   }
 
-  async populateDongTbsData() {
-    const response = await fetch("api/DongTbs");
-    const data = await response.json();
-    this.setState({
-      dongTbs: data,
-      loading: false,
-    });
-  }
 
   getData = () => {
     axios.get("api/DongTbs").then((res) => {
@@ -159,19 +151,20 @@ export class FectchDongTb extends Component {
                     className="form-control"
                     value={this.state.dongTbs.idnhomTb}
                   />
-                            </div>
-                            <div className="form-group mb-3">
-                                <label for="nguoiThucHien">Người Thực Hiện</label> &nbsp; &nbsp;
+                </div>
+                <div className="form-group mb-3">
+                  <label for="nguoiThucHien">Người Thực Hiện</label> &nbsp;
+                  &nbsp;
                   <input
-                                    name="nguoiThucHien"
-                                    id="nguoiThucHien"
-                                    type="text"
-                                    className="form-control"
-                                    value={this.state.dongTbs.userDo}
-                                    required="" 
-                                    readOnly
-                                />
-                            </div>
+                    name="nguoiThucHien"
+                    id="nguoiThucHien"
+                    type="text"
+                    className="form-control"
+                    value={this.state.dongTbs.userDo}
+                    required=""
+                    readOnly
+                  />
+                </div>
               </form>
             </ModalBody>
             <ModalFooter>
@@ -245,19 +238,20 @@ export class FectchDongTb extends Component {
                                 type="text"
                                 className="form-control"
                               />
-                                                    </div>
-                                                    <div className="form-group mb-3">
-                                                        <label for="nguoiThucHien">Người Thực Hiện</label> &nbsp;
-                              &nbsp;
+                            </div>
+                            <div className="form-group mb-3">
+                              <label for="nguoiThucHien">Người Thực Hiện</label>{" "}
+                              &nbsp; &nbsp;
                               <input
-                                                            name="nguoiThucHien"
-                                                            id="nguoiThucHien"
-                                                            type="text"
-                                                            className="form-control"
-                                                            required=""
-                                                            value={this.cookies.get("userAccount")}
-                                                        />
-                                                    </div>
+                                name="nguoiThucHien"
+                                id="nguoiThucHien"
+                                type="text"
+                                className="form-control"
+                                required=""
+                                value={this.cookies.get("userAccount")}
+                                readOnly
+                              />
+                            </div>
                           </form>
                         </ModalBody>
                         <ModalFooter>
@@ -316,67 +310,122 @@ export class FectchDongTb extends Component {
   }
 
   renderDongTbsTable(dongTbs) {
-    return (
-      <div className="infor">
-        <table id="tech-companies-1" class="table table-striped">
-          <thead style={{ backgroundColor: "#7266ba", color: "#fff" }}>
-            <tr>
-              <th data-priority="3" style={{ textAlign: "center" }}>
-                Mã Dòng Thiết Bị
-              </th>
-              <th data-priority="1" style={{ textAlign: "center" }}>
-                Tên Dòng Thiết Bị
-              </th>
-              <th data-priority="3" style={{ textAlign: "center" }}>
-                            Mã Nhóm Thiết Bị
-              </th>
-                        <th data-priority="3" style={{ textAlign: "center" }}>
-                           Người Thực Hiện
-              </th>
-              <th data-priority="3" style={{ textAlign: "center" }}>
-                Thao Tác
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {dongTbs.map((dongTb) => (
-              <tr key={dongTb.iddongTb}>
-                <td style={{ textAlign: "center" }}>{dongTb.iddongTb}</td>
-                <td style={{ textAlign: "center" }}>{dongTb.dongTb1}</td>
-                    <td style={{ textAlign: "center" }}>{dongTb.idnhomTb}</td>
-                    <td style={{ textAlign: "center" }}>{dongTb.userDo}</td>
-                <td onClick={() => this.lnk_Click(dongTb.iddongTb)}>
-                  <button
-                    className="btn btn-icon waves-effect waves-light btn-warning"
-                    onClick={this.openModal}
-                    style={{ backgroundColor: "#f7b84b" }}
-                  >
-                    <i class="far fa-edit" style={{ color: "white" }}></i>
-                  </button>
-                  &nbsp;
-                  <button
-                    className="btn btn-icon waves-effect waves-light btn-danger"
-                    onClick={this.handleDeleted}
-                    style={{ backgroundColor: "#f1556c" }}
-                  >
-                    <i class="far fa-trash-alt"></i>
-                  </button>
-                  &nbsp;
-                </td>
+    if (
+      this.cookies.get("namePer") == "Full" ||
+      this.cookies.get("namePer") == "Manager"
+    ) {
+      return (
+        <div className="infor">
+          <table id="tech-companies-1" class="table table-striped">
+            <thead style={{ backgroundColor: "#7266ba", color: "#fff" }}>
+              <tr>
+                <th data-priority="3" style={{ textAlign: "center" }}>
+                  Mã Dòng Thiết Bị
+                </th>
+                <th data-priority="1" style={{ textAlign: "center" }}>
+                  Tên Dòng Thiết Bị
+                </th>
+                <th data-priority="3" style={{ textAlign: "center" }}>
+                  Mã Nhóm Thiết Bị
+                </th>
+                <th data-priority="3" style={{ textAlign: "center" }}>
+                  Người Thực Hiện
+                </th>
+                <th data-priority="3" style={{ textAlign: "center" }}>
+                  Thao Tác
+                </th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    );
+            </thead>
+            <tbody>
+              {dongTbs.map((dongTb) => (
+                <tr key={dongTb.iddongTb}>
+                  <td style={{ textAlign: "center" }}>{dongTb.iddongTb}</td>
+                  <td style={{ textAlign: "center" }}>{dongTb.dongTb1}</td>
+                  <td style={{ textAlign: "center" }}>{dongTb.idnhomTb}</td>
+                  <td style={{ textAlign: "center" }}>{dongTb.userDo}</td>
+                  <td onClick={() => this.lnk_Click(dongTb.iddongTb)}>
+                    <button
+                      className="btn btn-icon waves-effect waves-light btn-warning"
+                      onClick={this.openModal}
+                      style={{ backgroundColor: "#f7b84b" }}
+                    >
+                      <i class="far fa-edit" style={{ color: "white" }}></i>
+                    </button>
+                    &nbsp;
+                    <button
+                      className="btn btn-icon waves-effect waves-light btn-danger"
+                      onClick={this.handleDeleted}
+                      style={{ backgroundColor: "#f1556c" }}
+                    >
+                      <i class="far fa-trash-alt"></i>
+                    </button>
+                    &nbsp;
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      );
+    } else {
+      return (
+        <div className="infor">
+          <table id="tech-companies-1" class="table table-striped">
+            <thead style={{ backgroundColor: "#7266ba", color: "#fff" }}>
+              <tr>
+                <th data-priority="3" style={{ textAlign: "center" }}>
+                  Mã Dòng Thiết Bị
+                </th>
+                <th data-priority="1" style={{ textAlign: "center" }}>
+                  Tên Dòng Thiết Bị
+                </th>
+                <th data-priority="3" style={{ textAlign: "center" }}>
+                  Mã Nhóm Thiết Bị
+                </th>
+                <th data-priority="3" style={{ textAlign: "center" }}>
+                  Thao Tác
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {dongTbs.map((dongTb) => (
+                <tr key={dongTb.iddongTb}>
+                  <td style={{ textAlign: "center" }}>{dongTb.iddongTb}</td>
+                  <td style={{ textAlign: "center" }}>{dongTb.dongTb1}</td>
+                  <td style={{ textAlign: "center" }}>{dongTb.idnhomTb}</td>
+                  <td onClick={() => this.lnk_Click(dongTb.iddongTb)}>
+                    <button
+                      className="btn btn-icon waves-effect waves-light btn-warning"
+                      onClick={this.openModal}
+                      style={{ backgroundColor: "#f7b84b" }}
+                    >
+                      <i class="far fa-edit" style={{ color: "white" }}></i>
+                    </button>
+                    &nbsp;
+                    <button
+                      className="btn btn-icon waves-effect waves-light btn-danger"
+                      onClick={this.handleDeleted}
+                      style={{ backgroundColor: "#f1556c" }}
+                    >
+                      <i class="far fa-trash-alt"></i>
+                    </button>
+                    &nbsp;
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      );
+    }
   }
 
   handleSave = (event) => {
     var newDongTb = {
       iddongTb: document.getElementById("IdDongtb").value,
       dongTb1: document.getElementById("tenDongTb").value,
-        idnhomTb: document.getElementById("IdNhomTb").value,
-        userDo: document.getElementById("nguoiThucHien").value,
+      idnhomTb: document.getElementById("IdNhomTb").value,
+      userDo: document.getElementById("nguoiThucHien").value,
     };
     axios.post("api/DongTbs/", newDongTb).then((response) => {
       var result = response.data;
@@ -395,23 +444,54 @@ export class FectchDongTb extends Component {
     });
   };
   handleEdit = (event) => {
-    var id = document.getElementById("IdDongtb").value;
-    var newDongTb = {
-      iddongTb: document.getElementById("IdDongtb").value,
-      dongTb1: document.getElementById("tenDongTb").value,
-      idnhomTb: document.getElementById("IdNhomTb").value,
-    };
-    axios.put("api/DongTbs/" + id, newDongTb).then((response) => {
-      console.log(response);
-      var result = response.data;
-      console.log(result);
-      if (!result) {
-        this.getAll();
-        window.location.href = "/dongthietbi";
-      } else {
-        alert("Lỗi không thể chỉnh sửa");
-      }
-    });
+    if (
+      this.cookies.get("namePer") == "Full" ||
+      this.cookies.get("namePer") == "Manager"
+    ) {
+      var id = document.getElementById("IdDongtb").value;
+      var newDongTb = {
+        iddongTb: document.getElementById("IdDongtb").value,
+        dongTb1: document.getElementById("tenDongTb").value,
+        idnhomTb: document.getElementById("IdNhomTb").value,
+        userDo: document.getElementById("nguoiThucHien").value,
+      };
+      axios.put("api/DongTbs/" + id, newDongTb).then((response) => {
+        console.log(response);
+        var result = response.data;
+        console.log(result);
+        if (!result) {
+          this.getAll();
+          window.location.href = "/dongthietbi";
+        } else {
+          alert("Lỗi không thể chỉnh sửa");
+        }
+      });
+    } else if (
+      this.cookies.get("namePer") == "Staff" &&
+      this.cookies.get("userAccount") ===
+        document.getElementById("nguoiThucHien").value
+    ) {
+      var id = document.getElementById("IdDongtb").value;
+      var newDongTb = {
+        iddongTb: document.getElementById("IdDongtb").value,
+        dongTb1: document.getElementById("tenDongTb").value,
+        idnhomTb: document.getElementById("IdNhomTb").value,
+        userDo: document.getElementById("nguoiThucHien").value,
+      };
+      axios.put("api/DongTbs/" + id, newDongTb).then((response) => {
+        console.log(response);
+        var result = response.data;
+        console.log(result);
+        if (!result) {
+          this.getAll();
+          window.location.href = "/dongthietbi";
+        } else {
+          alert("Lỗi không thể chỉnh sửa");
+        }
+      });
+    } else {
+      alert("Bạn Không Được Phép Thực Hiện Thao Tác Này");
+    }
   };
   handleDeleted = (event) => {
     var deleted = 1;
@@ -445,6 +525,7 @@ export class FectchDongTb extends Component {
       document.getElementById("IdDongtb").value = dongTb.iddongTb;
       document.getElementById("tenDongTb").value = dongTb.dongTb1;
       document.getElementById("IdNhomTb").value = dongTb.idnhomTb;
+      document.getElementById("nguoiThucHien").value = dongTb.userDo;
     });
   }
 }

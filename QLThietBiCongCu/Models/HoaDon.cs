@@ -1,13 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace QLThietBiCongCu.Models
-{
-    public partial class HoaDon
-    {
-        public HoaDon()
-        {
-            MaTb = new HashSet<MaTb>();
+namespace QLThietBiCongCu.Models {
+    public partial class HoaDon {
+        public HoaDon () {
+            MaTb = new HashSet<MaTb> ();
         }
 
         public string IdhoaDon { get; set; }
@@ -17,6 +14,7 @@ namespace QLThietBiCongCu.Models
         public string TinhTrangHoaDon { get; set; }
         public string ViTriLuuTruHd { get; set; }
         public int? Delete { get; set; }
+        public string UserDo { get; set; }
 
         public virtual ICollection<MaTb> MaTb { get; set; }
     }

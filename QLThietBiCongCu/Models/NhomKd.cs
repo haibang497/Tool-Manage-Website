@@ -13,6 +13,7 @@ namespace QLThietBiCongCu.Models
         public string MaNhomKd { get; set; }
         public string NhomKiemDinh { get; set; }
         public int? Delete { get; set; }
+        public string UserDo { get; set; }
 
         public virtual ICollection<MaTb> MaTb { get; set; }
     }

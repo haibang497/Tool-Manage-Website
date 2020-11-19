@@ -18,6 +18,7 @@ namespace QLThietBiCongCu.Models
         public string ViTriLuuTruKd { get; set; }
         public string SoSeri { get; set; }
         public int? Delete { get; set; }
+        public string UserDo { get; set; }
 
         public virtual MaTb MaTbNavigation { get; set; }
     }

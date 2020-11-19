@@ -73,15 +73,6 @@ export class FetchThongTinKD extends Component {
     this.getData();
   }
 
-  async populateDonVisData() {
-    const response = await fetch("api/ThongTinKds");
-    const data = await response.json();
-    this.setState({
-      thongTins: data,
-      loading: false,
-    });
-  }
-
   getData = () => {
     axios.get("api/ThongTinKds").then((res) => {
       var data = res.data;
@@ -292,19 +283,6 @@ export class FetchThongTinKD extends Component {
                     value={this.state.thongTins.soSeri}
                   />
                 </div>
-                <div className="form-group mb-3">
-                  <label for="nguoiThucHien">Người Thực Hiện</label> &nbsp;
-                  &nbsp;
-                  <input
-                    name="nguoiThucHien"
-                    id="nguoiThucHien"
-                    type="text"
-                    className="form-control"
-                    required=""
-                    readOnly
-                    value={this.state.thongTins.userDo}
-                  />
-                </div>
               </form>
             </ModalBody>
             <ModalFooter>
@@ -470,6 +448,7 @@ export class FetchThongTinKD extends Component {
                     className="form-control"
                     required=""
                     value={this.state.thongTins.userDo}
+                    readOnly
                   />
                 </div>
               </form>
@@ -668,6 +647,7 @@ export class FetchThongTinKD extends Component {
                                 className="form-control"
                                 required=""
                                 value={this.cookies.get("userAccount")}
+                                readOnly
                               />
                             </div>
                           </form>
@@ -728,60 +708,122 @@ export class FetchThongTinKD extends Component {
   }
 
   renderDonVisTable(thongTins) {
-    return (
-      <table id="tech-companies-1" className="table table-striped">
-        <thead style={{ backgroundColor: "#7266ba", color: "#fff" }}>
-          <tr>
-            <th>Mã Kiểm Định</th>
-            <th>Mã Thiết Bị</th>
-            <th>Ngày Kiểm</th>
-            <th>Đến Hạn</th>
-            <th>Tình Trạng</th>
-            <th style={{ textAlign: "center" }}>Thao Tác</th>
-          </tr>
-        </thead>
-        <tbody>
-          {thongTins.map((thongTin) => (
-            <tr key={thongTin.maKd}>
-              <td>{thongTin.maKd}</td>
-              <td>{thongTin.maTb}</td>
-              <td>{thongTin.ngayKdganNhat}</td>
-              <td>{thongTin.ngaytoihanKd}</td>
-              <td>{thongTin.tinhTrangKd}</td>
-              <td
-                onClick={(id) => this.lnk_Click(thongTin.maKd)}
-                style={{ textAlign: "center" }}
-              >
-                <button
-                  className="btn btn-info waves-effect waves-light"
-                  onClick={this.openModalShowInformation}
-                  style={{ backgroundColor: "#37cde6" }}
-                >
-                  <i class="far fa-eye" style={{ color: "white" }}></i>
-                </button>
-                &nbsp;
-                <button
-                  className="btn btn-icon waves-effect waves-light btn-warning"
-                  onClick={this.openModal}
-                  style={{ backgroundColor: "#f7b84b" }}
-                >
-                  <i class="far fa-edit" style={{ color: "white" }}></i>
-                </button>
-                &nbsp;
-                <button
-                  className="btn btn-icon waves-effect waves-light btn-danger"
-                  onClick={this.handleDeleted}
-                  style={{ backgroundColor: "#f1556c" }}
-                >
-                  <i class="far fa-trash-alt"></i>
-                </button>
-                &nbsp;
-              </td>
+    if (
+      this.cookies.get("namePer") == "Full" ||
+      this.cookies.get("namePer") == "Manager"
+    ) {
+      return (
+        <table id="tech-companies-1" className="table table-striped">
+          <thead style={{ backgroundColor: "#7266ba", color: "#fff" }}>
+            <tr>
+              <th>Mã Kiểm Định</th>
+              <th>Mã Thiết Bị</th>
+              <th>Ngày Kiểm</th>
+              <th>Đến Hạn</th>
+              <th>Tình Trạng</th>
+              <th>Người Thực Hiện</th>
+              <th style={{ textAlign: "center" }}>Thao Tác</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
-    );
+          </thead>
+          <tbody>
+            {thongTins.map((thongTin) => (
+              <tr key={thongTin.maKd}>
+                <td>{thongTin.maKd}</td>
+                <td>{thongTin.maTb}</td>
+                <td>{thongTin.ngayKdganNhat}</td>
+                <td>{thongTin.ngaytoihanKd}</td>
+                <td>{thongTin.tinhTrangKd}</td>
+                <td>{thongTin.userDo}</td>
+                <td
+                  onClick={(id) => this.lnk_Click(thongTin.maKd)}
+                  style={{ textAlign: "center" }}
+                >
+                  <button
+                    className="btn btn-info waves-effect waves-light"
+                    onClick={this.openModalShowInformation}
+                    style={{ backgroundColor: "#37cde6" }}
+                  >
+                    <i class="far fa-eye" style={{ color: "white" }}></i>
+                  </button>
+                  &nbsp;
+                  <button
+                    className="btn btn-icon waves-effect waves-light btn-warning"
+                    onClick={this.openModal}
+                    style={{ backgroundColor: "#f7b84b" }}
+                  >
+                    <i class="far fa-edit" style={{ color: "white" }}></i>
+                  </button>
+                  &nbsp;
+                  <button
+                    className="btn btn-icon waves-effect waves-light btn-danger"
+                    onClick={this.handleDeleted}
+                    style={{ backgroundColor: "#f1556c" }}
+                  >
+                    <i class="far fa-trash-alt"></i>
+                  </button>
+                  &nbsp;
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      );
+    } else {
+      return (
+        <table id="tech-companies-1" className="table table-striped">
+          <thead style={{ backgroundColor: "#7266ba", color: "#fff" }}>
+            <tr>
+              <th>Mã Kiểm Định</th>
+              <th>Mã Thiết Bị</th>
+              <th>Ngày Kiểm</th>
+              <th>Đến Hạn</th>
+              <th>Tình Trạng</th>
+              <th style={{ textAlign: "center" }}>Thao Tác</th>
+            </tr>
+          </thead>
+          <tbody>
+            {thongTins.map((thongTin) => (
+              <tr key={thongTin.maKd}>
+                <td>{thongTin.maKd}</td>
+                <td>{thongTin.maTb}</td>
+                <td>{thongTin.ngayKdganNhat}</td>
+                <td>{thongTin.ngaytoihanKd}</td>
+                <td>{thongTin.tinhTrangKd}</td>
+                <td
+                  onClick={(id) => this.lnk_Click(thongTin.maKd)}
+                  style={{ textAlign: "center" }}
+                >
+                  <button
+                    className="btn btn-info waves-effect waves-light"
+                    onClick={this.openModalShowInformation}
+                    style={{ backgroundColor: "#37cde6" }}
+                  >
+                    <i class="far fa-eye" style={{ color: "white" }}></i>
+                  </button>
+                  &nbsp;
+                  <button
+                    className="btn btn-icon waves-effect waves-light btn-warning"
+                    onClick={this.openModal}
+                    style={{ backgroundColor: "#f7b84b" }}
+                  >
+                    <i class="far fa-edit" style={{ color: "white" }}></i>
+                  </button>
+                  &nbsp;
+                  <button
+                    className="btn btn-icon waves-effect waves-light btn-danger"
+                    onClick={this.handleDeleted}
+                    style={{ backgroundColor: "#f1556c" }}
+                  >
+                    <i class="far fa-trash-alt"></i>
+                  </button>
+                  &nbsp;
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      );
+    }
   }
 
   handleSave = () => {
@@ -818,32 +860,70 @@ export class FetchThongTinKD extends Component {
     });
   };
   handleEdit = () => {
-    var id = document.getElementById("maKd").value;
-    var newThongTin = {
-      maKd: document.getElementById("maKd").value,
-      maTb: document.getElementById("maTb").value,
-      giaKd: document.getElementById("giaKd").value,
-      chuKyKd: document.getElementById("chuKyKd").value,
-      donViGuiKd: document.getElementById("donViGuiKd").value,
-      donViKd: document.getElementById("donViKd").value,
-      ngayKdganNhat: document.getElementById("ngayKdganNhat").value,
-      ngaytoihanKd: document.getElementById("ngaytoihanKd").value,
-      soKd: document.getElementById("soKd").value,
-      tinhTrangKd: document.getElementById("tinhTrangKd").value,
-      viTriLuuTruKd: document.getElementById("viTriLuuTruKd").value,
-      soSeri: document.getElementById("soSeri").value,
-    };
-    axios.put("api/ThongTinKds/" + id, newThongTin).then((response) => {
-      console.log(response);
-      var result = response.data;
-      console.log(result);
-      if (!result) {
-        this.getAll();
-        window.location.href = "/thongtinkiemdinh";
-      } else {
-        alert("Không Thể Chỉnh Sửa");
-      }
-    });
+    if (
+      this.cookies.get("namePer") == "Full" ||
+      this.cookies.get("namePer") == "Manager"
+    ) {
+      var id = document.getElementById("maKd").value;
+      var newThongTin = {
+        maKd: document.getElementById("maKd").value,
+        maTb: document.getElementById("maTb").value,
+        giaKd: document.getElementById("giaKd").value,
+        chuKyKd: document.getElementById("chuKyKd").value,
+        donViGuiKd: document.getElementById("donViGuiKd").value,
+        donViKd: document.getElementById("donViKd").value,
+        ngayKdganNhat: document.getElementById("ngayKdganNhat").value,
+        ngaytoihanKd: document.getElementById("ngaytoihanKd").value,
+        soKd: document.getElementById("soKd").value,
+        tinhTrangKd: document.getElementById("tinhTrangKd").value,
+        viTriLuuTruKd: document.getElementById("viTriLuuTruKd").value,
+        soSeri: document.getElementById("soSeri").value,
+      };
+      axios.put("api/ThongTinKds/" + id, newThongTin).then((response) => {
+        console.log(response);
+        var result = response.data;
+        console.log(result);
+        if (!result) {
+          this.getAll();
+          window.location.href = "/thongtinkiemdinh";
+        } else {
+          alert("Không Thể Chỉnh Sửa");
+        }
+      });
+    } else if (
+      this.cookies.get("namePer") == "Staff" &&
+      this.cookies.get("userAccount") ===
+        document.getElementById("nguoiThucHien").value
+    ) {
+      var id = document.getElementById("maKd").value;
+      var newThongTin = {
+        maKd: document.getElementById("maKd").value,
+        maTb: document.getElementById("maTb").value,
+        giaKd: document.getElementById("giaKd").value,
+        chuKyKd: document.getElementById("chuKyKd").value,
+        donViGuiKd: document.getElementById("donViGuiKd").value,
+        donViKd: document.getElementById("donViKd").value,
+        ngayKdganNhat: document.getElementById("ngayKdganNhat").value,
+        ngaytoihanKd: document.getElementById("ngaytoihanKd").value,
+        soKd: document.getElementById("soKd").value,
+        tinhTrangKd: document.getElementById("tinhTrangKd").value,
+        viTriLuuTruKd: document.getElementById("viTriLuuTruKd").value,
+        soSeri: document.getElementById("soSeri").value,
+      };
+      axios.put("api/ThongTinKds/" + id, newThongTin).then((response) => {
+        console.log(response);
+        var result = response.data;
+        console.log(result);
+        if (!result) {
+          this.getAll();
+          window.location.href = "/thongtinkiemdinh";
+        } else {
+          alert("Không Thể Chỉnh Sửa");
+        }
+      });
+    } else {
+      alert("Bạn Không Được Phép Thực Hiện Thao Tác Này");
+    }
   };
   handleDeleted = (event) => {
     var deleted = 1;

@@ -35,6 +35,7 @@ namespace QLThietBiCongCu.Models
         public string NamSx { get; set; }
         public string GhiChu { get; set; }
         public int? Deleted { get; set; }
+        public string UserDo { get; set; }
 
         public virtual DongTb IddongTbNavigation { get; set; }
         public virtual HoaDon IdhoaDonNavigation { get; set; }
