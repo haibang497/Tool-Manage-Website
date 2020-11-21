@@ -86,7 +86,11 @@ const LeftSideBar = () => {
               </a>
               <ul className="nav-second-level" aria-expanded="false">
                 <li>
-                  <a href="apps-kanbanboard.html">Kanban Board</a>
+                <NavItem>
+                    <NavLink tag={Link} className="text-dark" to="/xuatbaocao">
+                      Xuất Báo Cáo
+                    </NavLink>
+                  </NavItem>
                 </li>
                 <li>
                   <a href="apps-companies.html">Companies</a>
