@@ -71,7 +71,11 @@ const LeftSideBar = () => {
                 </li>
                 <li>
                   <NavItem>
-                    <NavLink tag={Link} className="text-dark" to="/thongtinkiemdinh">
+                    <NavLink
+                      tag={Link}
+                      className="text-dark"
+                      to="/thongtinkiemdinh"
+                    >
                       Thông Tin Kiểm Định
                     </NavLink>
                   </NavItem>
@@ -86,7 +90,7 @@ const LeftSideBar = () => {
               </a>
               <ul className="nav-second-level" aria-expanded="false">
                 <li>
-                <NavItem>
+                  <NavItem>
                     <NavLink tag={Link} className="text-dark" to="/xuatbaocao">
                       Xuất Báo Cáo
                     </NavLink>
@@ -112,27 +116,69 @@ const LeftSideBar = () => {
             <li>
               <a href="javascript: void(0);" className="waves-effect">
                 <i className="remixicon-layout-line" />
-                <span className="badge badge-primary float-right">New</span>
-                <span> Layouts </span>
+                <span> Xuất Báo Cáo </span>
+                <span className="menu-arrow" />
               </a>
               <ul className="nav-second-level" aria-expanded="false">
                 <li>
-                  <a href="layouts-sidebar-sm.html">Small Sidebar</a>
+                  <NavItem>
+                    <NavLink tag={Link} className="text-dark" to="/xuatdonvi">
+                      Chi Tiết Đơn Vị
+                    </NavLink>
+                  </NavItem>
                 </li>
                 <li>
-                  <a href="layouts-dark-sidebar.html">Dark Sidebar</a>
+                  <NavItem>
+                    <NavLink tag={Link} className="text-dark" to="/xuatdongtb">
+                      Chi Tiết Dòng Thiết Bị
+                    </NavLink>
+                  </NavItem>
                 </li>
                 <li>
-                  <a href="layouts-light-topbar.html">Light Topbar</a>
+                  <NavItem>
+                    <NavLink tag={Link} className="text-dark" to="/xuathoadon">
+                      Chi Tiết Hóa Đơn
+                    </NavLink>
+                  </NavItem>
                 </li>
                 <li>
-                  <a href="layouts-preloader.html">Preloader</a>
+                  <NavItem>
+                    <NavLink tag={Link} className="text-dark" to="/xuatloaitb">
+                      Chi Tiết Loại Thiết Bị
+                    </NavLink>
+                  </NavItem>
                 </li>
                 <li>
-                  <a href="layouts-sidebar-collapsed.html">Sidebar Collapsed</a>
+                  <NavItem>
+                    <NavLink tag={Link} className="text-dark" to="/xuatnhomkd">
+                      Chi Tiết Nhóm Kiểm Định
+                    </NavLink>
+                  </NavItem>
                 </li>
                 <li>
-                  <a href="layouts-boxed.html">Boxed</a>
+                  <NavItem>
+                    <NavLink tag={Link} className="text-dark" to="/xuatnhomtb">
+                      Chi Tiết Nhóm Thiết Bị
+                    </NavLink>
+                  </NavItem>
+                </li>
+                <li>
+                  <NavItem>
+                    <NavLink
+                      tag={Link}
+                      className="text-dark"
+                      to="/xuatthongtinkd"
+                    >
+                      Chi Tiết Thông Tin Kiểm Định
+                    </NavLink>
+                  </NavItem>
+                </li>
+                <li>
+                  <NavItem>
+                    <NavLink tag={Link} className="text-dark" to="/xuatthietbi">
+                      Chi Tiết Thiết Bị
+                    </NavLink>
+                  </NavItem>
                 </li>
               </ul>
             </li>

@@ -47,7 +47,14 @@ export class ChiTietDonVi extends React.Component {
                     className="table-responsive"
                     data-pattern="priority-columns"
                   >
-                    <h2 style={{ textAlign: "center", fontFamily:"Times New Roman" }}>Đơn Vị</h2>
+                    <h2
+                      style={{
+                        textAlign: "center",
+                        fontFamily: "Times New Roman",
+                      }}
+                    >
+                      Đơn Vị
+                    </h2>
                   </div>
                 </div>
               </div>
@@ -62,8 +69,20 @@ export class ChiTietDonVi extends React.Component {
   renderDonVi(donVis) {
     return (
       <div>
+        <div style={{ marginLeft: "200px", fontFamily: "Times New Roman" }}>
+          <ul>
+            <li>Người xuất báo cáo: {this.cookies.get("userName")}</li>
+            <li>Ngày xuất báo cáo: {this.state.currentDate}</li>
+          </ul>
+        </div>
         <table className="center" style={{ border: "2px solid black" }}>
-          <thead style={{ color: "green", border: "2px solid black", backgroundColor:"grey" }}>
+          <thead
+            style={{
+              color: "green",
+              border: "2px solid black",
+              backgroundColor: "grey",
+            }}
+          >
             <tr>
               <th style={{ textAlign: "center", border: "1px solid black" }}>
                 Mã Đơn Vị
@@ -86,10 +105,6 @@ export class ChiTietDonVi extends React.Component {
             ))}
           </tbody>
         </table>
-        <div style={{marginLeft:"200px", fontFamily:"Times New Roman"}}>
-          <p>Người xuất báo cáo: {this.cookies.get("userName")}</p>
-          <p>Ngày xuất báo cáo: {this.state.currentDate}</p>
-        </div>
       </div>
     );
   }

@@ -9,13 +9,12 @@ import { FectchDongTb } from "./CRUDDongTB";
 import { FetchThongTinKD } from "./CRUDThongTinKd";
 import { FetchNhomKDs } from "./CRUDNhomKD";
 import { FetchNhomTBs } from "./CRUDNhomTB";
-import { DangNhap } from "./DangNhap";
-import { DangKy } from "./DangKy";
 import { DangKyAdmin } from "./DangKyAdmin";
 import { DangNhapAdmin } from "./DangNhapAdmin";
 import { ChiTietDonVi } from "./ChiTietDonVi";
 import { ChiTietDongThietBi } from "./ChiTietDongTB";
-import { XuatBaoCao } from "./XuatBaoCao";
+import { XuatBaoCao, XuatDonVi, XuatDongTB, XuatHoaDon, XuatLoaiTB, XuatNhomKD, XuatNhomTB, XuatThongKD, XuatThietBi } from "./XuatBaoCao";
+
 
 export class MainLayout extends Component {
   render() {
@@ -31,11 +30,18 @@ export class MainLayout extends Component {
           <Route path="/loaithietbi" component={FetchLoaiTb} />
           <Route path="/nhomkiemdinh" component={FetchNhomKDs} />
           <Route path="/nhomthietbi" component={FetchNhomTBs} />
-          <Route path="/dangky" component={DangKy} />
           <Route path="/dangkyadmin" component={DangKyAdmin} />
           <Route path="/chitietdonvi" component={ChiTietDonVi} />
           <Route path="/xuatbaocao" component={XuatBaoCao} />
           <Route path="/chitietdongthietbi" component={ChiTietDongThietBi} />
+          <Route path="/xuatdonvi" component={XuatDonVi}/>
+          <Route path="/xuatdongtb" component={XuatDongTB}/>
+          <Route path="/xuathoadon" component={XuatHoaDon}/>
+          <Route path="/xuatloaitb" component={XuatLoaiTB}/>
+          <Route path="/xuatnhomkd" component={XuatNhomKD}/>
+          <Route path="/xuatnhomtb" component={XuatNhomTB}/>
+          <Route path="/xuatthongtinkd" component={XuatThongKD}/>
+          <Route path="/xuatthietbi" component={XuatThietBi}/>
         </div>
       </>
     );

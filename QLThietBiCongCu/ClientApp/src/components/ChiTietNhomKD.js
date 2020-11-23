@@ -4,11 +4,11 @@ import Cookies from "universal-cookie";
 import "./style/DonVi.css";
 import "./style/Table.css";
 
-export class ChiTietDongThietBi extends React.Component {
+export class ChiTietNhomKD extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      dongTbs: [],
+      nhomKDs: [],
       loading: true,
       currentDate: Date().toLocaleString(),
     };
@@ -20,10 +20,10 @@ export class ChiTietDongThietBi extends React.Component {
   }
 
   async populateLoaiTbsData() {
-    const response = await fetch("api/DongTbs");
+    const response = await fetch("api/nhomKds");
     const data = await response.json();
     this.setState({
-      dongTbs: data,
+      nhomKDs: data,
       loading: false,
     });
   }
@@ -34,7 +34,7 @@ export class ChiTietDongThietBi extends React.Component {
         <em>Loading...</em>
       </p>
     ) : (
-      this.renderDonVi(this.state.dongTbs)
+      this.renderDonVi(this.state.nhomKDs)
     );
     return (
       <>
@@ -53,7 +53,7 @@ export class ChiTietDongThietBi extends React.Component {
                         fontFamily: "Times New Roman",
                       }}
                     >
-                      Dòng Thiết Bị
+                      Nhóm Kiểm Định
                     </h2>
                   </div>
                 </div>
@@ -66,7 +66,7 @@ export class ChiTietDongThietBi extends React.Component {
     );
   }
 
-  renderDonVi(dongTbs) {
+  renderDonVi(nhomKDs) {
     return (
       <div>
         <div style={{ marginLeft: "200px", fontFamily: "Times New Roman" }}>
@@ -85,27 +85,21 @@ export class ChiTietDongThietBi extends React.Component {
           >
             <tr>
               <th style={{ textAlign: "center", border: "1px solid black" }}>
-                Mã Đơn Vị
+                Mã Nhóm Kiểm Định
               </th>
               <th style={{ textAlign: "center", border: "1px solid black" }}>
-                Tên Đơn Vị
-              </th>
-              <th style={{ textAlign: "center", border: "1px solid black" }}>
-                Nhóm TB
+                Tên Nhóm Kiểm Định
               </th>
             </tr>
           </thead>
           <tbody>
-            {dongTbs.map((dongTb) => (
-              <tr key={dongTb.iddongTb}>
+            {nhomKDs.map((nhomKD) => (
+              <tr key={nhomKD.maNhomKd}>
                 <td style={{ textAlign: "center", border: "1px solid black" }}>
-                  {dongTb.iddongTb}
+                  {nhomKD.maNhomKd}
                 </td>
                 <td style={{ textAlign: "center", border: "1px solid black" }}>
-                  {dongTb.dongTb1}
-                </td>
-                <td style={{ textAlign: "center", border: "1px solid black" }}>
-                  {dongTb.idnhomTb}
+                  {nhomKD.nhomKiemDinh}
                 </td>
               </tr>
             ))}

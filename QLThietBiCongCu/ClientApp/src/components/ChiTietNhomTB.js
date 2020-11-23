@@ -1,32 +1,82 @@
 import React from "react";
 import Cookies from "universal-cookie";
+import axios from "axios";
+import ReactPaginate from "react-paginate";
 
 import "./style/DonVi.css";
 import "./style/Table.css";
 
-export class ChiTietDongThietBi extends React.Component {
+export class ChiTietNhomTBs extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      dongTbs: [],
+      nhomTbs: [],
       loading: true,
       currentDate: Date().toLocaleString(),
+      offset: 0,
+      perPage: 20,
+      currentPage: 0,
+      orgTable: [],
     };
   }
 
   cookies = new Cookies();
   componentDidMount() {
-    this.populateLoaiTbsData();
+    //this.populateLoaiTbsData();
+    this.getData();
   }
 
   async populateLoaiTbsData() {
-    const response = await fetch("api/DongTbs");
+    const response = await fetch("api/NhomTbs");
     const data = await response.json();
     this.setState({
-      dongTbs: data,
+      donVis: data,
       loading: false,
     });
   }
+
+  getData = () => {
+    axios.get("api/NhomTbs").then((res) => {
+      var data = res.data;
+      var slice = data.slice(
+        this.state.offset,
+        this.state.offset + this.state.perPage
+      );
+
+      this.setState({
+        loading: false,
+        pageCount: Math.ceil(data.length / this.state.perPage),
+        orgTable: res.data,
+        nhomTbs: slice,
+      });
+    });
+  };
+
+  handlePageClick = (e) => {
+    const selectedPage = e.selected;
+    const offset = selectedPage * this.state.perPage;
+    this.setState(
+      {
+        currentPage: selectedPage,
+        offset: offset,
+      },
+      () => {
+        this.loadMoreData();
+      }
+    );
+  };
+
+  loadMoreData = () => {
+    const data = this.state.orgTable;
+    const slice = data.slice(
+      this.state.offset,
+      this.state.offset + this.state.perPage
+    );
+    this.setState({
+      pageCount: Math.ceil(data.length / this.state.perPage),
+      nhomTbs: slice,
+    });
+  };
 
   render() {
     let contents = this.state.loading ? (
@@ -34,7 +84,7 @@ export class ChiTietDongThietBi extends React.Component {
         <em>Loading...</em>
       </p>
     ) : (
-      this.renderDonVi(this.state.dongTbs)
+      this.renderDonVi(this.state.nhomTbs)
     );
     return (
       <>
@@ -53,12 +103,24 @@ export class ChiTietDongThietBi extends React.Component {
                         fontFamily: "Times New Roman",
                       }}
                     >
-                      Dòng Thiết Bị
+                      Nhóm Thiết Bị
                     </h2>
                   </div>
                 </div>
               </div>
               {contents}
+              <ReactPaginate
+                previousLabel={<i class="fas fa-chevron-left" />}
+                nextLabel={<i class="fas fa-chevron-right"></i>}
+                breakLabel={"..."}
+                breakClassName={"break-me"}
+                pageCount={this.state.pageCount}
+                marginPagesDisplayed={2}
+                pageRangeDisplayed={5}
+                onPageChange={this.handlePageClick}
+                containerClassName={"pagination"}
+                activeClassName={"active"}
+              />
             </div>
           </div>
         </div>
@@ -66,7 +128,7 @@ export class ChiTietDongThietBi extends React.Component {
     );
   }
 
-  renderDonVi(dongTbs) {
+  renderDonVi(nhomTbs) {
     return (
       <div>
         <div style={{ marginLeft: "200px", fontFamily: "Times New Roman" }}>
@@ -85,27 +147,21 @@ export class ChiTietDongThietBi extends React.Component {
           >
             <tr>
               <th style={{ textAlign: "center", border: "1px solid black" }}>
-                Mã Đơn Vị
+                Mã Nhóm Thiết Bị
               </th>
               <th style={{ textAlign: "center", border: "1px solid black" }}>
-                Tên Đơn Vị
-              </th>
-              <th style={{ textAlign: "center", border: "1px solid black" }}>
-                Nhóm TB
+                Tên Nhóm Thiết Bị
               </th>
             </tr>
           </thead>
           <tbody>
-            {dongTbs.map((dongTb) => (
-              <tr key={dongTb.iddongTb}>
+            {nhomTbs.map((nhomTb) => (
+              <tr key={nhomTb.idnhomTb}>
                 <td style={{ textAlign: "center", border: "1px solid black" }}>
-                  {dongTb.iddongTb}
+                  {nhomTb.idnhomTb}
                 </td>
                 <td style={{ textAlign: "center", border: "1px solid black" }}>
-                  {dongTb.dongTb1}
-                </td>
-                <td style={{ textAlign: "center", border: "1px solid black" }}>
-                  {dongTb.idnhomTb}
+                  {nhomTb.nhomTb1}
                 </td>
               </tr>
             ))}
