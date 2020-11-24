@@ -7,14 +7,14 @@ namespace QLThietBiCongCu.Models
     {
         public Permission()
         {
-            PerDetail = new HashSet<PerDetail>();
+            PerDetail = new HashSet<PerDetail1>();
             UserPer = new HashSet<UserPer>();
         }
 
         public int IdPer { get; set; }
         public string NamePer { get; set; }
 
-        public virtual ICollection<PerDetail> PerDetail { get; set; }
+        public virtual ICollection<PerDetail1> PerDetail { get; set; }
         public virtual ICollection<UserPer> UserPer { get; set; }
     }
 }

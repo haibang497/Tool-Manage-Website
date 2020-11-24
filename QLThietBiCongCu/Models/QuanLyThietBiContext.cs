@@ -23,7 +23,7 @@ namespace QLThietBiCongCu.Models
         public virtual DbSet<MaTb> MaTb { get; set; }
         public virtual DbSet<NhomKd> NhomKd { get; set; }
         public virtual DbSet<NhomTb> NhomTb { get; set; }
-        public virtual DbSet<PerDetail> PerDetail { get; set; }
+        public virtual DbSet<PerDetail1> PerDetail { get; set; }
         public virtual DbSet<Permission> Permission { get; set; }
         public virtual DbSet<ThongTinKd> ThongTinKd { get; set; }
         public virtual DbSet<User> User { get; set; }
@@ -260,23 +260,26 @@ namespace QLThietBiCongCu.Models
                     .HasMaxLength(255);
             });
 
-            modelBuilder.Entity<PerDetail>(entity =>
+            modelBuilder.Entity<PerDetail1>(entity =>
             {
                 entity.HasKey(e => e.IdDetail);
 
                 entity.Property(e => e.IdDetail).HasColumnName("id_detail");
 
-                entity.Property(e => e.ActionCode)
-                    .HasColumnName("action_code")
+                entity.Property(e => e.CreateRole)
+                    .HasColumnName("create_role")
                     .HasMaxLength(50);
 
-                entity.Property(e => e.ActionName)
-                    .HasColumnName("action_name")
+                entity.Property(e => e.EditByName)
+                    .HasColumnName("edit_by_name")
                     .HasMaxLength(50);
 
-                entity.Property(e => e.CheckAction)
-                    .HasColumnName("check_action")
+                entity.Property(e => e.EditFull)
+                    .HasColumnName("edit_full")
                     .HasMaxLength(50);
+                entity.Property(e => e.DeleteRole)
+                   .HasColumnName("delete_role")
+                   .HasMaxLength(50);
 
                 entity.Property(e => e.IdPer).HasColumnName("id_per");
 

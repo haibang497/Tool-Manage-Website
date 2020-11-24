@@ -77,10 +77,18 @@ namespace QLThietBiCongCu.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<Permission>> PostPermission(Permission permission)
+        public async Task<ActionResult<PermissionDetailModel>> PostPermission(PermissionDetailModel permission)
         {
-            _context.Permission.Add(permission);
+            Permission per = new Permission();
+            per.NamePer = permission.NamePer;
+            _context.Permission.Add(per);
             await _context.SaveChangesAsync();
+            PerDetail1 pd = new PerDetail1();
+            pd.IdPer = per.IdPer;
+            pd.CreateRole = permission.CreateRole;
+            pd.EditByName = permission.EditByName;
+            pd.EditFull = permission.EditFull;
+            pd.DeleteRole = permission.DeleteRole;
 
             return CreatedAtAction("GetPermission", new { id = permission.IdPer }, permission);
         }

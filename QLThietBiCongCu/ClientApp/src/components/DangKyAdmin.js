@@ -2,13 +2,13 @@ import React, { Component } from "react";
 import { Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import axios from "axios";
 import md5 from "md5";
+import Cookies from "universal-cookie";
 
 import ReactPaginate from "react-paginate";
 import "./style/DonVi.css";
 import TopBar from "./TopBar";
 import LeftSideBar from "./SideBarLeft";
 import RightSideBar from "./SideBarRight";
-import Cookies from "universal-cookie";
 
 export class DangKyAdmin extends Component {
   constructor(props) {
@@ -19,28 +19,38 @@ export class DangKyAdmin extends Component {
       readOnly: true,
       showAdd: false,
       showEdit: false,
+      showRole: false,
       offset: 0,
       perPage: 20,
       currentPage: 0,
       orgTable: [],
       pers: [],
+      createval: 0,
+      deleteval: 0,
+      editfullval: 0,
+      editbyname: 0,
+      delete: 0,
       rolevalue: "1",
     };
 
     this._click = this._click.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
-  cookies = new Cookies();
   _click() {
     this.setState((prevState) => ({ readOnly: !prevState.readOnly }));
   }
 
+  cookies = new Cookies();
   openModalAdd = () => {
     this.setState({
       showAdd: true,
     });
   };
-
+  openModalRole = () => {
+    this.setState({
+      showRole: true,
+    });
+  };
   openModal = () => {
     this.setState({
       showEdit: true,
@@ -52,7 +62,11 @@ export class DangKyAdmin extends Component {
       showAdd: false,
     });
   };
-
+  closeModalRole = () => {
+    this.setState({
+      showRole: false,
+    });
+  };
   closeModal = () => {
     this.setState({
       showEdit: false,
@@ -110,15 +124,7 @@ export class DangKyAdmin extends Component {
   handleChange(event) {
     this.setState({ rolevalue: event.target.value });
   }
-  //renderoption() {
-  //  //var row = "";
-  //  this.getPer();
-  //  ////console.log(this.state.pers);
-  //  //for (var role of this.state.pers) {
 
-  //  //    row += "<opion value='" + role.namePer + "'>" + role.namePer + "</option>";
-  //  //}
-  //}
   getPer = (event) => {
     axios.get("api/Permissions").then((response) => {
       var pernames = response.data;
@@ -395,7 +401,7 @@ export class DangKyAdmin extends Component {
                                 </select>
                               </div>
                               <div className="form-group mb-3">
-                                <p> ban chon {this.state.rolevalue} </p>
+                                <p> Bạn chọn {this.state.rolevalue} </p>
                               </div>
                             </form>
                           </ModalBody>
@@ -419,6 +425,100 @@ export class DangKyAdmin extends Component {
                           </ModalFooter>
                         </Modal>
                       </p>
+                      <p>
+                        <Modal isOpen={this.state.showRole}>
+                          <ModalHeader>Thêm Quyền Mới</ModalHeader>
+                          <ModalBody>
+                            <form className="needs-validation">
+                              <div className="form-group mb-3">
+                                <label for="nameper">Tên Quyền: </label> &nbsp;
+                                &nbsp;
+                                <input
+                                  name="nameper"
+                                  id="nameper"
+                                  type="text"
+                                  className="form-control"
+                                  required=""
+                                />
+                              </div>
+
+                              <h6>Phân quyền cho quyền mới </h6>
+                              <h5 style={{ marginLeft: "10px" }}> EDIT </h5>
+                              <div className="form-group mb-3">
+                                <label for="edit">Edit Full</label>
+                                &nbsp; &nbsp;
+                                <input
+                                  name="edit"
+                                  id="editfull"
+                                  type="radio"
+                                  className="form-control"
+                                  onClick={this.mycheckbox}
+                                  value="1"
+                                  required=""
+                                  style={{ float: "left", width: "350px" }}
+                                />
+                              </div>
+                              <div className="form-group mb-3">
+                                <label for="edit">Edit By Name</label>
+                                <input
+                                  name="edit"
+                                  id="editbyname"
+                                  type="radio"
+                                  onClick={this.mycheckbox}
+                                  value="2"
+                                  className="form-control"
+                                  required=""
+                                  style={{ float: "left", width: "350px" }}
+                                />
+                              </div>
+                              <hr />
+                              <div className="form-group mb-3">
+                                <label for="create">CREATE</label>
+
+                                <input
+                                  name="create"
+                                  id="create"
+                                  type="checkbox"
+                                  onClick={this.mycheckbox}
+                                  className="form-control"
+                                  required=""
+                                  style={{ float: "left", width: "250px" }}
+                                />
+                              </div>
+                              <div className="form-group mb-3">
+                                <label for="delete">DELETE</label> &nbsp; &nbsp;
+                                <input
+                                  name="delete"
+                                  id="delete"
+                                  type="checkbox"
+                                  onClick={this.mycheckbox}
+                                  className="form-control"
+                                  required=""
+                                  style={{ float: "left", width: "250px" }}
+                                />
+                              </div>
+                            </form>
+                          </ModalBody>
+                          <ModalFooter>
+                            <button
+                              type="button"
+                              className="btn btn-icon waves-effect waves-light btn-success"
+                              style={{ backgroundColor: "#1abc9c" }}
+                              onClick={this.handleSaveRole}
+                            >
+                              <i class="fas fa-check"></i>
+                            </button>
+                            <button
+                              type="button"
+                              className="btn btn-icon waves-effect waves-light btn-danger"
+                              style={{ backgroundColor: "#f1556c" }}
+                              onClick={this.closeModalRole}
+                            >
+                              <i className="fas fa-times" />
+                            </button>
+                          </ModalFooter>
+                        </Modal>
+                      </p>
                       {contents}
                     </div>
                   </div>
@@ -433,6 +533,57 @@ export class DangKyAdmin extends Component {
     );
   }
 
+  mycheckbox = (event) => {
+    var checkBoxCreate = document.getElementById("create");
+    var checkBoxDelete = document.getElementById("delete");
+    var checkBoxEditFull = document.getElementById("editfull");
+    var checkBoxEditByName = document.getElementById("editbyname");
+    if (checkBoxEditFull.checked) {
+      this.editfullval = 1;
+      this.editbyname = 0;
+    } else if (checkBoxEditByName.checked) {
+      this.editfullval = 0;
+      this.editbyname = 1;
+    }
+    console.log(this.editfullval);
+    console.log(this.editbyname);
+    if (checkBoxCreate.checked == true) {
+      this.createval = 1;
+    } else {
+      this.createval = 0;
+      console.log(this.createval);
+    }
+
+    if (checkBoxDelete.checked == true) {
+      this.deleteval = 1;
+      console.log(this.deleteval);
+    } else {
+      this.deleteval = 0;
+      console.log(this.deleteval);
+    }
+    console.log("create:" + this.createval + "delete" + this.deleteval);
+  };
+
+  handleSaveRole = (event) => {
+    var newRole = {
+      NamePer: document.getElementById("nameper").value,
+      CreateRole: this.createval,
+      EditByName: this.editbyname,
+      EditFull: this.editfullval,
+      DeleteRole: this.deleteval,
+    };
+    console.log(newRole);
+    axios.post("api/permissions/", newRole).then((response) => {
+      var result = response.data;
+      if (result) {
+        alert("Thêm quyền mới thành công");
+        this.getAll();
+        window.location.href = "/dangkyadmin";
+      } else {
+        alert("Không Thể Thêm Quyền Mới");
+      }
+    });
+  };
   renderUsersTable(users) {
     if (this.cookies.get("namePer") == "Full") {
       return (
@@ -447,6 +598,15 @@ export class DangKyAdmin extends Component {
             >
               <i class="fas fa-plus" />
               &nbsp; Thêm Thành Viên Mới
+            </button> &nbsp; &nbsp;
+            <button
+              type="button"
+              className="btn btn-bordered-primary waves-effect width-md waves-light"
+              style={{ backgroundColor: "#A9A9F5" }}
+              onClick={this.openModalRole}
+            >
+              <i class="fas fa-plus" />
+              &nbsp; Thêm Quyền Mới
             </button>
           </div>
           <table id="tech-companies-1" className="table table-striped">
@@ -513,7 +673,7 @@ export class DangKyAdmin extends Component {
           />
         </>
       );
-    } else{
+    } else {
       return (
         <>
           <h1 style={{ textAlign: "center" }}>
@@ -524,30 +684,30 @@ export class DangKyAdmin extends Component {
     }
   }
 
-    handleSave = (event) => {
-        var newUser = {
-            //IdUser: 0,
-            UserAccount: document.getElementById("userAccount").value,
-            Password: md5(document.getElementById("password").value),
-            UserName: document.getElementById("userName").value,
-            PhoneNumber: document.getElementById("phoneNumber").value,
-            BDay: document.getElementById("bDay").value,
-            Email: document.getElementById("email").value,
-            Address: document.getElementById("address").value,
-            IdPer: parseInt(this.state.rolevalue)
-        };
-
-        axios.post("api/roles/", newUser).then((response) => {
-            var result = response.data;
-            if (result) {
-                alert("Đăng Ký Thành Công");
-                this.getAll();
-                window.location.href = "/dangkyadmin";
-            } else {
-                alert("Không Thể Thêm Thành Viên");
-            }
-        });
+  handleSave = (event) => {
+    var newUser = {
+      //IdUser: 0,
+      UserAccount: document.getElementById("userAccount").value,
+      Password: md5(document.getElementById("password").value),
+      UserName: document.getElementById("userName").value,
+      PhoneNumber: document.getElementById("phoneNumber").value,
+      BDay: document.getElementById("bDay").value,
+      Email: document.getElementById("email").value,
+      Address: document.getElementById("address").value,
+      IdPer: parseInt(this.state.rolevalue),
     };
+
+    axios.post("api/roles/", newUser).then((response) => {
+      var result = response.data;
+      if (result) {
+        alert("Đăng Ký Thành Công");
+        this.getAll();
+        window.location.href = "/dangkyadmin";
+      } else {
+        alert("Không Thể Thêm Thành Viên");
+      }
+    });
+  };
   getAll = (event) => {
     axios.get("api/HoaDons").then((response) => {
       var hoaDons = response.data;
@@ -567,7 +727,7 @@ export class DangKyAdmin extends Component {
       Address: document.getElementById("address").value,
       namePer: document.getElementById("role").value,
     };
-    axios.put("api/HoaDons/" + id, newHoaDon).then((response) => {
+    axios.put("api/roles/" + id, newHoaDon).then((response) => {
       console.log(response);
       var result = response.data;
       console.log(result);
@@ -592,7 +752,7 @@ export class DangKyAdmin extends Component {
       namePer: document.getElementById("role").value,
       delete: 1,
     };
-    axios.put("api/HoaDons/" + id, newHoaDon).then((response) => {
+    axios.put("api/roles/" + id, newHoaDon).then((response) => {
       console.log(response);
       var result = response.data;
       console.log(result);

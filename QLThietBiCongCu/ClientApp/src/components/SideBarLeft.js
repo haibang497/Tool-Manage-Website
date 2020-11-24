@@ -180,6 +180,13 @@ const LeftSideBar = () => {
                     </NavLink>
                   </NavItem>
                 </li>
+                <li>
+                  <NavItem>
+                    <NavLink tag={Link} className="text-dark" to="/xuatbaocao">
+                      Theo Tiêu Chí
+                    </NavLink>
+                  </NavItem>
+                </li>
               </ul>
             </li>
             <li>
